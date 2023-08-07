@@ -236,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-07 18:01:12" itemprop="dateModified" datetime="2023-08-07T18:01:12+08:00">2023-08-07</time>
+                <time title="Modified: 2023-08-07 18:16:07" itemprop="dateModified" datetime="2023-08-07T18:16:07+08:00">2023-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,7 +264,8 @@
 <li>Node.js</li>
 </ol>
 <h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>采用全局安装脚手架方式，因此在命令行的任意路径下，执行如下命令：</p>
-<p><code>sudo npm install hexo-cli -g</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>:bulb: <strong>提示</strong>：之所以使用<code>sudo</code>，是因为在安装hexo时需要访问&#x2F;usr&#x2F;local目录，会提示权限拒绝的错误。</p>
 <p><img src="/2023/07/28/hexo-study/image-20230728143731663.png" alt="image-20230728143731663"></p>
@@ -391,7 +392,8 @@
 </blockquote>
 <p><strong>安装部署发布插件</strong>：</p>
 <p>在需要部署的<strong>项目路径下执行</strong>如下命令即可：</p>
-<p><code>npm install hexo-deployer-git --save</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
 <p><strong>平常部署</strong>一般分为三部曲：</p>
 <ol>
 <li><code>hexo s</code>本地运行调试；</li>
@@ -402,6 +404,16 @@
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1. hexo d时报错ERROR Deployer not found: git</p>
 <p>按照错误提示，理解应该是需要安装<code>hexo-deployer-git</code>插件，但自己明明已经安装了。</p>
 <p>最后发现是安装插件的路径不对，一定要在<strong>项目路径下执行</strong>。</p>
+<p>2. 使用Typora上传图片，以及hexo不显示图片问题</p>
+<p>解决步骤如下：</p>
+<ol>
+<li><p>修改站点配置文件<code>_config.yml </code>的<code>post_asset_folder</code>属性为true；</p>
+</li>
+<li><p>修改Typora设置，将<code>图像</code>的文件保存路径改为如下配置；<img src="/2023/07/28/hexo-study/image-20230807181343466.png" alt="image-20230807181343466"></p>
+</li>
+<li><p>安装插件，用于hexo g生成静态文件时，将图片资源更新到文章目录下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure></li>
+</ol>
 
       
     </div>
