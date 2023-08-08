@@ -147,7 +147,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/28/markdown-syntax/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/08/markdown-syntax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -161,7 +161,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/07/28/markdown-syntax/" class="post-title-link" itemprop="url">Markdown语法</a>
+            <a href="/2023/08/08/markdown-syntax/" class="post-title-link" itemprop="url">Markdown语法</a>
         </h2>
 
         <div class="post-meta">
@@ -170,16 +170,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2023-07-28 14:26:00" itemprop="dateCreated datePublished" datetime="2023-07-28T14:26:00+08:00">2023-07-28</time>
+              <time title="Created: 2023-08-08 14:26:00 / Modified: 18:03:12" itemprop="dateCreated datePublished" datetime="2023-08-08T14:26:00+08:00">2023-08-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-07 18:21:34" itemprop="dateModified" datetime="2023-08-07T18:21:34+08:00">2023-08-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -251,7 +245,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-07 18:21:00" itemprop="dateModified" datetime="2023-08-07T18:21:00+08:00">2023-08-07</time>
+                <time title="Modified: 2023-08-08 18:02:11" itemprop="dateModified" datetime="2023-08-08T18:02:11+08:00">2023-08-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,89 +268,99 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ol>
+          <h2 id="环境准备"><a class="header-anchor" href="#环境准备"></a>环境准备</h2>
+<ol>
 <li>Git</li>
 <li>Node.js</li>
 </ol>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>采用全局安装脚手架方式，因此在命令行的任意路径下，执行如下命令：</p>
+<h2 id="安装Hexo"><a class="header-anchor" href="#安装Hexo"></a>安装Hexo</h2>
+<p>采用全局安装脚手架方式，因此在命令行的任意路径下，执行如下命令：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>:bulb: <strong>提示</strong>：之所以使用<code>sudo</code>，是因为在安装hexo时需要访问&#x2F;usr&#x2F;local目录，会提示权限拒绝的错误。</p>
+<p>💡 <strong>提示</strong>：之所以使用<code>sudo</code>，是因为在安装hexo时需要访问/usr/local目录，会提示权限拒绝的错误。</p>
 <p><img src="/2023/07/28/hexo-study/image-20230728143731663.png" alt="image-20230728143731663"></p>
 </blockquote>
-<p>至此，Hexo就算安装完成了。。。</p>
-<h2 id="使用Hexo"><a href="#使用Hexo" class="headerlink" title="使用Hexo"></a>使用Hexo</h2><h3 id="初始化Hexo项目工程"><a href="#初始化Hexo项目工程" class="headerlink" title="初始化Hexo项目工程"></a>初始化Hexo项目工程</h3><p>创建这个项目，主要是用于本地编写博客、配置博客网站、发布博客。（tips：官方叫法为网站）</p>
+<p>这样，Hexo就算安装完成了!</p>
+<h2 id="使用Hexo"><a class="header-anchor" href="#使用Hexo"></a>使用Hexo</h2>
+<h3 id="初始化Hexo项目工程"><a class="header-anchor" href="#初始化Hexo项目工程"></a>初始化Hexo项目工程</h3>
+<p>创建这个项目，主要是用于本地编写博客、配置博客网站、发布博客。（tips：官方叫法为网站）</p>
 <p>创建命令：<code> hexo init [folder]</code></p>
 <p>其中的<code>folder</code>表示项目的目录名称，可以任意取名。</p>
-<h3 id="Hexo配置"><a href="#Hexo配置" class="headerlink" title="Hexo配置"></a>Hexo配置</h3><p>Hexo主要有两个配置文件，其名称都是 <code>_confi.yml</code> 。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；另一份位于主题目录下，这份配置由主题作者提供，主要用于配置主题相关的选项。</p>
+<h3 id="Hexo配置"><a class="header-anchor" href="#Hexo配置"></a>Hexo配置</h3>
+<p>Hexo主要有两个配置文件，其名称都是 <code>_confi.yml</code> 。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；另一份位于主题目录下，这份配置由主题作者提供，主要用于配置主题相关的选项。</p>
 <p>进入刚初始化的项目目录中，Hexo项目的目录结构如下：</p>
 <p><img src="/2023/07/28/hexo-study/image-20230728174345074.png" alt="image-20230728174345074"></p>
-<h4 id="网站配置文件"><a href="#网站配置文件" class="headerlink" title="网站配置文件"></a>网站配置文件</h4><p>参考地址：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a></p>
+<h4 id="网站配置文件"><a class="header-anchor" href="#网站配置文件"></a>网站配置文件</h4>
+<p>参考地址：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a></p>
 <p>根目录下的<code>_config.yml</code>文件配置信息大致如下：</p>
 <table>
 <thead>
 <tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><code>title</code></td>
-<td align="left">网站标题</td>
+<tbody>
+<tr>
+<td style="text-align:left"><code>title</code></td>
+<td style="text-align:left">网站标题</td>
 </tr>
 <tr>
-<td align="left"><code>subtitle</code></td>
-<td align="left">网站副标题</td>
+<td style="text-align:left"><code>subtitle</code></td>
+<td style="text-align:left">网站副标题</td>
 </tr>
 <tr>
-<td align="left"><code>description</code></td>
-<td align="left">网站描述</td>
+<td style="text-align:left"><code>description</code></td>
+<td style="text-align:left">网站描述</td>
 </tr>
 <tr>
-<td align="left"><code>keywords</code></td>
-<td align="left">网站的关键词。支持多个关键词。</td>
+<td style="text-align:left"><code>keywords</code></td>
+<td style="text-align:left">网站的关键词。支持多个关键词。</td>
 </tr>
 <tr>
-<td align="left"><code>author</code></td>
-<td align="left">您的名字</td>
+<td style="text-align:left"><code>author</code></td>
+<td style="text-align:left">您的名字</td>
 </tr>
 <tr>
-<td align="left"><code>language</code></td>
-<td align="left">网站使用的语言。对于简体中文用户来说，使用不同的主题可能需要设置成不同的值，请参考你的主题的文档自行设置，常见的有 <code>zh-Hans</code>和 <code>zh-CN</code>。</td>
+<td style="text-align:left"><code>language</code></td>
+<td style="text-align:left">网站使用的语言。对于简体中文用户来说，使用不同的主题可能需要设置成不同的值，请参考你的主题的文档自行设置，常见的有 <code>zh-Hans</code>和 <code>zh-CN</code>。</td>
 </tr>
 <tr>
-<td align="left"><code>timezone</code></td>
-<td align="left">网站时区。Hexo 默认使用您电脑的时区。请参考 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">时区列表</a> 进行设置，如 <code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。一般的，对于中国大陆地区可以使用 <code>Asia/Shanghai</code>。</td>
+<td style="text-align:left"><code>timezone</code></td>
+<td style="text-align:left">网站时区。Hexo 默认使用您电脑的时区。请参考 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">时区列表</a> 进行设置，如 <code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。一般的，对于中国大陆地区可以使用 <code>Asia/Shanghai</code>。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>其中，<code>description</code> 主要用于SEO，告诉搜索引擎一个关于您站点的简单描述，通常建议在其中包含您网站的关键词。<code>author</code> 参数用于主题显示文章的作者。</p>
 <p>扩展配置：</p>
 <table>
 <thead>
 <tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">描述</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><code>theme</code></td>
-<td align="left">当前主题名称。值为<code>false</code>时禁用主题</td>
+<tbody>
+<tr>
+<td style="text-align:left"><code>theme</code></td>
+<td style="text-align:left">当前主题名称。值为<code>false</code>时禁用主题</td>
 </tr>
 <tr>
-<td align="left"><code>theme_config</code></td>
-<td align="left">主题的配置文件。在这里放置的配置会覆盖主题目录下的 <code>_config.yml</code> 中的配置</td>
+<td style="text-align:left"><code>theme_config</code></td>
+<td style="text-align:left">主题的配置文件。在这里放置的配置会覆盖主题目录下的 <code>_config.yml</code> 中的配置</td>
 </tr>
 <tr>
-<td align="left"><code>deploy</code></td>
-<td align="left">部署部分的设置</td>
+<td style="text-align:left"><code>deploy</code></td>
+<td style="text-align:left">部署部分的设置</td>
 </tr>
 <tr>
-<td align="left"><code>meta_generator</code></td>
-<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta#%E5%B1%9E%E6%80%A7">Meta generator</a> 标签。 值为 <code>false</code> 时 Hexo 不会在头部插入该标签</td>
+<td style="text-align:left"><code>meta_generator</code></td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta#%E5%B1%9E%E6%80%A7">Meta generator</a> 标签。 值为 <code>false</code> 时 Hexo 不会在头部插入该标签</td>
 </tr>
-</tbody></table>
-<h3 id="Hexo部署"><a href="#Hexo部署" class="headerlink" title="Hexo部署"></a>Hexo部署</h3><p>在部署前，先说明几个Hexo常用命令。</p>
+</tbody>
+</table>
+<h3 id="Hexo部署"><a class="header-anchor" href="#Hexo部署"></a>Hexo部署</h3>
+<p>在部署前，先说明几个Hexo常用命令。</p>
 <p>参考地址：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands">https://hexo.io/zh-cn/docs/commands</a></p>
 <table>
 <thead>
@@ -366,7 +370,8 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>hexo new <title></title></td>
 <td></td>
 <td>新建一篇文章。title表示文件名，当文件名有空格时，需要使用双引号括起来。</td>
@@ -391,7 +396,8 @@
 <td>hexo d</td>
 <td>部署网站。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>部署前提</strong>：</p>
 <ol>
 <li>修改配置文件</li>
@@ -400,15 +406,13 @@
 <p><strong>修改配置文件</strong>：</p>
 <p>以发布到github为例，在部署之前，需要修改<code>网站配置文件</code>，按照如下配置修改即可，其中repo指向自己的github地址。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"> <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line"> <span class="attr">repo:</span> <span class="string">git@github.com:wangfarui/wangfarui.github.io.git</span></span><br><span class="line"> <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
 <p><code>deploy.branch</code>表示发布的分支。</p>
 <blockquote>
-<p>:bulb:<code>repo</code>指向的git仓库必须要是名为<code>username.github.io</code>的仓库，<code>username</code>就是自己github的帐号名。</p>
+<p>💡<strong>提示</strong>：<code>repo</code>指向的git仓库必须要是名为<code>username.github.io</code>的仓库，<code>username</code>就是自己github的帐号名。</p>
 </blockquote>
 <p><strong>安装部署发布插件</strong>：</p>
 <p>在需要部署的<strong>项目路径下执行</strong>如下命令即可：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
 <p><strong>平常部署</strong>一般分为三部曲：</p>
 <ol>
 <li><code>hexo s</code>本地运行调试；</li>
@@ -416,19 +420,33 @@
 <li><code>hexo d</code>部署网站，发布到指定服务器（例如github）。</li>
 </ol>
 <p>依次执行成功后，浏览器访问<code>username.github.io</code>，就可以看到自己的博客了。</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1. hexo d时报错ERROR Deployer not found: git</p>
+<h2 id="常见问题"><a class="header-anchor" href="#常见问题"></a>常见问题</h2>
+<p>一. hexo d时报错ERROR Deployer not found: git</p>
 <p>按照错误提示，理解应该是需要安装<code>hexo-deployer-git</code>插件，但自己明明已经安装了。</p>
 <p>最后发现是安装插件的路径不对，一定要在<strong>项目路径下执行</strong>。</p>
-<p>2. 使用Typora上传图片，以及hexo不显示图片问题</p>
+<br>
+<p>二. 使用Typora上传图片，以及hexo不显示图片问题</p>
 <p>解决步骤如下：</p>
 <ol>
-<li><p>修改站点配置文件<code>_config.yml </code>的<code>post_asset_folder</code>属性为true；</p>
+<li>
+<p>修改网站配置文件<code>_config.yml </code>的<code>post_asset_folder</code>属性为true；</p>
 </li>
-<li><p>修改Typora设置，将<code>图像</code>的文件保存路径改为如下配置；<img src="/2023/07/28/hexo-study/image-20230807181343466.png" alt="image-20230807181343466"></p>
+<li>
+<p>修改Typora设置，将<code>图像</code>的文件保存路径改为如下配置；<img src="/2023/07/28/hexo-study/image-20230807181343466.png" alt="image-20230807181343466"></p>
 </li>
-<li><p>安装插件，用于hexo g生成静态文件时，将图片资源更新到文章目录下。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure></li>
+<li>
+<p>安装插件，用于hexo g生成静态文件时，将图片资源更新到文章目录下。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<br>
+<p>三. Typora的emoji表情符不能被hexo识别问题</p>
+<p>根据查资料了解，是因为hexo默认的md渲染器是 <code>hexo-renderer-marked</code>，这个默认渲染器不支持emoji功能，同时也不支持扩展。</p>
+<p>因此，需要更换一个渲染器<code>hexo-renderer-markdown-it</code>，它支持扩展，再安装emoji的扩展包就可以正常识别表情符了。</p>
+<p>解决步骤：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 1. 卸载默认渲染器 并从package.json中移除</span><br><span class="line">npm un hexo-renderer-marked -S</span><br><span class="line">// 2. 安装mardown-it渲染器 并添加到package.json中</span><br><span class="line">npm i hexo-renderer-markdown-it -S</span><br><span class="line">// 3. 安装需要的插件  emoji支持表情符，task-lists支持tasks</span><br><span class="line">npm i markdown-it-emoji markdown-it-task-lists -S</span><br><span class="line">// 4. 在网站配置文件中 增加如下配置</span><br><span class="line">markdown:</span><br><span class="line">  render:</span><br><span class="line">    html: <span class="literal">true</span> <span class="comment"># 在 markdown 文本中支持 html tag 标签</span></span><br><span class="line">    xhtmlOut: <span class="literal">false</span> <span class="comment"># 需要 xtml 文档，使用 &lt;br /&gt; 替代 &lt;br&gt;</span></span><br><span class="line">    breaks: <span class="literal">true</span> <span class="comment"># 用 &lt;br&gt; 开始新的一行</span></span><br><span class="line">    linkify: <span class="literal">true</span> <span class="comment"># 自动将 可能是链接的内容转换成链接</span></span><br><span class="line">    typographer: <span class="literal">false</span> <span class="comment"># 印刷标识转换</span></span><br><span class="line">  plugins:</span><br><span class="line">    - markdown-it-emoji </span><br><span class="line">    - markdown-it-task-lists</span><br><span class="line">  anchors:</span><br><span class="line">    level: 2</span><br><span class="line">    collisionSuffix: <span class="string">&#x27;&#x27;</span></span><br><span class="line">    permalink: <span class="literal">false</span>,</span><br><span class="line">    permalinkClass: <span class="string">&#x27;header-anchor&#x27;</span></span><br><span class="line">    permalinkSymbol: <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">case</span>: 0</span><br><span class="line">    separator: <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>寻找markdown-it的其他扩展：</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/search?q=keywords:markdown-it-plugin">https://www.npmjs.com/search?q=keywords:markdown-it-plugin</a></p>
 
       
     </div>
