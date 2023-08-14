@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="Wray Blog">
 <meta property="og:description" content="使用Hexo编写博客，少不了要与Markdown打交道，特此写下一篇Markdown语法文章，不定期更新一些Markdown语法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/08/08/markdown-syntax/dfaf7298546f2e9c2482f713ef2c12c2.jpeg">
 <meta property="article:published_time" content="2023-08-08T06:26:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T03:06:04.031Z">
+<meta property="article:modified_time" content="2023-08-14T08:51:35.192Z">
 <meta property="article:author" content="Wray">
 <meta property="article:tag" content="Markdown、md">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/08/08/markdown-syntax/dfaf7298546f2e9c2482f713ef2c12c2.jpeg">
 
 <link rel="canonical" href="http://example.com/2023/08/08/markdown-syntax/">
 
@@ -181,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-10 11:06:04" itemprop="dateModified" datetime="2023-08-10T11:06:04+08:00">2023-08-10</time>
+                <time title="修改时间：2023-08-14 16:51:35" itemprop="dateModified" datetime="2023-08-14T16:51:35+08:00">2023-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -206,14 +208,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
             <div class="post-description">使用Hexo编写博客，少不了要与Markdown打交道，特此写下一篇Markdown语法文章，不定期更新一些Markdown语法。</div>
 
@@ -226,7 +228,239 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><strong>Markdown语法参考地址：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.markdownguide.org/basic-syntax/">https://www.markdownguide.org/basic-syntax/</a></p>
+<h4 id="符号原样输出"><a class="header-anchor" href="#符号原样输出"></a>符号原样输出</h4>
+<p>在符号前加 \</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\*</span><br><span class="line">\\</span><br></pre></td></tr></table></figure>
+<p>\* 就是展示 *、\\ 就是展示 \</p>
+<p><strong>\可以转义的字符如下：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>backslash</td>
+</tr>
+<tr>
+<td>`</td>
+<td>backtick (see also <a target="_blank" rel="noopener" href="https://www.markdownguide.org/basic-syntax/#escaping-backticks">escaping backticks in code</a>)</td>
+</tr>
+<tr>
+<td>*</td>
+<td>asterisk</td>
+</tr>
+<tr>
+<td>_</td>
+<td>underscore</td>
+</tr>
+<tr>
+<td>{ }</td>
+<td>curly braces</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>brackets</td>
+</tr>
+<tr>
+<td>&lt; &gt;</td>
+<td>angle brackets</td>
+</tr>
+<tr>
+<td>( )</td>
+<td>parentheses</td>
+</tr>
+<tr>
+<td>#</td>
+<td>pound sign</td>
+</tr>
+<tr>
+<td>+</td>
+<td>plus sign</td>
+</tr>
+<tr>
+<td>-</td>
+<td>minus sign (hyphen)</td>
+</tr>
+<tr>
+<td>.</td>
+<td>dot</td>
+</tr>
+<tr>
+<td>!</td>
+<td>exclamation mark</td>
+</tr>
+<tr>
+<td>|</td>
+<td>pipe (see also <a target="_blank" rel="noopener" href="https://www.markdownguide.org/extended-syntax/#escaping-pipe-characters-in-tables">escaping pipe in tables</a>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="标题"><a class="header-anchor" href="#标题"></a>标题</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 1级标题 （需要在行开头）</span></span><br><span class="line"><span class="section">## 2级标题</span></span><br></pre></td></tr></table></figure>
+<h4 id="加粗"><a class="header-anchor" href="#加粗"></a>加粗</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**粗体**</span></span><br></pre></td></tr></table></figure>
+<h4 id="斜体"><a class="header-anchor" href="#斜体"></a>斜体</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">*斜体*</span></span><br></pre></td></tr></table></figure>
+<h4 id="加粗斜体"><a class="header-anchor" href="#加粗斜体"></a>加粗斜体</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**<span class="emphasis">*加粗斜体*</span>**</span></span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a class="header-anchor" href="#引用"></a>引用</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 文本引用  （需要在行开头）</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>文本引用（需要在行开头）</p>
+</blockquote>
+<h4 id="多级引用"><a class="header-anchor" href="#多级引用"></a>多级引用</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="quote">&gt; 一级引用</span></span><br><span class="line"></span><br><span class="line">&gt;&gt; 二级引用，并且二级引用被包含在上面的一级引用中</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一级引用</p>
+<blockquote>
+<p>二级引用，并且二级引用被包含在上面的一级引用中</p>
+</blockquote>
+</blockquote>
+<h4 id="有序列表"><a class="header-anchor" href="#有序列表"></a>有序列表</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 列表1</span><br><span class="line"><span class="bullet">2.</span> 列表2</span><br></pre></td></tr></table></figure>
+<ol>
+<li>列表1</li>
+<li>列表2</li>
+</ol>
+<h4 id="无序列表"><a class="header-anchor" href="#无序列表"></a>无序列表</h4>
+<p>使用 - 、* 、+ 均可，但不能在一个列表中交叉使用多个符号。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 列表1</span><br><span class="line"><span class="bullet">-</span> 列表2</span><br><span class="line"><span class="bullet">	-</span> 列表2-1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>列表1</p>
+</li>
+<li>
+<p>列表2</p>
+<ul>
+<li>列表2-1</li>
+</ul>
+</li>
+</ul>
+<p>在列表中添加其他元素，同时在后文中还得保持列表的连续性。可以使用4个空格或者一个tab实现。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 一级列表</span><br><span class="line"><span class="bullet">2.</span> 二级列表</span><br><span class="line">   <span class="strong">**加粗文本**</span>展示。</span><br><span class="line"><span class="bullet">3.</span> 三级列表</span><br><span class="line"><span class="bullet">4.</span> 四级列表</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>一级列表</p>
+</li>
+<li>
+<p>二级列表</p>
+<p><strong>加粗文本</strong>展示。</p>
+</li>
+<li>
+<p>三级列表</p>
+</li>
+<li>
+<p>四级列表</p>
+</li>
+</ol>
+<h4 id="图片"><a class="header-anchor" href="#图片"></a>图片</h4>
+<p>格式：![图片名称](图片地址)</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">这是图片的名称</span>](<span class="link">markdown-syntax/dfaf7298546f2e9c2482f713ef2c12c2.jpeg</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/2023/08/08/markdown-syntax/dfaf7298546f2e9c2482f713ef2c12c2.jpeg" alt="这是图片的名称"></p>
+<h4 id="代码"><a class="header-anchor" href="#代码"></a>代码</h4>
+<p>`代码`	-&gt;	<code>代码</code></p>
+<h4 id="代码块"><a class="header-anchor" href="#代码块"></a>代码块</h4>
+<p>```回车键，创建代码块，再在代码块里面输入内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是代码块里面的内容</span><br></pre></td></tr></table></figure>
+<p>在Typora中可以在输入三个<code>\\\</code>后，输入代码块的编程语言，再按回车，代码块会对编程语言的内容自动做颜色区分。</p>
+<p>```shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;这是shell脚本&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="标尺线"><a class="header-anchor" href="#标尺线"></a>标尺线</h4>
+<p>使用 *** 、--- 都可以展示出如下效果。</p>
+<hr>
+<h4 id="链接"><a class="header-anchor" href="#链接"></a>链接</h4>
+<p>格式：[链接地址名称](链接地址 &quot;链接标题提示&quot;)</p>
+<blockquote>
+<p>&quot;链接标题提示&quot;作用：当用户将鼠标悬停在链接上时，它将作为工具提示出现。<em>它不是必须的</em>。</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">这是我的博客主页</span>](<span class="link">https://wangfarui.github.io &quot;博客主页的标题&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://wangfarui.github.io" title="博客主页的标题">这是我的博客主页</a></p>
+<br>
+<p><strong>快速转换URL地址或者Email地址，使用<code>&lt;&gt;</code>标记。</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">&lt;https://wangfarui.github.io&gt;</span></span><br><span class="line"><span class="language-xml">&lt;wray20156294@gmail.com&gt;</span></span><br></pre></td></tr></table></figure>
+<p>URL地址：<a target="_blank" rel="noopener" href="https://wangfarui.github.io">https://wangfarui.github.io</a></p>
+<p>Email地址：<a href="mailto:wray20156294@gmail.com">wray20156294@gmail.com</a></p>
+<br>
+<p><strong>格式化链接</strong></p>
+<p>链接的标题支持格式化，在链接标题的前后使用<code>加粗</code>、<code>斜体</code>、<code>代码</code>等效果。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这是加粗的链接[<span class="string">**加粗URL**</span>](<span class="link">https://wangfarui.github.io</span>)</span><br><span class="line"></span><br><span class="line">这是斜体的链接[<span class="string">*斜体URL*</span>](<span class="link">https://wangfarui.github.io</span>)</span><br><span class="line"></span><br><span class="line">这是标题格式化为代码的链接[<span class="string">`代码URL`</span>](<span class="link">https://wangfarui.github.io</span>)</span><br></pre></td></tr></table></figure>
+<p>这是加粗的链接<a target="_blank" rel="noopener" href="https://wangfarui.github.io"><strong>加粗URL</strong></a></p>
+<p>这是斜体的链接<a target="_blank" rel="noopener" href="https://wangfarui.github.io"><em>斜体URL</em></a></p>
+<p>这是标题格式化为代码的链接<a target="_blank" rel="noopener" href="https://wangfarui.github.io"><code>代码URL</code></a></p>
+<blockquote>
+<p>💡提示：markdown的链接地址不支持中间带有空格，如果地址中的确含有空格，需要使用<code>%20</code>转换，或者使用html的&lt;a&gt;标签。</p>
+</blockquote>
+<h4 id="表格"><a class="header-anchor" href="#表格"></a>表格</h4>
+<p>基础表格</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| Syntax      | Description |</span><br><span class="line">| ----------- | ----------- |</span><br><span class="line">| Header      | Title       |</span><br><span class="line">| Paragraph   | Text        |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Header</td>
+<td>Title</td>
+</tr>
+<tr>
+<td>Paragraph</td>
+<td>Text</td>
+</tr>
+</tbody>
+</table>
+<p>排版表格</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| Syntax      | Description | Test Text     |</span><br><span class="line">| :---        |    :----:   |          ---: |</span><br><span class="line">| Header      | Title       | Here&#x27;s this   |</span><br><span class="line">| Paragraph   | Text        | And more      |</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:center">Description</th>
+<th style="text-align:right">Test Text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Header</td>
+<td style="text-align:center">Title</td>
+<td style="text-align:right">Here's this</td>
+</tr>
+<tr>
+<td style="text-align:left">Paragraph</td>
+<td style="text-align:center">Text</td>
+<td style="text-align:right">And more</td>
+</tr>
+</tbody>
+</table>
+<h4 id="任务列表"><a class="header-anchor" href="#任务列表"></a>任务列表</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> [x] Write the press release</span><br><span class="line"><span class="bullet">-</span> [ ] Update the website</span><br><span class="line"><span class="bullet">-</span> [ ] Contact the media</span><br></pre></td></tr></table></figure>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked disabled type="checkbox"> Write the press release</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled type="checkbox"> Update the website</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled type="checkbox"> Contact the media</li>
+</ul>
+<h4 id="表情Emoji"><a class="header-anchor" href="#表情Emoji"></a>表情Emoji</h4>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:bulb:</span><br><span class="line">:+1:</span><br><span class="line">:joy:</span><br></pre></td></tr></table></figure>
+<p>💡 👍 😂</p>
+<h4 id="下标"><a class="header-anchor" href="#下标"></a>下标</h4>
+<p>在markdown中使用 <code>~x~</code> 表示，但是并不是所用markdown都支持。</p>
+<p>可以使用html元素标签：&lt;sub&gt;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是水：H<span class="tag">&lt;<span class="name">sub</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sub</span>&gt;</span>O</span><br></pre></td></tr></table></figure>
+<p>这是水：H<sub>2</sub>O</p>
+<h4 id="上标"><a class="header-anchor" href="#上标"></a>上标</h4>
+<p>在markdown中使用 <code>^x^</code> 表示，但是并不是所用markdown都支持。</p>
+<p>可以使用html元素标签：&lt;sup&gt;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是x的平方：X<span class="tag">&lt;<span class="name">sup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是x的平方：X<sup>2</sup></p>
+
     </div>
 
     
@@ -309,6 +543,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%8E%9F%E6%A0%B7%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">符号原样输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E7%B2%97"><span class="nav-number">3.</span> <span class="nav-text">加粗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%9C%E4%BD%93"><span class="nav-number">4.</span> <span class="nav-text">斜体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E7%B2%97%E6%96%9C%E4%BD%93"><span class="nav-number">5.</span> <span class="nav-text">加粗斜体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%BC%95%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">多级引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">9.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%89%87"><span class="nav-number">10.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">11.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">12.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%B0%BA%E7%BA%BF"><span class="nav-number">13.</span> <span class="nav-text">标尺线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">14.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">15.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8"><span class="nav-number">16.</span> <span class="nav-text">任务列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E6%83%85Emoji"><span class="nav-number">17.</span> <span class="nav-text">表情Emoji</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E6%A0%87"><span class="nav-number">18.</span> <span class="nav-text">下标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E6%A0%87"><span class="nav-number">19.</span> <span class="nav-text">上标</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
