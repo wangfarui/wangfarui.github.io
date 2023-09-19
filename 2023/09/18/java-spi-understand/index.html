@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="了解SPI是什么，有哪些具体实现框架，一般用于哪些场景。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java SPI机制分析">
+<meta property="og:url" content="http://example.com/2023/09/18/java-spi-understand/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="了解SPI是什么，有哪些具体实现框架，一般用于哪些场景。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919094459759.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919094528669.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919094753460.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919095229544.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919100654882.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919100929032.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919101514809.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919112022912.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919111948099.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919112138626.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919112747587.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919112433720.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919113511676.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919114212629.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919114314107.png">
+<meta property="og:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919114432063.png">
+<meta property="article:published_time" content="2023-09-18T08:33:40.000Z">
+<meta property="article:modified_time" content="2023-09-19T03:48:47.799Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Java、SPI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/18/java-spi-understand/image-20230919094459759.png">
+
+<link rel="canonical" href="http://example.com/2023/09/18/java-spi-understand/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java SPI机制分析 | Wray Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wray Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/18/java-spi-understand/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wray">
+      <meta itemprop="description" content="记录生活的点点滴滴<br>Keep track of my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wray Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java SPI机制分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-18 16:33:40" itemprop="dateCreated datePublished" datetime="2023-09-18T16:33:40+08:00">2023-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-19 11:48:47" itemprop="dateModified" datetime="2023-09-19T11:48:47+08:00">2023-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+            <div class="post-description">了解SPI是什么，有哪些具体实现框架，一般用于哪些场景。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="SPI是什么"><a class="header-anchor" href="#SPI是什么"></a>SPI是什么</h2>
+<p>SPI全称为Service Provider Interface，直译就是服务提供方的接口。一种用于定义服务提供商与应用程序之间通信的接口，通常用于实现模块化和可插拔的系统。</p>
+<blockquote>
+<p>Q：为什么会有SPI这种机制？</p>
+<p>A：因为在Java面向对象编程中，基于开闭原则和解耦的需要，一般建议用接口进行模块之间的通信编程，通常情况下调用方模块是不会感知到被调用方模块的内部具体实现。</p>
+<p>为了实现在模块装配的时候不用在程序里面动态指明，这就需要一种服务发现机制。Java SPI 就是提供了这样一个机制：为某个接口寻找服务实现的机制。这有点类似 IoC 的思想，将装配的控制权移交到了程序之外。</p>
+</blockquote>
+<h2 id="Java-SPI机制"><a class="header-anchor" href="#Java-SPI机制"></a>Java SPI机制</h2>
+<p>Java实现SPI机制的核心类叫 <code>ServiceLoader</code> ，Java的SPI实现约定了以下两件事：</p>
+<ul>
+<li>文件必须放在META-INF/services/目录底下，并且必须使用UTF-8编码。</li>
+<li>文件名必须为接口的全限定名，内容为接口实现的全限定名。</li>
+</ul>
+<h3 id="示例"><a class="header-anchor" href="#示例"></a>示例</h3>
+<p>第一步，定义一个接口，以及它的实现类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">onEvent</span><span class="params">(String event)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrinterEventListener</span> <span class="keyword">implements</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onEvent</span><span class="params">(String event)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;this is PrinterEventListener: &quot;</span> + event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BackupEventListener</span> <span class="keyword">implements</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onEvent</span><span class="params">(String event)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;this is BackupEventListener: &quot;</span> + event);</span><br><span class="line">        <span class="built_in">this</span>.backup(event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backup</span><span class="params">(String event)</span> &#123;</span><br><span class="line">        <span class="comment">// 保存...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二步，在 <code>META-INF/services</code> 目录下创建 EventListener 类的全限定名的文件，文件内容为 PrinterEventListener、BackupEventListener 类的全限定名。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919094459759.png" alt="image-20230919094459759"></p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919094528669.png" alt="image-20230919094528669"></p>
+<p>第三步，定义一个测试类，使用Java的 ServiceLoader 加载文件，并发起调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavaSpiDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 通过Java SPI加载</span></span><br><span class="line">        ServiceLoader&lt;EventListener&gt; serviceLoader = ServiceLoader.load(EventListener.class);</span><br><span class="line">        <span class="comment">// 获取接口迭代器</span></span><br><span class="line">        Iterator&lt;EventListener&gt; listenerIterator = serviceLoader.iterator();</span><br><span class="line">        <span class="comment">// 定义事件监听消息</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">event</span> <span class="operator">=</span> <span class="string">&quot;Java SPI机制&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历调用事件监听器</span></span><br><span class="line">        listenerIterator.forEachRemaining(eventListener -&gt; &#123;</span><br><span class="line">            eventListener.onEvent(event);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919094753460.png" alt="image-20230919094753460"></p>
+<p>此时成功通过Java SPI获取到了实现类。</p>
+<h3 id="实现原理"><a class="header-anchor" href="#实现原理"></a>实现原理</h3>
+<p>通过测试类 JavaSpiDemo 的代码大致可知，首先通过 ServiceLoader 加载指定类 ，然后获取到一个迭代器，迭代器的元素就是指定类的实现类。</p>
+<blockquote>
+<p>Q：为什么通过ServiceLoader加载的是“指定类”，而不是接口？</p>
+<p>A：因为提供者提供的类也可以是抽象类，实现类可以通过extends继承的方式实现。Java SPI 判断文件中的类是否为实现类的方式就是 Class.isInstance(Object obj) 方法，该方法等同于 instanceof 。</p>
+</blockquote>
+<p>先看加载原理：</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919095229544.png" alt="image-20230919095229544"></p>
+<p>首先获取一个fullName，其实就是 <code>META-INF/services/</code> 指定类的全限定名。</p>
+<p>然后通过ClassLoader获取到资源，其实就是接口的全限定名文件对应的资源，然后交给 <code>parse</code> 方法解析资源。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919100654882.png" alt="image-20230919100654882"></p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919100929032.png" alt="image-20230919100929032"></p>
+<p>parse方法其实就是通过IO流读取文件的内容，然后通过 <code>parseLine</code> 方法获取实现类的全限定名。</p>
+<p>最后在迭代器调用 <code>next</code> 方法时，调用内部的 <code>nextService</code> 方法，通过反射构造实现类的实例化对象。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919101514809.png" alt="image-20230919101514809"></p>
+<blockquote>
+<p>💡注意：通过此处源码可以看出，ServiceLoader实例化实现类的方式是 Class.newInstance() 方法，所以通过Java SPI实现SPI机制时，实现类必须要有无参构造方法。</p>
+</blockquote>
+<h3 id="优缺点"><a class="header-anchor" href="#优缺点"></a>优缺点</h3>
+<p>从示例代码和源码可以看出，Java实现的SPI机制比较简单，所以更容易于开发者理解和使用。也因为此会有一点缺点。</p>
+<p>第一点就是浪费资源，虽然例子中只有一个实现类，但是实际情况下可能会有很多实现类，而Java的SPI会一股脑全进行实例化，但是这些实现了不一定都用得着，所以就会白白浪费资源。</p>
+<p>第二点就是无法对区分具体的实现，也就是这么多实现类，到底该用哪个实现呢？如果要判断具体使用哪个，只能依靠接口本身的设计，比如接口可以设计为一个策略接口，又或者接口可以设计带有优先级的，但是不论怎样设计，框架作者都得写代码进行判断。</p>
+<p>所以总得来说就是ServiceLoader无法做到按需加载或者按需获取某个具体的实现。</p>
+<h3 id="使用场景"><a class="header-anchor" href="#使用场景"></a>使用场景</h3>
+<p>一般适用于：</p>
+<ul>
+<li>不需要选择具体的实现，每个被加载的实现都需要被用到</li>
+<li>虽然需要选择具体的实现，但是可以通过对接口的设计来解决</li>
+</ul>
+<p>例如：全局拦截器、过滤器、校验器。</p>
+<p>我在项目中用过 javax.validation.spi.ValidationProvider ，hibernate对其做了较为全面的封装，其实现类为 org.hibernate.validator.HibernateValidator 。</p>
+<h2 id="Spring-SPI机制"><a class="header-anchor" href="#Spring-SPI机制"></a>Spring SPI机制</h2>
+<p>Spring实现SPI机制的核心类叫 <code>SpringFactoriesLoader</code> ，Spring的SPI机制约定如下：</p>
+<ul>
+<li>配置文件必须在<code>META-INF/</code>目录下，文件名必须为spring.factories</li>
+<li>文件内容为键值对，一个键可以有多个值，只需要用逗号分割就行，同时键值都需要是类的全限定名，键和值可以没有任何类与类之间的关系，当然也可以有实现的关系。</li>
+</ul>
+<p>从约定内容可以看出，Spring的SPI机制与Java的SPI机制相比，文件约定和接口类约定都不相同。</p>
+<h3 id="示例-2"><a class="header-anchor" href="#示例-2"></a>示例</h3>
+<p>第一步，定义文件。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919112022912.png" alt="image-20230919112022912"></p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919111948099.png" alt="image-20230919111948099"></p>
+<p>第二步，定义测试类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringSpiDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;EventListener&gt; eventListeners = SpringFactoriesLoader.loadFactories(EventListener.class, <span class="literal">null</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">event</span> <span class="operator">=</span> <span class="string">&quot;Spring SPI机制&quot;</span>;</span><br><span class="line">        eventListeners.forEach(eventListener -&gt; eventListener.onEvent(event));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Spring 6.0开始废弃此方法</span></span><br><span class="line">        List&lt;String&gt; factoryNames = SpringFactoriesLoader.loadFactoryNames(EventListener.class, <span class="literal">null</span>);</span><br><span class="line">        System.out.println(factoryNames);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919112138626.png" alt="image-20230919112138626"></p>
+<p>成功获取到实现对象。</p>
+<h3 id="实现原理-2"><a class="header-anchor" href="#实现原理-2"></a>实现原理</h3>
+<p>大致原理为：</p>
+<ol>
+<li>解析 <code>META-INF/spring.factories</code> 文件，获取实现类的全限定名。</li>
+<li>反射实例化对象。</li>
+<li>Spring 排序。</li>
+</ol>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919112747587.png" alt="image-20230919112747587"></p>
+<p>第一步，解析文件是Spring实现SPI机制的关键，它默认解析 <code>FACTORIES_RESOURCE_LOCATION</code>  = &quot;META-INF/spring.factories&quot; 下的文件内容。源码如下：</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919112433720.png" alt="image-20230919112433720"></p>
+<p>第二步，实例化对象时也是先获取Class类对象，再通过反射构造实例化对象，与Java SPI不同的是，它是使用的 Constructor.newInstance() 方法，但并不支持有参构造，还是得需要无参构造方法。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919113511676.png" alt="image-20230919113511676"></p>
+<p>第三部，Spring内置排序功能，AnnotationAwareOrderComparator.sort(List&lt;?&gt; list) 方法的作用是判断对象是否实现了 <code>Ordered</code> 类，或者是否标记了 <code>Order</code> 注解。排序功能的实现类为 <code>AnnotationAwareOrderComparator</code> 。</p>
+<blockquote>
+<p>这也是Spring SPI机制与Java SPI机制的不同点，ServiceLoader是按顺序加载并返回，而SpringFactoriesLoader是按顺序加载，正序排序后再返回。</p>
+</blockquote>
+<h3 id="使用场景-2"><a class="header-anchor" href="#使用场景-2"></a>使用场景</h3>
+<p>Spring的SPI机制在内部使用的非常多，尤其在SpringBoot中大量使用，SpringBoot启动过程中很多扩展点都是通过SPI机制来实现的，例如：</p>
+<p>1、自动装配</p>
+<p>在SpringBoot3.0之前的版本，自动装配是通过SpringFactoriesLoader来加载的。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919114212629.png" alt="image-20230919114212629"></p>
+<p>但是SpringBoot3.0之后不再使用SpringFactoriesLoader，而是Spring重新从 <code>META-INF/spring/</code> 目录下的 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> 文件中读取了。</p>
+<p>2、PropertySourceLoader的加载</p>
+<p>PropertySourceLoader是用来解析application配置文件的，它是一个接口。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919114314107.png" alt="image-20230919114314107"></p>
+<p>SpringBoot默认提供了 PropertiesPropertySourceLoader 和 YamlPropertySourceLoader两个实现，就是对应properties和yaml文件格式的解析。</p>
+<p>SpringBoot在加载PropertySourceLoader时就用了SPI机制。</p>
+<p><img src="/2023/09/18/java-spi-understand/image-20230919114432063.png" alt="image-20230919114432063"></p>
+<h3 id="与Java-SPI机制对比"><a class="header-anchor" href="#与Java-SPI机制对比"></a>与Java SPI机制对比</h3>
+<p>首先Spring的SPI机制对Java的SPI机制对进行了一些简化，Java的SPI每个接口都需要对应的文件，而Spring的SPI机制只需要一个spring.factories文件。</p>
+<p>其次是内容，Java的SPI机制文件内容必须为接口的实现类，而Spring的SPI并不要求键值对必须有什么关系，更加灵活。</p>
+<p>第三点就是Spring的SPI机制提供了获取类限定名的方法loadFactoryNames，而Java的SPI机制是没有的。通过这个方法获取到类限定名之后就可以将这些类注入到Spring容器中，用Spring容器加载这些Bean，而不仅仅是通过反射。</p>
+<p>但是Spring的SPI也同样没有实现获取指定某个指定实现类的功能，所以要想能够找到具体的某个实现类，还得依靠具体接口的设计。</p>
+<p>所以不知道你有没有发现，PropertySourceLoader它其实就是一个策略接口，注释也有说，所以当你的配置文件是properties格式的时候，他可以找到解析properties格式的PropertiesPropertySourceLoader对象来解析配置文件。</p>
+<h2 id="总结"><a class="header-anchor" href="#总结"></a>总结</h2>
+<p>通过以上分析可以看出，实现SPI机制的核心原理就是通过IO流读取指定文件的内容，然后解析，最后加入一些自己的特性。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E3%80%81SPI/" rel="tag"># Java、SPI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/11/mysql-optimization-limit/" rel="prev" title="MySQL优化-LIMIT查询">
+      <i class="fa fa-chevron-left"></i> MySQL优化-LIMIT查询
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">SPI是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-SPI%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">Java SPI机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.4.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-SPI%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">Spring SPI机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">3.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86-2"><span class="nav-number">3.2.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-number">3.3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8EJava-SPI%E6%9C%BA%E5%88%B6%E5%AF%B9%E6%AF%94"><span class="nav-number">3.4.</span> <span class="nav-text">与Java SPI机制对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wray</p>
+  <div class="site-description" itemprop="description">记录生活的点点滴滴<br>Keep track of my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangfarui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangfarui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wray20156294@gmail.com" title="E-Mail → mailto:wray20156294@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wray</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
