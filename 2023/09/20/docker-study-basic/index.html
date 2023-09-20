@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Docker是什么，有哪些基本概念，常用命令有哪些。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker基础学习">
+<meta property="og:url" content="http://example.com/2023/09/20/docker-study-basic/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="Docker是什么，有哪些基本概念，常用命令有哪些。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/09/20/docker-study-basic/image-20230920114306998.png">
+<meta property="article:published_time" content="2023-09-20T02:17:37.000Z">
+<meta property="article:modified_time" content="2023-09-20T08:35:20.417Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/20/docker-study-basic/image-20230920114306998.png">
+
+<link rel="canonical" href="http://example.com/2023/09/20/docker-study-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Docker基础学习 | Wray Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wray Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/20/docker-study-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wray">
+      <meta itemprop="description" content="记录生活的点点滴滴<br>Keep track of my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wray Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker基础学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-20 10:17:37 / 修改时间：16:35:20" itemprop="dateCreated datePublished" datetime="2023-09-20T10:17:37+08:00">2023-09-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">Docker是什么，有哪些基本概念，常用命令有哪些。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Docker是什么"><a class="header-anchor" href="#Docker是什么"></a>Docker是什么</h2>
+<p>基于Linux内核的 Cgroups、Namespace 技术，以及 UnionFS（Union File System）组成 rootfs（Root File System）等技术，对进程进行封装隔离，实现操作系统层面的虚拟化技术。</p>
+<p>从上面的介绍直观感受来说，Docker更像一个技术概念，它利用已有的技术特性和理念，使用Go语言开发了一个项目，叫做Docker。</p>
+<p>它实现的进程隔离独立于宿主和其他隔离的进程外，因此被称为容器。</p>
+<p>Docker在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使其相比于虚拟机技术更为轻便、快捷。</p>
+<p>Docker技术相比较于虚拟机技术：虚拟机技术是虚拟出一套完整的操作系统（自己的内核、硬件资源），再在该系统上运行所需的应用进程；而Docker容器没有自己的内核，也没有进行硬件虚拟，只是通过技术手段重新挂载一套新的文件系统，并在此文件系统上运行应用进程。</p>
+<p>Docker技术相比较于虚拟机技术的优势：</p>
+<ol>
+<li>更高效的利用系统资源</li>
+<li>更快速的启动时间</li>
+<li>一致的运行环境</li>
+<li>持续交付（CI）和部署（CD）</li>
+<li>更轻松的迁移</li>
+<li>更轻松的维护和扩展</li>
+</ol>
+<h2 id="Docker基本概念"><a class="header-anchor" href="#Docker基本概念"></a>Docker基本概念</h2>
+<p>Docker的三大基本概念：</p>
+<ul>
+<li>镜像（Image）</li>
+<li>容器（Container）</li>
+<li>仓库（Repository）</li>
+</ul>
+<h3 id="Docker镜像"><a class="header-anchor" href="#Docker镜像"></a>Docker镜像</h3>
+<p>前言：操作系统的组成分为 内核 和 用户空间，对于 <code>Linux</code> 而言，内核启动后，会挂载 <code>root</code> 文件系统（rootfs）为其提供用户空间支持。</p>
+<p>Docker镜像（Image），就相当于是一个特殊的 rootfs ，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变（抽象点说，Docker镜像是一个只读的模版）。</p>
+<p>因为Docker镜像包含有操作系统的完整的 rootfs，其体积往往是庞大的（百兆或者GB大小），这与介绍Docker时说它是轻量级的概念不符。所以Docker在设计时，利用了 <code>Union FS</code>技术，将镜像设计为多层储存的架构。严格来说，镜像并非是像一个 ISO 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。</p>
+<p>镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。比如，删除前一层文件的操作，实际不是真的删除前一层的文件，而是仅在当前层标记为该文件已删除。在最终容器运行的时候，虽然不会看到这个文件，但是实际上该文件会一直跟随镜像。因此，在构建镜像的时候，需要额外小心，每一层尽量只包含该层需要添加的东西，任何额外的东西应该在该层构建结束前清理掉。</p>
+<p>例如：从Docker Hub下载一个 <code>MySQL</code>镜像时，MySQL需要有一个操作系统作为运行环境，但它不会拿宿主机的操作系统，而是根据构建MySQL镜像的代码判断，从上一层获取镜像。</p>
+<p><img src="/2023/09/20/docker-study-basic/image-20230920114306998.png" alt="image-20230920114306998"></p>
+<p>从图中可以看出，mysql:5.7.41镜像的上一层是oraclelinux:7-slim镜像。</p>
+<h3 id="Docker容器"><a class="header-anchor" href="#Docker容器"></a>Docker容器</h3>
+<p>镜像（<code>Image</code>）和容器（<code>Container</code>）的关系，就类似于面向对象编程中的 <code>类</code> 和 <code>实例</code> 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+<p>每个容器都是相互隔离的运行环境，具有自己的文件系统、进程空间和网络接口。容器可以与主机和其他容器进行通信。</p>
+<h3 id="Docker-Registry"><a class="header-anchor" href="#Docker-Registry"></a>Docker Registry</h3>
+<p>Docker Registry翻译为Docker注册表，又叫做Docker中央仓库。中央仓库可以包含多个仓库（Repository），每个仓库可以包含多个标签（Tag），每个标签对应一个Docker镜像。</p>
+<p>通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 <code>&lt;仓库名&gt;:&lt;标签&gt;</code> 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 <code>latest</code> 作为默认标签。</p>
+<h2 id="Docker常用命令"><a class="header-anchor" href="#Docker常用命令"></a>Docker常用命令</h2>
+<h3 id="镜像管理命令"><a class="header-anchor" href="#镜像管理命令"></a>镜像管理命令</h3>
+<ol>
+<li><code>docker pull &lt;image&gt;</code>：从注册表中拉取一个镜像。</li>
+<li><code>docker build [options] &lt;path/to/dockerfile&gt;</code>：根据Dockerfile构建一个镜像。</li>
+<li><code>docker push &lt;image&gt;</code>：将一个镜像推送到注册表中。</li>
+<li><code>docker images</code>：列出本地已有的镜像。等同于 <code>docker image ls</code>。</li>
+<li><code>docker rmi &lt;image&gt;</code>：删除一个镜像。</li>
+</ol>
+<h3 id="容器管理命令"><a class="header-anchor" href="#容器管理命令"></a>容器管理命令</h3>
+<ol>
+<li>
+<p><code>docker run [options] &lt;image&gt; [COMMAND] [ARG...]</code>：创建并运行一个新的容器。</p>
+<ul>
+<li><code>[OPTIONS]</code>是可选的参数，用于配置容器的各种选项，例如端口映射、卷挂载、环境变量等。</li>
+<li><code>IMAGE</code>是容器所基于的镜像名称或镜像ID。</li>
+<li><code>[COMMAND] [ARG...]</code>是容器启动时要执行的命令和参数。</li>
+</ul>
+<p>下面是一些常用的<code>docker run</code>命令选项（options）：</p>
+<ul>
+<li><code>-d</code>：以后台模式（detached）运行容器。</li>
+<li><code>-p &lt;host-port&gt;:&lt;container-port&gt;</code>：将主机的端口映射到容器的端口。</li>
+<li><code>-v &lt;host-path&gt;:&lt;container-path&gt;</code>：将主机的目录或文件挂载到容器的目录。</li>
+<li><code>-e &lt;key&gt;=&lt;value&gt;</code>：设置环境变量。</li>
+<li><code>--name &lt;container-name&gt;</code>：为容器指定一个名称。</li>
+<li><code>--restart &lt;restart-policy&gt;</code>：设置容器的重启策略。</li>
+<li><code>-it</code>：这是两个参数，一个是 -i：交互式操作，一个是 -t 终端。一般会在command写bash。</li>
+<li><code>--rm</code>：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 <code>docker rm</code>。</li>
+</ul>
+</li>
+<li>
+<p><code>docker start &lt;container&gt;</code>：启动已经创建的容器。</p>
+</li>
+<li>
+<p><code>docker stop &lt;container&gt;</code>：停止正在运行的容器。</p>
+</li>
+<li>
+<p><code>docker restart &lt;container&gt;</code>：重启容器。</p>
+</li>
+<li>
+<p><code>docker rm &lt;container&gt;</code>：删除容器。</p>
+</li>
+<li>
+<p><code>docker ps [options]</code>：列出正在运行的容器。</p>
+<ol>
+<li><code>docker ps -a</code>：列出所有容器，包括正在运行的和已停止的容器。</li>
+<li><code>docker ps -q</code>：只显示容器的ID。</li>
+<li><code>docker ps -l</code>：显示最近创建的容器。</li>
+<li><code>docker ps --filter &lt;key&gt;=&lt;value&gt;</code>：根据指定的键值对筛选容器，例如<code>docker ps --filter status=running</code>只显示正在运行的容器。</li>
+</ol>
+</li>
+<li>
+<p><code>docker logs &lt;container&gt;</code>：查看容器的日志。默认输出所有日志。</p>
+<ol>
+<li><code>docker logs --tail 100 &lt;container&gt;</code> ：只展示最后100行日志</li>
+<li><code>docker logs -f &lt;container&gt;</code> ：实时（follow）模式下查看容器日志。</li>
+</ol>
+</li>
+<li>
+<p><code>docker exec [options] &lt;container&gt; &lt;command&gt;</code>：在正在运行的容器中执行命令。</p>
+<ol>
+<li><code>docker exec -it &lt;container&gt; &lt;command&gt;</code> ：在正在运行的容器中执行交互式命令。
+<ul>
+<li><code>-it</code>选项用于指定交互式会话（Interactive）和终端（TTY）连接，以便你可以与容器进行交互。</li>
+<li><code>&lt;container&gt;</code>是容器的名称或容器ID。</li>
+<li><code>&lt;command&gt;</code>是要在容器内部执行的命令。例如：bash</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="网络和存储命令"><a class="header-anchor" href="#网络和存储命令"></a>网络和存储命令</h3>
+<ol>
+<li><code>docker network create &lt;network&gt;</code>：创建一个新的网络。</li>
+<li><code>docker network connect &lt;network&gt; &lt;container&gt;</code>：将容器连接到网络。</li>
+<li><code>docker volume create &lt;volume&gt;</code>：创建一个数据卷。</li>
+<li><code>docker volume ls</code>：列出本地已有的数据卷。</li>
+<li><code>docker volume rm &lt;volume&gt;</code>：删除一个数据卷。</li>
+</ol>
+<h3 id="其他常用命令"><a class="header-anchor" href="#其他常用命令"></a>其他常用命令</h3>
+<ol>
+<li><code>docker info</code>：显示Docker系统信息。</li>
+<li><code>docker version</code>：显示Docker客户端和服务器版本信息。</li>
+<li><code>docker inspect &lt;container/image&gt;</code>：获取容器或镜像的详细信息。</li>
+<li><code>docker attach &lt;container&gt;</code>：附加到正在运行的容器的标准输入、输出和错误流。</li>
+<li><code>docker cp &lt;container&gt;:&lt;path/to/file&gt; &lt;host/path&gt;</code>：从容器复制文件到主机。</li>
+<li><code>docker-compose up</code>：使用Docker Compose启动多个容器应用。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/18/java-spi-understand/" rel="prev" title="Java SPI机制分析">
+      <i class="fa fa-chevron-left"></i> Java SPI机制分析
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Docker是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">Docker基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E9%95%9C%E5%83%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Docker镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%B9%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">Docker容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Registry"><span class="nav-number">2.3.</span> <span class="nav-text">Docker Registry</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">镜像管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">容器管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%92%8C%E5%AD%98%E5%82%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">网络和存储命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.4.</span> <span class="nav-text">其他常用命令</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wray</p>
+  <div class="site-description" itemprop="description">记录生活的点点滴滴<br>Keep track of my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangfarui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangfarui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wray20156294@gmail.com" title="E-Mail → mailto:wray20156294@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wray</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
