@@ -20,30 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="关于MySQL针对LIMIT做的查询优化，分析平常业务中使用ORDER BY xxx LIMIT x失效的问题。">
+  <meta name="description" content="alias的使用和注意事项，以及常用的alias，衍生出shell的知识点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL优化-LIMIT查询">
-<meta property="og:url" content="http://example.com/2023/09/11/mysql-optimization-limit/index.html">
+<meta property="og:title" content="Shell之alias别名">
+<meta property="og:url" content="http://example.com/2023/09/21/shell-alias/index.html">
 <meta property="og:site_name" content="Wray Blog">
-<meta property="og:description" content="关于MySQL针对LIMIT做的查询优化，分析平常业务中使用ORDER BY xxx LIMIT x失效的问题。">
+<meta property="og:description" content="alias的使用和注意事项，以及常用的alias，衍生出shell的知识点">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911154335378.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911154513509.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911155613090.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911155633378.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911161345089.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911162857621.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911163406666.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911165313416.png">
-<meta property="og:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911165352012.png">
-<meta property="article:published_time" content="2023-09-11T02:12:21.000Z">
-<meta property="article:modified_time" content="2023-09-15T08:24:35.581Z">
+<meta property="article:published_time" content="2023-09-21T03:49:21.000Z">
+<meta property="article:modified_time" content="2023-09-22T08:20:40.912Z">
 <meta property="article:author" content="Wray">
-<meta property="article:tag" content="MySQL、LIMIT、SQL语句优化">
+<meta property="article:tag" content="Shell、alias、bash">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/09/11/mysql-optimization-limit/image-20230911154335378.png">
 
-<link rel="canonical" href="http://example.com/2023/09/11/mysql-optimization-limit/">
+<link rel="canonical" href="http://example.com/2023/09/21/shell-alias/">
 
 
 <script id="page-configurations">
@@ -56,7 +46,7 @@
   };
 </script>
 
-  <title>MySQL优化-LIMIT查询 | Wray Blog</title>
+  <title>Shell之alias别名 | Wray Blog</title>
   
 
 
@@ -161,7 +151,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/11/mysql-optimization-limit/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/21/shell-alias/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +164,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MySQL优化-LIMIT查询
+          Shell之alias别名
         </h1>
 
         <div class="post-meta">
@@ -184,14 +174,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-09-11 10:12:21" itemprop="dateCreated datePublished" datetime="2023-09-11T10:12:21+08:00">2023-09-11</time>
+              <time title="创建时间：2023-09-21 11:49:21" itemprop="dateCreated datePublished" datetime="2023-09-21T11:49:21+08:00">2023-09-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-15 16:24:35" itemprop="dateModified" datetime="2023-09-15T16:24:35+08:00">2023-09-15</time>
+                <time title="修改时间：2023-09-22 16:20:40" itemprop="dateModified" datetime="2023-09-22T16:20:40+08:00">2023-09-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -199,7 +189,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                  <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
                 </span>
             </span>
 
@@ -216,16 +206,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>4 分钟</span>
             </span>
-            <div class="post-description">关于MySQL针对LIMIT做的查询优化，分析平常业务中使用ORDER BY xxx LIMIT x失效的问题。</div>
+            <div class="post-description">alias的使用和注意事项，以及常用的alias，衍生出shell的知识点</div>
 
         </div>
       </header>
@@ -236,64 +226,86 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在业务开发中，<strong>分页查询</strong> 是经常碰到的接口功能之一，一般分页查询都会使用有顺序性的字段作为排序字段，例如更新时间、创建时间、等级。。。</p>
-<p>假如现在系统中有这样一张表t：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911154335378.png" alt="image-20230911154335378"></p>
-<p>id为主键，grade表示等级，score表示分数，业务中一个等级表示一个分数范围，现有如下数据：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911154513509.png" alt="image-20230911154513509"></p>
-<p>数据范围模拟分布如下：</p>
-<p>grade == 1: score &lt; 2</p>
-<p>grade == 2: 2 &lt;= score &lt; 3</p>
-<p>grade == 3: score &gt;= 3</p>
-<p>现在有一个分页查询：<em><strong>要求用等级升序排序，每页查询5条数据</strong></em></p>
-<p>一开始的sql如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 第一页</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">order</span> <span class="keyword">by</span> grade limit <span class="number">0</span>,<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 第二页</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">order</span> <span class="keyword">by</span> grade limit <span class="number">5</span>,<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
-<p>理想情况下，第一页查询结果应该是：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>, <span class="number">1.1</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">1.2</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">1.3</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">1.4</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">1.5</span>)</span><br></pre></td></tr></table></figure>
-<p>第二页的查询结果应该是：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>, <span class="number">0.1</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">0.2</span>)</span><br><span class="line">(<span class="number">1</span>, <span class="number">0.3</span>)</span><br><span class="line">(<span class="number">2</span>, <span class="number">2.1</span>)</span><br><span class="line">(<span class="number">2</span>, <span class="number">2.2</span>)</span><br></pre></td></tr></table></figure>
-<p>可实际情况是：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911155613090.png" alt="image-20230911155613090"></p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911155633378.png" alt="image-20230911155633378"></p>
-<p>从这里可以大致猜到：</p>
-<ol>
-<li>
-<p>如果 ORDER BY 的字段，存在相同值，并且 相同值的数据量 &gt; limit的数量，MySQL不会对符合ORDER BY条件的所有行进行内部排序，而是随机读取。</p>
-</li>
-<li>
-<p>按照 innodb 索引树的规则（相同索引值，按照聚簇索引列有序排序），这个查询语句应该是没有使用到 i_grade 索引树的。</p>
-</li>
-</ol>
-<p>执行一下EXPLAIN，看看MySQL优化器的解析计划：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911161345089.png" alt="image-20230911161345089"></p>
-<p>表t上是有grade的索引的，possible_keys却没有解析到，更别说使用到了，那感觉就是MySQL优化器认为走聚簇索引再内部排序更快。</p>
-<p>既然如此，那么强制让查询数据使用 i_grade 索引试试：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t force index(i_grade) <span class="keyword">order</span> <span class="keyword">by</span> grade limit <span class="number">0</span>,<span class="number">5</span>;</span><br></pre></td></tr></table></figure>
-<p>查询结果如下：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911162857621.png" alt="image-20230911162857621"></p>
-<p>查询结果与预期结果一致了，那证明 i_grade 索引树的存储规则肯定是没问题的，只是MySQL优化器使用的执行计划与预期不一致。</p>
-<p>再看下第二页：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911163406666.png" alt="image-20230911163406666"></p>
-<p>第二页的查询结果与预期结果也是一致的，所以问题就出在了MySQL优化器上，两个问题：</p>
-<ol>
-<li>为什么不使用 ORDER BY 指定列上包含的索引？</li>
-<li>为什么 Using filesort 排序的结果集不是按照聚簇索引有序排序的？</li>
-</ol>
+        <p>在说alias之前，先大致说一下shell的相关知识点。</p>
+<h2 id="Shell与bash"><a class="header-anchor" href="#Shell与bash"></a>Shell与bash</h2>
+<p>Shell是用户与Linux系统进行交互的媒介。</p>
+<p>bash是目前Linux最常用的Shell。除了bash之外，还有例如 sh、csh、ksh、zsh等。</p>
+<p><strong>查看自己使用的是哪一个shell</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="variable">$0</span>也可以</span></span><br><span class="line">echo $0</span><br></pre></td></tr></table></figure>
+<p><strong>查看系统安装了哪些shell</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
+<p><strong>切换shell</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换至bash</span></span><br><span class="line">chsh -s /bin/bash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换至zsh</span></span><br><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<h2 id="profile和rc文件的解释"><a class="header-anchor" href="#profile和rc文件的解释"></a>profile和rc文件的解释</h2>
+<p><u>***<strong>注意</strong>***：以下文件解释是以bash shell为准。</u></p>
+<p>（1）<strong>/etc/profile：（系统环境变量）</strong> 此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从/etc/profile.d目录的配置文件中搜集shell的设置。</p>
+<p>（2） <b>/etc/bashrc：（用户变量）</b>为每一个<u>运行bash shell的用户</u>执行此文件。当bash shell被打开时,该文件被读取（即每次新开一个终端，都会执行bashrc）。</p>
+<p>（3） <strong>~/.bash_profile</strong>： 每个用户都可使用该文件输入专用于自己使用的shell信息，当用户登录时，该文件仅仅执行一次。随后该文件会显式调用 .bashrc. 其内容主要为设置环境变量。</p>
+<p>（4） <strong>~/.bashrc</strong>：该文件包含专用于你的bash shell的bash信息，当登录时以及每次打开新的shell时，该该文件被读取。</p>
+<p>（5） <strong>~/.bash_logout</strong>：当每次退出系统(退出bash shell)时，执行该文件。另外，/etc/profile中设定的变量(全局)的可以作用于任何用户，而~/.bashrc等中设定的变量(局部)只能继承 /etc/profile中的变量,他们是&quot;父子&quot;关系。</p>
+<h2 id="理解交互式与登录"><a class="header-anchor" href="#理解交互式与登录"></a>理解交互式与登录</h2>
+<p><strong>交互式shell</strong>等待你输入命令, 然后执行并返回结果。</p>
+<p><strong>非交互式shell</strong>则只是执行预设的命令, 比如读取脚本中的命令并执行, 执行到文件的末尾时shell即结束。</p>
 <br>
-<p>直接上官方解释：</p>
-<p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/limit-optimization.html">https://dev.mysql.com/doc/refman/8.0/en/limit-optimization.html</a></p>
-<p>对于文档说明总结如下：</p>
-<ol>
-<li>ORDER BY（GROUP BY）的排序结果会受 LIMIT row_count 的 row_count 影响，如果指定了row_count，MySQL在通常情况下更愿意使用全表扫描，即使可能使用索引会更快。</li>
-<li>MySQL 使用 filesort 排序时，如果查询命令携带 LIMIT row_count ，那么MySQL只会对扫描到的这些数据（row_count行数据）做排序。</li>
-</ol>
+<p><strong>登录</strong>通常就是指输入了用户名或者密码后启动的shell(比如系统启动, 远程登录等), 或者用<code>-l</code>或者<code>--login</code>方式启动的shell。</p>
+<p><strong>非登录</strong>就是比如图形界面启动的终端, <code>su</code>切换的用户, 通过<code>bash</code>等命令的启动的shell。</p>
 <br>
-<p>解决方案：</p>
-<p>在 ORDER BY 后加上其他列，这个最好是有顺序性并且唯一的，例如id。</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911165313416.png" alt="image-20230911165313416"></p>
-<p>解析计划如下：</p>
-<p><img src="/2023/09/11/mysql-optimization-limit/image-20230911165352012.png" alt="image-20230911165352012"></p>
-<p>可见它默认还是走的全表扫描，并使用filesort排序，但是此时需要对 id 进行排序，所以保证了数据是按照预期读取的。</p>
+<p><strong>二者启动的条件及顺序</strong></p>
+<p>bash的加载顺序如下：</p>
+<ul>
+<li>登录式SHELLL配置文件加载顺序：/etc/profile ⇒ ~/.bash_profile ⇒ ~/.bash_login ⇒ ～/.profile ⇒ ~/.bash_logout</li>
+<li>非登录式SHELL配置文件加载顺序：/etc/bash.bashrc（/etc/bashrc）⇒ ~/.bashrc</li>
+</ul>
+<br>
+<p>zsh的加载顺序如下（登录式和非登录时都是一样的）：</p>
+<ol>
+<li>/etc/zshenv</li>
+<li>~/.zshenv</li>
+<li>/etc/zprofile</li>
+<li>~/.zprofile</li>
+<li>/etc/zshrc</li>
+<li>~/.zshrc</li>
+<li>/etc/zlogin</li>
+<li>~/.zlogin</li>
+<li>~/.zlogout</li>
+<li>/etc/zlogout</li>
+</ol>
+<h2 id="Linux之souce命令"><a class="header-anchor" href="#Linux之souce命令"></a>Linux之souce命令</h2>
+<p>source命令(从 C Shell 而来)是bash shell的内置命令;点命令(.)，就是个点符号(从Bourne Shell而来)是source的另一名称。</p>
+<p>功能：使Shell读入指定的Shell程序文件并依次执行文件中的所有语句
+source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录。</p>
+<br>
+<p><strong>source filename、sh filename、./filename三者之间的区别</strong></p>
+<ol>
+<li>source filename：这个命令其实只是简单地读取脚本里面的语句依次在当前shell里面执行，没有建立新的子shell。那么脚本里面所有新建、改变变量的语句都会保存在当前shell里面。</li>
+<li>sh filename 重新建立一个子shell，在子shell中执行脚本里面的语句，该子shell继承父shell的环境变量，但子shell新建的、改变的变量不会被带回父shell，除非使用export。</li>
+<li>当shell脚本具有可执行权限时，用sh filename与./filename执行脚本是没有区别得。./filename是因为当前目录没有在PATH中，所有&quot;.&quot;是用来表示当前目录的。</li>
+</ol>
+<p>举例说明：</p>
+<ol>
+<li>新建一个test.sh脚本，内容为:A=1</li>
+<li>然后使其可执行chmod +x test.sh</li>
+<li>运行sh test.sh后，echo $A，显示为空，因为A=1并未传回给当前shell</li>
+<li>运行./test.sh后，也是一样的效果</li>
+<li>运行source test.sh 或者 . ./test.sh，然后echo $A，则会显示1，说明A=1的变量在当前shell（当前终端）中</li>
+</ol>
+<h2 id="Shell之alias别名"><a class="header-anchor" href="#Shell之alias别名"></a>Shell之alias别名</h2>
+<p>语法：alias name=value</p>
+<p>语法解释：其中name表示命令别名的名称，value表示命令别名的值。当用户输入name时，系统会自动将其转换为value。</p>
+<p>语法注意点：</p>
+<ul>
+<li>name不能有空格</li>
+<li>=前后也不能有空格</li>
+<li>value命令携带参数（或者携带空格时），需要使用单引号或双引号括起来</li>
+<li>alias只生效于当前shell会话，要想每次一直生效，可以将其放到shell的startup文件中，例如zsh的~/.zshrc，或者bash的~/.bashrc中。</li>
+</ul>
+<br>
+<p><strong>alias命令</strong></p>
+<ul>
+<li><strong>alias</strong> ：列出已定义的所有alias别名</li>
+<li><strong>alias name=value</strong> ：设置别名</li>
+<li><strong>unalias name</strong> ：取消别名（只对当前shell终端生效）</li>
+</ul>
 
     </div>
 
@@ -303,7 +315,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/MySQL%E3%80%81LIMIT%E3%80%81SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96/" rel="tag"># MySQL、LIMIT、SQL语句优化</a>
+              <a href="/tags/Shell%E3%80%81alias%E3%80%81bash/" rel="tag"># Shell、alias、bash</a>
           </div>
 
         
@@ -312,13 +324,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/09/05/hexo-readme/" rel="prev" title="Hexo博客Git项目添加README文件">
-      <i class="fa fa-chevron-left"></i> Hexo博客Git项目添加README文件
+    <a href="/2023/09/20/arthas-use/" rel="prev" title="记录一次使用Arthas的过程">
+      <i class="fa fa-chevron-left"></i> 记录一次使用Arthas的过程
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/09/18/java-spi-understand/" rel="next" title="Java SPI机制分析">
-      Java SPI机制分析 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -377,6 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell%E4%B8%8Ebash"><span class="nav-number">1.</span> <span class="nav-text">Shell与bash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#profile%E5%92%8Crc%E6%96%87%E4%BB%B6%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">profile和rc文件的解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%B8%8E%E7%99%BB%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">理解交互式与登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E4%B9%8Bsouce%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Linux之souce命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell%E4%B9%8Balias%E5%88%AB%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">Shell之alias别名</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
