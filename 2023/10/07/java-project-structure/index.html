@@ -20,25 +20,25 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="使用Hexo搭建GitHub Pages后，再将xxx.github.io绑定到自己的域名下。">
+  <meta name="description" content="解释Java的Maven项目在IDEA中的目录结构为什么都是 src&#x2F;main&#x2F;java 形式，以及其他资源文件都是固定的目录名称。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub Pages配置到个人站点">
-<meta property="og:url" content="http://example.com/2023/08/29/hexo-github-site/index.html">
+<meta property="og:title" content="IDEA Java项目的目录结构为什么要是 src&#x2F;main&#x2F;java 形式?">
+<meta property="og:url" content="http://example.com/2023/10/07/java-project-structure/index.html">
 <meta property="og:site_name" content="Wray Blog">
-<meta property="og:description" content="使用Hexo搭建GitHub Pages后，再将xxx.github.io绑定到自己的域名下。">
+<meta property="og:description" content="解释Java的Maven项目在IDEA中的目录结构为什么都是 src&#x2F;main&#x2F;java 形式，以及其他资源文件都是固定的目录名称。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/08/29/hexo-github-site/image-20230829110239853.png">
-<meta property="og:image" content="http://example.com/2023/08/29/hexo-github-site/image-20230829111326607.png">
-<meta property="og:image" content="http://example.com/2023/08/29/hexo-github-site/image-20230829113637633.png">
-<meta property="og:image" content="http://example.com/2023/08/29/hexo-github-site/image-20230829113055624.png">
-<meta property="article:published_time" content="2023-08-29T02:53:23.000Z">
-<meta property="article:modified_time" content="2023-08-29T03:38:04.557Z">
+<meta property="og:image" content="http://example.com/2023/10/07/java-project-structure/image-20231007111209185.png">
+<meta property="og:image" content="http://example.com/2023/10/07/java-project-structure/image-20231007112957213.png">
+<meta property="og:image" content="http://example.com/2023/10/07/java-project-structure/image-20231007113114109.png">
+<meta property="og:image" content="http://example.com/2023/10/07/java-project-structure/image-20231007113754889.png">
+<meta property="article:published_time" content="2023-10-07T02:56:16.000Z">
+<meta property="article:modified_time" content="2023-10-07T06:48:13.223Z">
 <meta property="article:author" content="Wray">
-<meta property="article:tag" content="Hexo、GitHub Pages、GitHub">
+<meta property="article:tag" content="Java、Idea、Maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/08/29/hexo-github-site/image-20230829110239853.png">
+<meta name="twitter:image" content="http://example.com/2023/10/07/java-project-structure/image-20231007111209185.png">
 
-<link rel="canonical" href="http://example.com/2023/08/29/hexo-github-site/">
+<link rel="canonical" href="http://example.com/2023/10/07/java-project-structure/">
 
 
 <script id="page-configurations">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>GitHub Pages配置到个人站点 | Wray Blog</title>
+  <title>IDEA Java项目的目录结构为什么要是 src/main/java 形式? | Wray Blog</title>
   
 
 
@@ -156,7 +156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/29/hexo-github-site/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/07/java-project-structure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          GitHub Pages配置到个人站点
+          IDEA Java项目的目录结构为什么要是 src/main/java 形式?
         </h1>
 
         <div class="post-meta">
@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-08-29 10:53:23 / 修改时间：11:38:04" itemprop="dateCreated datePublished" datetime="2023-08-29T10:53:23+08:00">2023-08-29</time>
+              <time title="创建时间：2023-10-07 10:56:16 / 修改时间：14:48:13" itemprop="dateCreated datePublished" datetime="2023-10-07T10:56:16+08:00">2023-10-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +188,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo%E3%80%81GitHub/" itemprop="url" rel="index"><span itemprop="name">Hexo、GitHub</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -205,16 +205,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>643</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
-            <div class="post-description">使用Hexo搭建GitHub Pages后，再将xxx.github.io绑定到自己的域名下。</div>
+            <div class="post-description">解释Java的Maven项目在IDEA中的目录结构为什么都是 src/main/java 形式，以及其他资源文件都是固定的目录名称。</div>
 
         </div>
       </header>
@@ -225,35 +225,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="搭建GitHub-Pages"><a class="header-anchor" href="#搭建GitHub-Pages"></a>搭建GitHub Pages</h2>
-<p>首先，需要搭建好自己的GitHub Pages，保证访问xxx.github.io正常。</p>
-<p>使用Hexo搭建的文档地址：</p>
-<p><a target="_blank" rel="noopener" href="https://www.itwray.com/2023/07/28/hexo-study/">https://www.itwray.com/2023/07/28/hexo-study/</a></p>
-<h2 id="配置个人域名"><a class="header-anchor" href="#配置个人域名"></a>配置个人域名</h2>
-<p>在各大云服务厂商都可以购买域名，这里展示使用阿里云购买域名的操作步骤。</p>
-<p>一、注册域名</p>
-<p>进入<a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/domain/?spm=5176.100251.111252.34.532c4f153NDovr">阿里云注册域名地址</a></p>
-<p><img src="/2023/08/29/hexo-github-site/image-20230829110239853.png" alt="image-20230829110239853"></p>
-<p>输入自己想要的域名，并选择想要的根域名，点击查找，若域名未注册，可直接加入清单进行购买。</p>
-<p>购买完后，域名需要实名认证。</p>
-<p>二、域名解析配置</p>
-<p>在阿里云的<code>域名列表</code>找到自己购买的域名，点击<code>解析</code>，进入<code>解析设置</code>页面。</p>
-<p><img src="/2023/08/29/hexo-github-site/image-20230829111326607.png" alt="image-20230829111326607"></p>
-<p>为站点配置两条主机记录，分别为 @、www 类型。</p>
-<p>@的主机记录：记录值是ip地址，可以通过 ping xxx.github.io 查看。</p>
-<p>www的主机记录：记录值就是自己的xxx.github.io地址，记录类型选择为CNAME。</p>
-<h2 id="GitHub-Pages绑定自定义域名"><a class="header-anchor" href="#GitHub-Pages绑定自定义域名"></a>GitHub Pages绑定自定义域名</h2>
-<p>绑定方式有两种：GitHub Settings、Hexo CNAME文件</p>
-<p><strong>第一种：GitHub Settings</strong></p>
-<p>GitHub官方有一个操作文档，用于手动在GitHub上配置自己的域名：</p>
-<p><a target="_blank" rel="noopener" href="https://docs.github.com/en/pages/quickstart">https://docs.github.com/en/pages/quickstart</a></p>
-<p>最终效果如下：</p>
-<p><img src="/2023/08/29/hexo-github-site/image-20230829113637633.png" alt="image-20230829113637633"></p>
-<br>
-<p><strong>第二种：Hexo CNAME文件</strong></p>
-<p>Hexo支持动态配置，只需要在hexo git根目录下的source目录下，创建一个CNAME文件，文件内容就是自己的域名地址。</p>
-<p><img src="/2023/08/29/hexo-github-site/image-20230829113055624.png" alt="image-20230829113055624"></p>
-<p>然后执行 <code>hexo d</code> 命令将这个文件上传到GitHub即可。</p>
+        <h2 id="起源"><a class="header-anchor" href="#起源"></a>起源</h2>
+<p>每次新建项目时，都很好奇为什么Java文件需要放到项目下的 <code>src/main/java</code> 下？</p>
+<p>Interllij IDEA 仿佛自带“魔力”，在项目下新建目录时，会自动提示还未存在的目录结构（Maven Source Directories），并提供一键新建目录功能。</p>
+<p><img src="/2023/10/07/java-project-structure/image-20231007111209185.png" alt="image-20231007111209185"></p>
+<h2 id="解释"><a class="header-anchor" href="#解释"></a>解释</h2>
+<h3 id="Maven项目目录结构的解释"><a class="header-anchor" href="#Maven项目目录结构的解释"></a>Maven项目目录结构的解释</h3>
+<p>关于Maven项目的Maven Source Directories的解释：</p>
+<ul>
+<li>src：翻译为source，表示源代码目录的根目录。</li>
+<li>main：表示主要的代码目录，用于存放项目的主要功能代码。</li>
+<li>java：表示Java代码的目录，用于存放Java类和包。</li>
+<li>src/test/java：提供一个专门的位置用于编写和管理项目的单元测试、集成测试或其他类型的测试代码。</li>
+<li>src/test/resources：提供一个专门的位置，用于存放测试过程中所需的资源文件。</li>
+</ul>
+<p>总结：这种目录结构其实是一种约定，src/main/java是一种常见的源代码目录结构约定，它遵循了Maven项目的标准布局。而idea内置功能在识别到项目为maven项目时，做新建目录操作时就会按照约定提供一键新建目录功能。</p>
+<p>需要注意的是，src/main/java只是一种约定，并非强制规定。在某些特定情况下，可以根据项目需求进行自定义的目录结构，但建议遵循这种约定以保持代码的一致性和可读性。</p>
+<h3 id="常见的源代码目录结构约定"><a class="header-anchor" href="#常见的源代码目录结构约定"></a>常见的源代码目录结构约定</h3>
+<ol>
+<li><strong>src/main/kotlin</strong>：用于Kotlin项目的源代码目录。与Java项目的约定类似，Kotlin项目通常将源代码放在<code>src/main/kotlin</code>目录下。</li>
+<li><strong>src/main/scala</strong>：用于Scala项目的源代码目录。Scala是一种运行在Java虚拟机上的编程语言，它也有类似于Java和Kotlin的目录结构约定。</li>
+<li><strong>src/main/python</strong>：用于Python项目的源代码目录。Python项目通常将源代码放在<code>src/main/python</code>目录下，以区分其他类型的文件，例如配置文件或测试代码。</li>
+<li><strong>src/main/resources</strong>：用于存放项目的资源文件，如配置文件、静态文件、模板等。这个目录通常与源代码目录（如<code>src/main/java</code>）平行存在。</li>
+<li><strong>src/test/java</strong>：用于存放测试代码的目录。测试代码通常位于<code>src/test/java</code>目录下，它与主要代码目录（如<code>src/main/java</code>）有类似的结构。</li>
+<li><strong>src/test/resources</strong>：用于存放测试所需的资源文件，例如测试数据、配置文件等。与测试代码目录（如<code>src/test/java</code>）平行存在。</li>
+</ol>
+<h2 id="实测"><a class="header-anchor" href="#实测"></a>实测</h2>
+<h3 id="src-main-java中的Java代码如何获取到src-main-resources下的文件信息"><a class="header-anchor" href="#src-main-java中的Java代码如何获取到src-main-resources下的文件信息"></a>src/main/java中的Java代码如何获取到src/main/resources下的文件信息</h3>
+<p>目前项目的目录结构如下，有一个Java类（<code>ProjectStructure</code>）、一个resource资源文件（<code>jdbc.properties</code>）。</p>
+<p><img src="/2023/10/07/java-project-structure/image-20231007112957213.png" alt="image-20231007112957213"></p>
+<p><code>jdbc.properties</code> 文件信息如下：</p>
+<p><img src="/2023/10/07/java-project-structure/image-20231007113114109.png" alt="image-20231007113114109"></p>
+<p>现在想从<code>ProjectStructure</code>类中获取 <code>jdbc.properties</code> 文件的 jdbc.driver 属性值，Java代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">    <span class="comment">// 注意路径的写法 </span></span><br><span class="line">  	props.load(ProjectStructure.class.getClassLoader().getResourceAsStream(<span class="string">&quot;jdbc.properties&quot;</span>));</span><br><span class="line">    <span class="type">String</span> <span class="variable">driver</span> <span class="operator">=</span> props.getProperty(<span class="string">&quot;jdbc.driver&quot;</span>);</span><br><span class="line">    System.out.println(driver);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<p><img src="/2023/10/07/java-project-structure/image-20231007113754889.png" alt="image-20231007113754889"></p>
+<p>结论：</p>
+<ol>
+<li>IDEA 中的所有文件（包括 Java 程序文件和资源文件）都是从“项目根目录”开始查找的。</li>
+<li>Java 程序文件除了从“项目根目录”查找，还会从“类路径”查找。</li>
+</ol>
+<blockquote>
+<p>Java获取资源文件信息：</p>
+</blockquote>
 
     </div>
 
@@ -263,7 +277,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Hexo%E3%80%81GitHub-Pages%E3%80%81GitHub/" rel="tag"># Hexo、GitHub Pages、GitHub</a>
+              <a href="/tags/Java%E3%80%81Idea%E3%80%81Maven/" rel="tag"># Java、Idea、Maven</a>
           </div>
 
         
@@ -272,12 +286,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/08/25/work-report-ddoa/" rel="prev" title="工作小结-钉钉OA审批">
-      <i class="fa fa-chevron-left"></i> 工作小结-钉钉OA审批
+    <a href="/2023/09/26/aop-aspectj-execution/" rel="prev" title="AspectJ之Execution表达式">
+      <i class="fa fa-chevron-left"></i> AspectJ之Execution表达式
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/09/01/work-report-ddoa2/" rel="next" title="工作小结-钉钉OA审批(2)">
-      工作小结-钉钉OA审批(2) <i class="fa fa-chevron-right"></i>
+    <a href="/2023/10/07/java-io-resource/" rel="next" title="Java获取资源文件的输入流">
+      Java获取资源文件的输入流 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -337,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAGitHub-Pages"><span class="nav-number">1.</span> <span class="nav-text">搭建GitHub Pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">配置个人域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Pages%E7%BB%91%E5%AE%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="nav-number">3.</span> <span class="nav-text">GitHub Pages绑定自定义域名</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E7%9A%84%E8%A7%A3%E9%87%8A"><span class="nav-number">2.1.</span> <span class="nav-text">Maven项目目录结构的解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E7%BA%A6%E5%AE%9A"><span class="nav-number">2.2.</span> <span class="nav-text">常见的源代码目录结构约定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">实测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#src-main-java%E4%B8%AD%E7%9A%84Java%E4%BB%A3%E7%A0%81%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%88%B0src-main-resources%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">src&#x2F;main&#x2F;java中的Java代码如何获取到src&#x2F;main&#x2F;resources下的文件信息</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
