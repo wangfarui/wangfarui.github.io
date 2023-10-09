@@ -40,8 +40,17 @@
 <meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231008170125128.png">
 <meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231008170433552.png">
 <meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231008171426624.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009153300480.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009153536791.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009155122871.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009155306802.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009172433701.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009172603997.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009172917167.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009173234092.png">
+<meta property="og:image" content="http://example.com/2023/10/08/springboot-tomcat-initialize/image-20231009173327996.png">
 <meta property="article:published_time" content="2023-10-08T03:31:28.000Z">
-<meta property="article:modified_time" content="2023-10-08T09:38:58.168Z">
+<meta property="article:modified_time" content="2023-10-09T10:03:12.332Z">
 <meta property="article:author" content="Wray">
 <meta property="article:tag" content="Java、SpringBoot、Tomcat">
 <meta name="twitter:card" content="summary">
@@ -187,10 +196,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-08 11:31:28 / 修改时间：17:38:58" itemprop="dateCreated datePublished" datetime="2023-10-08T11:31:28+08:00">2023-10-08</time>
+              <time title="创建时间：2023-10-08 11:31:28" itemprop="dateCreated datePublished" datetime="2023-10-08T11:31:28+08:00">2023-10-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-09 18:03:12" itemprop="dateModified" datetime="2023-10-09T18:03:12+08:00">2023-10-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -214,14 +229,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
+              <span>5.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>10 分钟</span>
             </span>
             <div class="post-description">SpringBoot应用程序是如何启动Tomcat服务器的，何时启动的，是怎样做到Java程序不结束退出的。</div>
 
@@ -315,9 +330,62 @@
 <p>-&gt; TomcatWebServer#initialize()</p>
 <h3 id="获取WebServer工厂对象"><a class="header-anchor" href="#获取WebServer工厂对象"></a>获取WebServer工厂对象</h3>
 <p>出现在主流程的第4步，入口为：ServletWebServerApplicationContext#getWebServerFactory</p>
+<ol>
+<li><code>getWebServerFactory</code>方法是直接从Spring IOC容器中获取类型为<code>ServletWebServerFactory</code>的Bean，要求Bean的个数必须有且仅有一个。</li>
+</ol>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009153300480.png" alt="image-20231009153300480"></p>
+<ol start="2">
+<li>查看<code>ServletWebServerFactory</code>的实现类，可以发现都是SpringBoot内嵌实现的，包含有Jetty、Tomcat、Undertow。</li>
+</ol>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009153536791.png" alt="image-20231009153536791"></p>
+<p>进入到<code>TomcatServletWebServerFactory</code>类下，通过IDEA没法找到在何处引用到它（因为IDEA只搜索当前jar包）。</p>
+<ol start="4">
+<li>既然如此，就直接启动程序，开启debug模式，在<code>TomcatServletWebServerFactory</code>类的构造方法上打上断点。</li>
+</ol>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009155122871.png" alt="image-20231009155122871"></p>
+<ol start="5">
+<li>查看上一层调用链，发现了一个新类<code>ServletWebServerFactoryConfiguration</code>，它处在于spring-boot-autoconfigure-2.7.2.jar下。</li>
+</ol>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009155306802.png" alt="image-20231009155306802"></p>
+<ol start="6">
+<li>观察<code>ServletWebServerFactoryConfiguration</code>类，它是通过条件装配扫描到了<code>TomcatServletWebServerFactory</code>，而Jetty和Undertow因为扫描顺序和条件判断的问题被忽略。</li>
+</ol>
+<blockquote>
+<p>需要注意的是，在只引入spring-boot-starter-web依赖包的情况下，SpringBoot默认只支持Tomcat容器，Jetty和Undertow需要单独引入pom依赖。</p>
+</blockquote>
+<p>pom依赖参考如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">      	<span class="comment">&lt;!-- 如果需要使用内嵌的Jetty或Undertow，就需要排除web包里面的tomcat依赖 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Jetty --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Undertow --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-undertow<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="ApplicationContextFactory和WebApplicationType来源"><a class="header-anchor" href="#ApplicationContextFactory和WebApplicationType来源"></a>ApplicationContextFactory和WebApplicationType来源</h3>
 <p>出现在主流程的第7步，入口为：SpringApplication#createApplicationContext</p>
+<h4 id="ApplicationContextFactory"><a class="header-anchor" href="#ApplicationContextFactory"></a>ApplicationContextFactory</h4>
+<p><code>ApplicationContextFactory</code>是一个FunctionalInterface接口类，它具有默认实现类。</p>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009172433701.png" alt="image-20231009172433701"></p>
+<p>默认实现类通过Spring的SPI机制加载指定类，并根据入参值决定使用哪个类。</p>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009172603997.png" alt="image-20231009172603997"></p>
+<p>Spring Boot指定了两个<code>ApplicationContextFactory</code>实现类，分为Reactive和Servlet。</p>
+<h4 id="WebApplicationType"><a class="header-anchor" href="#WebApplicationType"></a>WebApplicationType</h4>
+<p><code>webApplicationType</code>变量赋值入口有两个，分别是SpringApplication的构造方法和setter方法。</p>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009172917167.png" alt="image-20231009172917167"></p>
+<p>在本项目的示例中，采用的是最基本的SpringApplication#run方式启动，没有经过setter方法，从run方法一路debug下来，也可以发现<code>webApplicationType</code>是在实例化时进行的赋值操作。</p>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009173234092.png" alt="image-20231009173234092"></p>
+<p>再看<code>WebApplicationType.deduceFromClasspath()</code>方法，它其实就是通过访问指定全量路径类是否存在，判断<code>WebApplicationType</code>类型。</p>
+<p><img src="/2023/10/08/springboot-tomcat-initialize/image-20231009173327996.png" alt="image-20231009173327996"></p>
 <h3 id="Tomcat服务启动过程"><a class="header-anchor" href="#Tomcat服务启动过程"></a>Tomcat服务启动过程</h3>
+<h2 id="总结"><a class="header-anchor" href="#总结"></a>总结</h2>
+<ul>
+<li>
+<p>SpringBoot应用程序是如何启动Tomcat服务器的？</p>
+<p>答：在Spring启动时，通过应用上下文调用refresh方法触发Tomcat服务启动。回看<em><strong>SpringBoot初始化Tomcat服务的主流程</strong></em>章节。</p>
+</li>
+<li>
+<p>Tomcat服务器是何时启动的？</p>
+<p>答：在Spring启动时初始化Tomcat Web服务对象时就启动了，最后在Spring启动的finishRefresh阶段完成启动。回看<em><strong>Tomcat服务启动过程</strong></em>章节。</p>
+</li>
+<li>
+<p>SpringBoot Web服务是怎样做到Java程序不结束退出的。</p>
+<p>答：</p>
+</li>
+</ul>
 
     </div>
 
@@ -398,7 +466,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot%E5%88%9D%E5%A7%8B%E5%8C%96Tomcat%E6%9C%8D%E5%8A%A1%E7%9A%84%E4%B8%BB%E6%B5%81%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">SpringBoot初始化Tomcat服务的主流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96WebServer%E5%B7%A5%E5%8E%82%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.</span> <span class="nav-text">获取WebServer工厂对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContextFactory%E5%92%8CWebApplicationType%E6%9D%A5%E6%BA%90"><span class="nav-number">2.3.</span> <span class="nav-text">ApplicationContextFactory和WebApplicationType来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">Tomcat服务启动过程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot%E5%88%9D%E5%A7%8B%E5%8C%96Tomcat%E6%9C%8D%E5%8A%A1%E7%9A%84%E4%B8%BB%E6%B5%81%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">SpringBoot初始化Tomcat服务的主流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96WebServer%E5%B7%A5%E5%8E%82%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.</span> <span class="nav-text">获取WebServer工厂对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContextFactory%E5%92%8CWebApplicationType%E6%9D%A5%E6%BA%90"><span class="nav-number">2.3.</span> <span class="nav-text">ApplicationContextFactory和WebApplicationType来源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ApplicationContextFactory"><span class="nav-number">2.3.1.</span> <span class="nav-text">ApplicationContextFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebApplicationType"><span class="nav-number">2.3.2.</span> <span class="nav-text">WebApplicationType</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">Tomcat服务启动过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
