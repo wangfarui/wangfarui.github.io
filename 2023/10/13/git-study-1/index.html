@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="从0开始学Git，掌握Git的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习-起步">
+<meta property="og:url" content="http://example.com/2023/10/13/git-study-1/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="从0开始学Git，掌握Git的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/10/13/git-study-1/image-20231013170115289.png">
+<meta property="article:published_time" content="2023-10-13T03:18:07.000Z">
+<meta property="article:modified_time" content="2023-10-13T09:16:50.806Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/10/13/git-study-1/image-20231013170115289.png">
+
+<link rel="canonical" href="http://example.com/2023/10/13/git-study-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Git学习-起步 | Wray Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wray Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/git-study-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wray">
+      <meta itemprop="description" content="记录生活的点点滴滴<br>Keep track of my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wray Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git学习-起步
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-13 11:18:07 / 修改时间：17:16:50" itemprop="dateCreated datePublished" datetime="2023-10-13T11:18:07+08:00">2023-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">从0开始学Git，掌握Git的使用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="学习大纲"><a class="header-anchor" href="#学习大纲"></a>学习大纲</h2>
+<p>本次Git学习将全程按照<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2">Git Book</a>的章节进行学习。学习目录分为：</p>
+<ol>
+<li>起步</li>
+<li>Git基础</li>
+<li>Git分支</li>
+<li>服务器上的Git</li>
+<li>分布式Git</li>
+<li>GitHub</li>
+<li>Git工具</li>
+<li>自定义Git</li>
+<li>Git与其他系统</li>
+<li>Git内部原理</li>
+</ol>
+<blockquote>
+<p>本次重新学习Git的初衷，也不是想要深入了解Git工作原理，掌握高端操作什么的。仅是希望在日后开发工作途中，坚持只使用Git命令行操作Git，理解每个Git命令的含义，能够轻松应付日常所需（例如克隆仓库、拉取代码、提交代码、远程推送、代码回退等）。除此之外，在学习途中将认为平常常使用的命令做一个归纳收集，便于后期温故。</p>
+</blockquote>
+<h2 id="Git的自述"><a class="header-anchor" href="#Git的自述"></a>Git的自述</h2>
+<p>先说Git是什么，<strong>Git是一个分布式版本控制系统（Distributed Version Control System，简称 DVCS）</strong>。</p>
+<p>而分布式版本控制系统是什么，就要说到为什么会出现版本控制系统这个东西。</p>
+<h3 id="本地版本控制"><a class="header-anchor" href="#本地版本控制"></a>本地版本控制</h3>
+<p>在早期，人习惯用复制整个项目目录的方式来保存不同的版本，或许还会改名加上备份时间以示区别。 这么做唯一的好处就是简单，但是特别容易犯错。 有时候会混淆所在的工作目录，一不小心会写错文件或者覆盖意想外的文件。</p>
+<p>为了解决这个问题，人们很久以前就开发了许多种本地版本控制系统，大多都是<strong>采用某种简单的数据库来记录文件的历次更新差异</strong>。</p>
+<p>其中最流行的一种叫做 RCS，现今许多计算机系统上都还看得到它的踪影。 RCS 的工作原理是在硬盘上保存补丁集（补丁是指文件修订前后的变化）；通过应用所有的补丁，可以重新计算出各个版本的文件内容。</p>
+<p><strong>总结</strong>：通过本地数据库记录项目文件的修改记录。缺点就是只能在单机实现版本控制。</p>
+<h3 id="集中化的版本控制系统"><a class="header-anchor" href="#集中化的版本控制系统"></a>集中化的版本控制系统</h3>
+<p>集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。 这类系统，诸如 CVS、Subversion 以及 Perforce 等，都<strong>有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新</strong>。 多年以来，这已成为版本控制系统的标准做法。</p>
+<p><strong>总结</strong>：通过中央服务器作为远程版本控制系统。优点是开发者们可以通过与中央服务器的交互，知道协同工作人员的修改记录，即可以多人协同工作。缺点是太依赖中央服务器，如果中央服务器出现问题，那么所有人都无法协同。</p>
+<h3 id="分布式版本控制系统"><a class="header-anchor" href="#分布式版本控制系统"></a>分布式版本控制系统</h3>
+<p>于是分布式版本控制系统（Distributed Version Control System，简称 DVCS）面世了。 在这类系统中，像 Git、Mercurial、Bazaar 以及 Darcs 等，<strong>客户端并不只提取最新版本的文件快照， 而是把代码仓库完整地镜像下来，包括完整的历史记录</strong>。 这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。 因为每一次的克隆操作，实际上都是一次对代码仓库的完整备份。</p>
+<p><strong>总结</strong>：在集中化的版本控制系统基础上，将客户端也作为了完整的版本控制系统。优点是即使中央服务器挂了，也可以通过客户端还原所有版本记录，并且在项目文件发生变更做提交操作时可以先在本地提交，等中央服务器好了再同步。</p>
+<h2 id="Git的基本介绍"><a class="header-anchor" href="#Git的基本介绍"></a>Git的基本介绍</h2>
+<ul>
+<li>
+<p>Git在对待文件的版本控制上，是通过记录快照的方式，而非差异比较。</p>
+</li>
+<li>
+<p>Git的命令操作，绝大多数都是本地执行。</p>
+</li>
+<li>
+<p>Git保证完整性，即在Git工作目录下的文件，Git会计算校验和（SHA-1 散列）。</p>
+</li>
+<li>
+<p>Git一般只添加数据，即Git的所有操作都是做增量记录，使得Git可以让工作目录回溯到以前的任何一个时间段。</p>
+</li>
+<li>
+<p>Git项目包含三个组件：工作区、暂存区、存储库。</p>
+<ul>
+<li>工作区是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
+<li>暂存区是一个文件，保存了下次将要提交的文件列表信息，一般在 Git 仓库目录中。 按照 Git 的术语叫做“索引”，不过一般说法还是叫“暂存区”。</li>
+<li>Git 仓库目录（存储库）是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，复制的就是这里的数据。</li>
+</ul>
+</li>
+<li>
+<p>Git管理的文件有三种状态：已修改、已暂存、已提交。</p>
+<ul>
+<li>
+<p>已修改表示修改了文件，但还没保存到数据库中。</p>
+</li>
+<li>
+<p>已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。</p>
+</li>
+<li>
+<p>已提交表示数据已经安全地保存在本地数据库中。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Git的基本工作流程：</p>
+<ol>
+<li>在工作区中修改文件。</li>
+<li>将你想要下次提交的更改选择性地暂存，这样只会将更改的部分添加到暂存区。</li>
+<li>提交更新，找到暂存区的文件，将快照永久性存储到存储库中。</li>
+</ol>
+</li>
+</ul>
+<h2 id="安装Git"><a class="header-anchor" href="#安装Git"></a>安装Git</h2>
+<p>Git作为实现版本控制系统的软件，需要安装在本地环境。安装的Git版本尽量安装最新版本，因为Git对向后兼容做的比较好，在日常使用中不用担心版本兼容问题。</p>
+<h3 id="Windows环境安装Git"><a class="header-anchor" href="#Windows环境安装Git"></a>Windows环境安装Git</h3>
+<p>打开下面的官方下载地址，选择对应的操作系统安装即可。</p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a></p>
+<h3 id="macOS环境安装Git"><a class="header-anchor" href="#macOS环境安装Git"></a>macOS环境安装Git</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install git</span><br></pre></td></tr></table></figure>
+<h3 id="Linux环境安装Git"><a class="header-anchor" href="#Linux环境安装Git"></a>Linux环境安装Git</h3>
+<p>打开下面的官方下载地址，选择对应Linux发行版的安装命令执行即可。</p>
+<p><a target="_blank" rel="noopener" href="https://git-scm.com/download/linux">https://git-scm.com/download/linux</a></p>
+<h2 id="Git环境配置"><a class="header-anchor" href="#Git环境配置"></a>Git环境配置</h2>
+<p>在安装完Git后，可以定制一些全局配置，例如user.name、user.email等。</p>
+<p>Git 自带一个 <code>git config</code> 的工具来帮助设置控制 Git 外观和行为的配置变量。 这些变量存储在三个不同的位置：</p>
+<ol>
+<li><code>/etc/gitconfig</code> 文件: 包含系统上每一个用户及他们仓库的通用配置。 如果在执行 <code>git config</code> 时带上 <code>--system</code> 选项，那么它就会读写该文件中的配置变量。 （由于它是系统配置文件，因此你需要管理员或超级用户权限来修改它。）</li>
+<li><code>~/.gitconfig</code> 或 <code>~/.config/git/config</code> 文件：只针对当前用户。 你可以传递 <code>--global</code> 选项让 Git 读写此文件，这会对你系统上 <strong>所有</strong> 的仓库生效。</li>
+<li>当前使用仓库的 Git 目录中的 <code>config</code> 文件（即 <code>.git/config</code>）：针对该仓库。 你可以传递 <code>--local</code> 选项让 Git 强制读写此文件，虽然默认情况下用的就是它。。 （当然，你需要进入某个 Git 仓库中才能让该选项生效。）</li>
+</ol>
+<p>每一个级别会覆盖上一级别的配置，所以 <code>.git/config</code> 的配置变量会覆盖 <code>/etc/gitconfig</code> 中的配置变量。</p>
+<h3 id="用户信息"><a class="header-anchor" href="#用户信息"></a>用户信息</h3>
+<p>安装完 Git 之后，要做的第一件事就是设置你的用户名和邮件地址。 这一点很重要，因为每一个 Git 提交都会使用这些信息，它们会写入到你的每一次提交中，不可更改：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.name <span class="string">&quot;Wray&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.email wray@example.com</span></span><br></pre></td></tr></table></figure>
+<p>再次强调，如果使用了 <code>--global</code> 选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， Git 都会使用那些信息。 当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 <code>--global</code> 选项的命令来配置。</p>
+<h3 id="检查配置信息"><a class="header-anchor" href="#检查配置信息"></a>检查配置信息</h3>
+<p>如果想要检查你的配置，可以使用 <code>git config --list</code> 命令来列出所有 Git 当时能找到的配置。</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --list</span></span><br><span class="line">user.name=John Doe</span><br><span class="line">user.email=johndoe@example.com</span><br><span class="line">color.status=auto</span><br><span class="line">color.branch=auto</span><br><span class="line">color.interactive=auto</span><br><span class="line">color.diff=auto</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>你可能会看到重复的变量名，因为 Git 会从不同的文件中读取同一个配置（例如：<code>/etc/gitconfig</code> 与 <code>~/.gitconfig</code>）。 这种情况下，Git 会使用它找到的每一个变量的最后一个配置。</p>
+<p>你可以通过输入 <code>git config &lt;key&gt;</code>： 来检查 Git 的某一项配置</p>
+<p>（需要注意的是，git config读取配置也是按照配置文件的优先级读取的）</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config user.name</span></span><br><span class="line">Wray</span><br></pre></td></tr></table></figure>
+<p>由于 Git 会从多个文件中读取同一配置变量的不同值，因此你可能会在其中看到意料之外的值而不知道为什么。 此时，你可以查询 Git 中该变量的 <strong>原始</strong> 值（也就是最终实际用到的值），它会告诉你哪一个配置文件最后设置了该值：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --show-origin user.name</span></span><br><span class="line">file:/Users/wangfarui/.gitconfig	Wray</span><br></pre></td></tr></table></figure>
+<h2 id="Git的Help"><a class="header-anchor" href="#Git的Help"></a>Git的Help</h2>
+<p>熟练使用git help，基本可以找到你想要的所有git命令语法。</p>
+<p>使用 Git 时需要获取帮助，有三种等价的方法可以找到 Git 命令的综合手册（manpage）：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">help</span> &lt;verb&gt;</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git &lt;verb&gt; --<span class="built_in">help</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">man git-&lt;verb&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其中的<code>&lt;verb&gt;</code>表示git动作，例如config、add、commit等。如果不知道有哪些verb，可以输入<code>git help -a</code>，查看git的所有命令。</p>
+<p>例如想要获取<code>git config</code>命令的手册，执行：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">help</span> config</span></span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="/2023/10/13/git-study-1/image-20231013170115289.png" alt="image-20231013170115289"></p>
+<p>其中的命令语法参数，我将其大致分为 <strong>固定字符</strong>、<strong>动态字符</strong>、<strong>可选字符</strong>。</p>
+<ul>
+<li>固定字符：例如 <code>git</code> 、<code>config</code>、<code>--get-all</code>、<code>--type</code>、<code>-z</code>等。</li>
+<li>动态字符：由<code>&lt;&gt;</code>括起来的参数就表示动态字符。例如<code>&lt;file-option&gt;</code>指输入指定配置文件名、<code>&lt;name&gt;</code>指config的参数名。</li>
+<li>可选字符：由<code>[]</code>括起来的参数就表示可选字符，它不是必须输入的。例如<code>[file-option]</code>不指定时，git会配置文件的优先级选择对应的配置文件。</li>
+</ul>
+<br>
+<p>使用<code>git config &lt;verb&gt;</code>获取的是全面的手册，如果只需要可用选项的快速参考，那么可以用 <code>-h</code> 选项获得更简明的帮助文档。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config -h</span></span><br><span class="line">usage: git config [&lt;options&gt;]</span><br><span class="line"></span><br><span class="line">Config file location</span><br><span class="line">    --global              use global config file</span><br><span class="line">    --system              use system config file</span><br><span class="line">    --local               use repository config file</span><br><span class="line">    --worktree            use per-worktree config file</span><br><span class="line">    -f, --file &lt;file&gt;     use given config file</span><br><span class="line">    --blob &lt;blob-id&gt;      read config from given blob object</span><br><span class="line"></span><br><span class="line">Action</span><br><span class="line">    --get                 get value: name [value-pattern]</span><br><span class="line">    --get-all             get all values: key [value-pattern]</span><br><span class="line">    --get-regexp          get values for regexp: name-regex [value-pattern]</span><br><span class="line">    --get-urlmatch        get value specific for the URL: section[.var] URL</span><br><span class="line">    --replace-all         replace all matching variables: name value [value-pattern]</span><br><span class="line">    --add                 add a new variable: name value</span><br><span class="line">    --unset               remove a variable: name [value-pattern]</span><br><span class="line">    --unset-all           remove all matches: name [value-pattern]</span><br><span class="line">    --rename-section      rename section: old-name new-name</span><br><span class="line">    --remove-section      remove a section: name</span><br><span class="line">    -l, --list            list all</span><br><span class="line">    --fixed-value         use string equality when comparing values to &#x27;value-pattern&#x27;</span><br><span class="line">    -e, --edit            open an editor</span><br><span class="line">    --get-color           find the color configured: slot [default]</span><br><span class="line">    --get-colorbool       find the color setting: slot [stdout-is-tty]</span><br><span class="line"></span><br><span class="line">Type</span><br><span class="line">    -t, --type &lt;type&gt;     value is given this type</span><br><span class="line">    --bool                value is &quot;true&quot; or &quot;false&quot;</span><br><span class="line">    --int                 value is decimal number</span><br><span class="line">    --bool-or-int         value is --bool or --int</span><br><span class="line">    --bool-or-str         value is --bool or string</span><br><span class="line">    --path                value is a path (file or directory name)</span><br><span class="line">    --expiry-date         value is an expiry date</span><br><span class="line"></span><br><span class="line">Other</span><br><span class="line">    -z, --null            terminate values with NUL byte</span><br><span class="line">    --name-only           show variable names only</span><br><span class="line">    --includes            respect include directives on lookup</span><br><span class="line">    --show-origin         show origin of config (file, standard input, blob, command line)</span><br><span class="line">    --show-scope          show scope of config (worktree, local, global, system, command)</span><br><span class="line">    --default &lt;value&gt;     with --get, use default value when missing entry</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/08/springboot-tomcat-initialize/" rel="prev" title="SpringBoot之Tomcat初始化过程的源码分析">
+      <i class="fa fa-chevron-left"></i> SpringBoot之Tomcat初始化过程的源码分析
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2"><span class="nav-number">1.</span> <span class="nav-text">学习大纲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%9A%84%E8%87%AA%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">Git的自述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">本地版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E4%B8%AD%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">集中化的版本控制系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">分布式版本控制系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">Git的基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-number">4.</span> <span class="nav-text">安装Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Git"><span class="nav-number">4.1.</span> <span class="nav-text">Windows环境安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Git"><span class="nav-number">4.2.</span> <span class="nav-text">macOS环境安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85Git"><span class="nav-number">4.3.</span> <span class="nav-text">Linux环境安装Git</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">Git环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">5.1.</span> <span class="nav-text">用户信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="nav-number">5.2.</span> <span class="nav-text">检查配置信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git%E7%9A%84Help"><span class="nav-number">6.</span> <span class="nav-text">Git的Help</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wray</p>
+  <div class="site-description" itemprop="description">记录生活的点点滴滴<br>Keep track of my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangfarui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangfarui" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wray20156294@gmail.com" title="E-Mail → mailto:wray20156294@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wray</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
