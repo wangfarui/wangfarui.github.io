@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git学习-Git基础 | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从0开始学Git，掌握Git的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习-Git基础">
+<meta property="og:url" content="https://www.itwray.com/2023/12/07/git-study-2/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="从0开始学Git，掌握Git的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.itwray.com/img/touxiang.jpeg">
+<meta property="article:published_time" content="2023-12-07T06:18:21.000Z">
+<meta property="article:modified_time" content="2023-12-07T09:47:59.915Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.itwray.com/img/touxiang.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.itwray.com/2023/12/07/git-study-2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git学习-Git基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-07 17:47:59'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git学习-Git基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-07T06:18:21.000Z" title="发表于 2023-12-07 14:18:21">2023-12-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-07T09:47:59.915Z" title="更新于 2023-12-07 17:47:59">2023-12-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Git/">Git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git学习-Git基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><blockquote>
+<p>继上次学习<a href="https://www.itwray.com/2023/10/13/git-study-1/">Git学习-起步</a>后，本章将学习Git基础，本章涵盖了你在使用 Git 完成各种工作时将会用到的各种基本命令。 在学习完本章之后，你应该能够配置并初始化一个仓库（repository）、开始或停止跟踪（track）文件、暂存（stage）或提交（commit）更改。 本章也将向你演示了如何配置 Git 来忽略指定的文件和文件模式、如何迅速而简单地撤销错误操作、如何浏览你的项目的历史版本以及不同提交（commits）之间的差异、如何向你的远程仓库推送（push）以及如何从你的远程仓库拉取（pull）文件。</p>
+</blockquote>
+<h2 id="获取Git仓库"><a class="header-anchor" href="#获取Git仓库"></a>获取Git仓库</h2>
+<p>获取Git仓库有两种方式：</p>
+<ol>
+<li>将尚未进行版本控制的本地目录转换为Git仓库（<code>git init</code>）</li>
+<li>从其他服务器 <strong>克隆</strong> 一个已存在的Git仓库（<code>git clone</code>）</li>
+</ol>
+<h3 id="在已存在目录中初始化仓库"><a class="header-anchor" href="#在已存在目录中初始化仓库"></a>在已存在目录中初始化仓库</h3>
+<p>在已存在的目录路径下，执行 <code>git init</code> 。</p>
+<p>执行完之后，Git会在该目录下创建一个<code>.git</code>的子目录，这个子目录含有你初始化的 Git 仓库中所有的必须文件，这些文件是 Git 仓库的骨干。</p>
+<h3 id="克隆现有的仓库"><a class="header-anchor" href="#克隆现有的仓库"></a>克隆现有的仓库</h3>
+<p>语法：<code>git clone &lt;url&gt;</code></p>
+<p><code>&lt;url&gt;</code>就是GIt仓库的远程地址，Git支持多种数据协议，例如<code>https</code>、<code>git</code>、<code>ssh</code>。</p>
+<p>执行<code>git clone</code>命令后，Git会在执行命令所在目录下创建一个Git仓库目录，并在这个目录下初始化一个 <code>.git</code> 文件夹， 从远程仓库拉取下所有数据放入 <code>.git</code> 文件夹，然后从中读取最新版本的文件的拷贝。</p>
+<p>例如：<code>git clone https://github.com/libgit2/libgit2</code></p>
+<p>Git仓库的目录名称就为<code>libgit2</code>，如果希望在创建仓库时自定义仓库名称，可以通过额外的参数指定新的目录名。</p>
+<p>例如：<code>git clone https://github.com/libgit2/libgit2 mylibgit</code></p>
+<p>Git仓库的目录名称就为<code>mylibgit</code>。</p>
+<h2 id="Git仓库文件的状态变化周期"><a class="header-anchor" href="#Git仓库文件的状态变化周期"></a>Git仓库文件的状态变化周期</h2>
+<p><img src="/2023/12/07/git-study-2/image-20231207152109416.png" alt="image-20231207152109416"></p>
+<p>结合上图，GIt仓库下的文件分为四种状态：</p>
+<ul>
+<li>Untracked：未跟踪。</li>
+<li>Unmodified：已跟踪且未修改。</li>
+<li>Modified：已跟踪且已修改。</li>
+<li>Staged：已暂存。</li>
+</ul>
+<p>通过上图的箭头可知，从左到右文件的状态变更流程如下：</p>
+<ol>
+<li>Untracked -&gt; Staged，使用 <code>git add</code> 暂存文件，将未跟踪的文件进行跟踪并暂存。</li>
+<li>Staged -&gt; Unmodified，使用 <code>git commit</code> 提交文件，Git记录文件版本。</li>
+<li>Unmodified -&gt; Modified，编辑文件，文件的状态从“未修改”变更为“已修改”。</li>
+<li>Modified -&gt; Staged，使用 <code>git add</code> 暂存文件，将已跟踪且已修改的文件进行暂存。</li>
+<li>Unmodified -&gt; Untracked，使用 <code>git rm</code> 将未修改的文件从已跟踪的文件列表中移除并在目录中删除。</li>
+<li>Modified/Staged -&gt; Untracked，使用 <code>git rm -f</code>强制将已修改或已暂存的文件从已跟踪的文件列表中移除并在目录中删除。</li>
+</ol>
+<p>从上诉可知，Git仓库的文件主要分为两种状态：<strong>已跟踪</strong> 或 <strong>未跟踪</strong>。已跟踪的文件是指那些被纳入了版本控制的文件，在上一次快照中有它们的记录，在工作一段时间后， 它们的状态可能是未修改，已修改或已放入暂存区。简而言之，已跟踪的文件就是 Git 已经知道的文件。</p>
+<p>初次克隆 <code>git clone</code> 某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态，因为 Git 刚刚检出了它们， 而你尚未编辑过它们。反之，通过<code>git init</code>初始化的Git仓库，工作目录中的所有文件都属于未跟踪文件。</p>
+<h3 id="git-status"><a class="header-anchor" href="#git-status"></a>git status</h3>
+<p>可以用 <code>git status</code> 命令查看Git仓库下的文件状态。</p>
+<p>如果在克隆仓库后立即使用此命令，会看到类似这样的输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git status</span></span><br><span class="line">On branch master</span><br><span class="line">Your branch is up-to-date with &#x27;origin/master&#x27;.</span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
+<p>这说明你现在的工作目录相当干净。换句话说，所有已跟踪文件在上次提交后都未被更改过。 此外，上面的信息还表明，当前目录下没有出现任何处于未跟踪状态的新文件，否则 Git 会在这里列出来。 最后，该命令还显示了当前所在分支，并告诉你这个分支同远程服务器上对应的分支没有偏离。</p>
+<p>再看下面截图的情况：</p>
+<p><img src="/2023/12/07/git-study-2/image-20231207163143786.png" alt="image-20231207163143786"></p>
+<p>上图分为三种文件状态：</p>
+<ul>
+<li>Changes to be committed：表示已暂存文件。</li>
+<li>Changes not staged for commit：表示已跟踪且已修改的文件。</li>
+<li>Untracked files：表示未跟踪的文件。</li>
+</ul>
+<h3 id="git-add"><a class="header-anchor" href="#git-add"></a>git add</h3>
+<p><code>git add</code> 是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。 将这个命令理解为“精确地将内容添加到下一次提交中”而不是“将一个文件添加到项目中”要更加合适。</p>
+<h3 id="gitignore忽略文件"><a class="header-anchor" href="#gitignore忽略文件"></a>.gitignore忽略文件</h3>
+<p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件的模式。</p>
+<p>关于<code>.gitignore</code>文件的详细解释，可以参考 <a href="https://www.itwray.com/2023/11/02/git-study-commands/">Git学习-命令</a> 章节中的1.3小节。</p>
+<h3 id="git-diff"><a class="header-anchor" href="#git-diff"></a>git diff</h3>
+<p>当想知道具体修改了什么地方，可以用 <code>git diff</code> 命令。不过不太推荐这个命令。。。建议使用图形化工具，例如IDEA、SourceTree等。</p>
+<h3 id="git-commit"><a class="header-anchor" href="#git-commit"></a>git commit</h3>
+<p>使用 <code>git commit</code> 命令，会将暂存区中的文件创建为一次提交记录，并生成一个完整 SHA-1 校验和的版本号。</p>
+<p><code>git commit</code>命令会要求每次提交都带有提交说明，在未指定<code>-m</code>参数时，git会启用文本编辑器来输入提交说明。</p>
+<p>尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 <code>git commit</code> 加上 <code>-a</code> 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤。</p>
+<h3 id="git-rm"><a class="header-anchor" href="#git-rm"></a>git rm</h3>
+<p>要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+<p><code>git rm</code>一般用于已跟踪且未修改（Unmodified）的文件。如果是未跟踪文件，直接使用rm删除即可。如果是已跟踪且已修改（Modified） 或者 已跟踪且已暂存（Staged）的文件，则需要使用<code>-f</code>参数，强制删除。</p>
+<p>当想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 当你忘记添加 <code>.gitignore</code> 文件，不小心把一个很大的日志文件或一堆 <code>.a</code> 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 为达到这一目的，使用 <code>--cached</code> 选项：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached README</span><br></pre></td></tr></table></figure>
+<h3 id="git-mv"><a class="header-anchor" href="#git-mv"></a>git mv</h3>
+<p>Git 并不显式跟踪文件移动操作。 如果在 Git 中重命名了某个文件，仓库中存储的元数据并不会体现出这是一次改名操作。</p>
+<p>语法：<code>git mv file_from file_to</code></p>
+<p>它会恰如预期般正常工作。 实际上，即便此时查看状态信息，也会明白无误地看到关于重命名操作的说明：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">mv</span> README.md README</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git status</span></span><br><span class="line">On branch master</span><br><span class="line">Your branch is up-to-date with &#x27;origin/master&#x27;.</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">    renamed:    README.md -&gt; README</span><br></pre></td></tr></table></figure>
+<p>其实，运行 <code>git mv</code> 就相当于运行了下面三条命令：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> README.md README</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">rm</span> README.md</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git add README</span></span><br></pre></td></tr></table></figure>
+<p>如此分开操作，Git 也会意识到这是一次重命名，所以不管何种方式结果都一样。 两者唯一的区别在于，<code>git mv</code> 是一条命令而非三条命令，直接使用 <code>git mv</code> 方便得多。 不过在使用其他工具重命名文件时，记得在提交前 <code>git rm</code> 删除旧文件名，再 <code>git add</code> 添加新文件名。</p>
+<h2 id="查看提交历史"><a class="header-anchor" href="#查看提交历史"></a>查看提交历史</h2>
+<p>使用 <code>git log</code> 即可查看提交历史。</p>
+<p><img src="/2023/12/07/git-study-2/image-20231207171033768.png" alt="image-20231207171033768"></p>
+<p>不传入任何参数的默认情况下，<code>git log</code> 会按时间先后顺序列出所有的提交，最近的更新排在最上面。 正如你所看到的，这个命令会列出每个提交的 SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。</p>
+<p>使用<code>-n</code>参数，可以只查看最近n次提交历史。</p>
+<p>使用 <code>--stat</code>参数，显示在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
+<p><img src="/2023/12/07/git-study-2/image-20231207171305899.png" alt="image-20231207171305899"></p>
+<p><code>git log</code>在终端提供了许多参数，但个人还是推荐使用图形化工具，例如IDEA、SourceTree等。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.itwray.com/2023/12/07/git-study-2/">https://www.itwray.com/2023/12/07/git-study-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/img/touxiang.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/05/life-200231205/" title="生活日记-20231205"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生活日记-20231205</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/11/22/git-commands-reset/" title="Git命令-reset"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-22</div><div class="title">Git命令-reset</div></div></a></div><div><a href="/2023/10/13/git-study-1/" title="Git学习-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-13</div><div class="title">Git学习-起步</div></div></a></div><div><a href="/2023/11/02/git-study-commands/" title="Git学习-命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-02</div><div class="title">Git学习-命令</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96Git%E4%BB%93%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">获取Git仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9B%AE%E5%BD%95%E4%B8%AD%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text">在已存在目录中初始化仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%E7%8E%B0%E6%9C%89%E7%9A%84%E4%BB%93%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">克隆现有的仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6%E7%9A%84%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">Git仓库文件的状态变化周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-status"><span class="toc-number">2.1.</span> <span class="toc-text">git status</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-add"><span class="toc-number">2.2.</span> <span class="toc-text">git add</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gitignore%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">.gitignore忽略文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-diff"><span class="toc-number">2.4.</span> <span class="toc-text">git diff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-commit"><span class="toc-number">2.5.</span> <span class="toc-text">git commit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-rm"><span class="toc-number">2.6.</span> <span class="toc-text">git rm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-mv"><span class="toc-number">2.7.</span> <span class="toc-text">git mv</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2"><span class="toc-number">3.</span> <span class="toc-text">查看提交历史</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/07/git-study-2/" title="Git学习-Git基础">Git学习-Git基础</a><time datetime="2023-12-07T06:18:21.000Z" title="发表于 2023-12-07 14:18:21">2023-12-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/05/life-200231205/" title="生活日记-20231205">生活日记-20231205</a><time datetime="2023-12-05T02:49:44.000Z" title="发表于 2023-12-05 10:49:44">2023-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/22/other-macos-input-method/" title="记录一次macOS输入法卡顿的现象问题">记录一次macOS输入法卡顿的现象问题</a><time datetime="2023-11-22T09:17:21.000Z" title="发表于 2023-11-22 17:17:21">2023-11-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/22/git-commands-reset/" title="Git命令-reset">Git命令-reset</a><time datetime="2023-11-22T06:23:46.000Z" title="发表于 2023-11-22 14:23:46">2023-11-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/15/rocketmq-push-consumer/" title="RocketMQ-消费者之Push消费模式">RocketMQ-消费者之Push消费模式</a><time datetime="2023-11-15T07:18:49.000Z" title="发表于 2023-11-15 15:18:49">2023-11-15</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/fengjing1.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 By Wray</div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
