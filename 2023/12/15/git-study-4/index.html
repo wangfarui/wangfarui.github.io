@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git学习-Git服务器 | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四章学习Git服务器相关知识，了解Git服务器所使用的协议，以及如何使用各种协议搭建Git服务器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习-Git服务器">
+<meta property="og:url" content="https://www.itwray.com/2023/12/15/git-study-4/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="第四章学习Git服务器相关知识，了解Git服务器所使用的协议，以及如何使用各种协议搭建Git服务器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.itwray.com/img/touxiang.jpeg">
+<meta property="article:published_time" content="2023-12-15T08:50:00.000Z">
+<meta property="article:modified_time" content="2023-12-15T09:15:06.419Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.itwray.com/img/touxiang.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.itwray.com/2023/12/15/git-study-4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git学习-Git服务器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-15 17:15:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git学习-Git服务器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-15T08:50:00.000Z" title="发表于 2023-12-15 16:50:00">2023-12-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-15T09:15:06.419Z" title="更新于 2023-12-15 17:15:06">2023-12-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Git/">Git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git学习-Git服务器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="协议"><a class="header-anchor" href="#协议"></a>协议</h2>
+<p>Git 可以使用四种不同的协议来传输资料：本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 Git 协议。</p>
+<h3 id="本地协议"><a class="header-anchor" href="#本地协议"></a>本地协议</h3>
+<p><em>本地协议（Local protocol）</em> 其中的远程版本库就是同一主机上的另一个目录。这常见于团队每一个成员都对一个共享的文件系统（例如一个挂载的 NFS）拥有访问权，或者比较少见的多人共用同一台电脑的情况。</p>
+<p>克隆一个本地版本库，可以执行如下的命令：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> /srv/git/project.git</span></span><br></pre></td></tr></table></figure>
+<p>或你可以执行这个命令：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> file:///srv/git/project.git</span></span><br></pre></td></tr></table></figure>
+<p><strong>优点</strong></p>
+<p>基于文件系统的版本库的优点是简单，并且直接使用了现有的文件权限和网络访问权限。 如果你的团队已经有共享文件系统，建立版本库会十分容易。 只需要像设置其他共享目录一样，把一个裸版本库的副本放到大家都可以访问的路径，并设置好读/写的权限，就可以了。</p>
+<p><strong>缺点</strong></p>
+<p>这种方法的缺点是，通常共享文件系统比较难配置，并且比起基本的网络连接访问，这不方便从多个位置访问。 如果你想从家里推送内容，必须先挂载一个远程磁盘，相比网络连接的访问方式，配置不方便，速度也慢。</p>
+<p>值得一提的是，如果你使用的是类似于共享挂载的文件系统时，这个方法不一定是最快的。 访问本地版本库的速度与你访问数据的速度是一样的。 在同一个服务器上，如果允许 Git 访问本地硬盘，一般的通过 NFS 访问版本库要比通过 SSH 访问慢。</p>
+<p>最终，这个协议并不保护仓库避免意外的损坏。 每一个用户都有“远程”目录的完整 shell 权限，没有方法可以阻止他们修改或删除 Git 内部文件和损坏仓库。</p>
+<h3 id="HTTP协议"><a class="header-anchor" href="#HTTP协议"></a>HTTP协议</h3>
+<p>Git 通过 HTTP 通信有两种模式。 在 Git 1.6.6 版本之前只有一个方式可用，十分简单并且通常是只读模式的。 Git 1.6.6 版本引入了一种新的、更智能的协议，让 Git 可以像通过 SSH 那样智能的协商和传输数据。 之后几年，这个新的 HTTP 协议因为其简单、智能变的十分流行。 新版本的 HTTP 协议一般被称为 <strong>智能</strong> HTTP 协议，旧版本的一般被称为 <strong>哑</strong> HTTP 协议。</p>
+<p>智能 HTTP 的运行方式和 SSH 及 Git 协议类似，只是运行在标准的 HTTP/S 端口上并且可以使用各种 HTTP 验证机制， 这意味着使用起来会比 SSH 协议简单的多，比如可以使用 HTTP 协议的用户名/密码授权，免去设置 SSH 公钥。</p>
+<p>智能 HTTP 协议或许已经是最流行的使用 Git 的方式了，它即支持像 <code>git://</code> 协议一样设置匿名服务， 也可以像 SSH 协议一样提供传输时的授权和加密。 而且只用一个 URL 就可以都做到，省去了为不同的需求设置不同的 URL。 如果你要推送到一个需要授权的服务器上（一般来讲都需要），服务器会提示你输入用户名和密码。 从服务器获取数据时也一样。</p>
+<p><strong>优点</strong></p>
+<p>不同的访问方式只需要一个 URL 以及服务器只在需要授权时提示输入授权信息，这两个简便性让终端用户使用 Git 变得非常简单。 相比 SSH 协议，可以使用用户名／密码授权是一个很大的优势，这样用户就不必须在使用 Git 之前先在本地生成 SSH 密钥对再把公钥上传到服务器。 对非资深的使用者，或者系统上缺少 SSH 相关程序的使用者，HTTP 协议的可用性是主要的优势。 与 SSH 协议类似，HTTP 协议也非常快和高效。</p>
+<p>你也可以在 HTTPS 协议上提供只读版本库的服务，如此你在传输数据的时候就可以加密数据；或者，你甚至可以让客户端使用指定的 SSL 证书。</p>
+<p>另一个好处是 HTTPS 协议被广泛使用，一般的企业防火墙都会允许这些端口的数据通过。</p>
+<p><strong>缺点</strong></p>
+<p>在一些服务器上，架设 HTTPS 协议的服务端会比 SSH 协议的棘手一些。 除了这一点，用其他协议提供 Git 服务与智能 HTTP 协议相比就几乎没有优势了。</p>
+<p>如果你在 HTTP 上使用需授权的推送，管理凭证会比使用 SSH 密钥认证麻烦一些。 然而，你可以选择使用凭证存储工具，比如 macOS 的 Keychain 或者 Windows 的凭证管理器。</p>
+<h3 id="SSH协议"><a class="header-anchor" href="#SSH协议"></a>SSH协议</h3>
+<p>架设 Git 服务器时常用 SSH 协议作为传输协议。 因为大多数环境下服务器已经支持通过 SSH 访问 —— 即使没有也很容易架设。 SSH 协议也是一个验证授权的网络协议；并且，因为其普遍性，架设和使用都很容易。</p>
+<p>通过 SSH 协议克隆版本库，你可以指定一个 <code>ssh://</code> 的 URL：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> ssh://[user@]server/project.git</span></span><br></pre></td></tr></table></figure>
+<p>或者使用一个简短的 scp 式的写法：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> [user@]server:project.git</span></span><br></pre></td></tr></table></figure>
+<p>在上面两种情况中，如果你不指定可选的用户名，那么 Git 会使用当前登录的用的名字。</p>
+<p><strong>优点</strong></p>
+<p>用 SSH 协议的优势有很多。 首先，SSH 架设相对简单 —— SSH 守护进程很常见，多数管理员都有使用经验，并且多数操作系统都包含了它及相关的管理工具。 其次，通过 SSH 访问是安全的 —— 所有传输数据都要经过授权和加密。 最后，与 HTTPS 协议、Git 协议及本地协议一样，SSH 协议很高效，在传输前也会尽量压缩数据。</p>
+<p><strong>缺点</strong></p>
+<p>SSH 协议的缺点在于它不支持匿名访问 Git 仓库。 如果你使用 SSH，那么即便只是读取数据，使用者也 <strong>必须</strong> 通过 SSH 访问你的主机， 这使得 SSH 协议不利于开源的项目，毕竟人们可能只想把你的仓库克隆下来查看。 如果你只在公司网络使用，SSH 协议可能是你唯一要用到的协议。 如果你要同时提供匿名只读访问和 SSH 协议，那么你除了为自己推送架设 SSH 服务以外， 还得架设一个可以让其他人访问的服务。</p>
+<h3 id="Git协议"><a class="header-anchor" href="#Git协议"></a>Git协议</h3>
+<p>最后是 Git 协议。 这是包含在 Git 里的一个特殊的守护进程；它监听在一个特定的端口（9418），类似于 SSH 服务，但是访问无需任何授权。 要让版本库支持 Git 协议，需要先创建一个 <code>git-daemon-export-ok</code> 文件 —— 它是 Git 协议守护进程为这个版本库提供服务的必要条件 —— 但是除此之外没有任何安全措施。 要么谁都可以克隆这个版本库，要么谁也不能。 这意味着，通常不能通过 Git 协议推送。 由于没有授权机制，一旦你开放推送操作，意味着网络上知道这个项目 URL 的人都可以向项目推送数据。 不用说，极少会有人这么做。</p>
+<p><strong>优点</strong></p>
+<p>目前，Git 协议是 Git 使用的网络传输协议里最快的。 如果你的项目有很大的访问量，或者你的项目很庞大并且不需要为写进行用户授权，架设 Git 守护进程来提供服务是不错的选择。 它使用与 SSH 相同的数据传输机制，但是省去了加密和授权的开销。</p>
+<p><strong>缺点</strong></p>
+<p>Git 协议缺点是缺乏授权机制。 把 Git 协议作为访问项目版本库的唯一手段是不可取的。 一般的做法里，会同时提供 SSH 或者 HTTPS 协议的访问服务，只让少数几个开发者有推送（写）权限，其他人通过 <code>git://</code> 访问只有读权限。 Git 协议也许也是最难架设的。 它要求有自己的守护进程，这就要配置 <code>xinetd</code>、<code>systemd</code> 或者其他的程序，这些工作并不简单。 它还要求防火墙开放 9418 端口，但是企业防火墙一般不会开放这个非标准端口。 而大型的企业防火墙通常会封锁这个端口。</p>
+<blockquote>
+<p>GitHub服务器使用的主要是Git协议和HTTPS协议。这两种协议分别用于代码版本控制系统Git的传输和Web服务的安全传输。</p>
+<ol>
+<li><strong>Git协议：</strong>
+<ul>
+<li>Git协议是专门为Git版本控制系统设计的传输协议。它使用SSH（Secure Shell）作为传输协议，提供对Git仓库的读写权限。通过Git协议，开发者可以克隆、推送和拉取代码。</li>
+</ul>
+</li>
+<li><strong>HTTPS协议：</strong>
+<ul>
+<li>GitHub也支持通过HTTPS协议进行访问和传输。HTTPS提供了加密和身份验证的功能，通过TLS/SSL协议来保护数据传输的安全性。使用HTTPS协议，用户可以通过浏览器或Git客户端与GitHub进行交互。</li>
+</ul>
+</li>
+</ol>
+<p>Git协议使用SSH进行传输，而SSH本身具有授权机制。用户通过公钥和私钥进行身份验证，只有拥有正确私钥的用户才能与仓库进行交互。这提供了一定的安全性和授权机制。</p>
+</blockquote>
+<h2 id="生成SSH公钥"><a class="header-anchor" href="#生成SSH公钥"></a>生成SSH公钥</h2>
+<p>默认情况下，用户的SSH密钥存储在 ~/.ssh 目录下。目录下的结构大致如下：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ~/.ssh</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span></span></span><br><span class="line">authorized_keys2  id_dsa       known_hosts</span><br><span class="line">config            id_dsa.pub</span><br></pre></td></tr></table></figure>
+<p>我们需要寻找一对以 <code>id_dsa</code> 或 <code>id_rsa</code> 命名的文件，其中一个带有 <code>.pub</code> 扩展名。 <code>.pub</code> 文件是你的公钥，另一个则是与之对应的私钥。 如果找不到这样的文件（或者根本没有 <code>.ssh</code> 目录），你可以通过运行 <code>ssh-keygen</code> 程序来创建它们。 在 Linux/macOS 系统中，<code>ssh-keygen</code> 随 SSH 软件包提供；在 Windows 上，该程序包含于 MSysGit 软件包中。</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -o</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/home/schacon/.ssh/id_rsa):</span><br><span class="line">Created directory &#x27;/home/schacon/.ssh&#x27;.</span><br><span class="line">Enter passphrase (empty for no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved in /home/schacon/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /home/schacon/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">d0:82:24:8e:d7:f1:bb:9b:33:53:96:93:49:da:9b:e3 schacon@mylaptop.local</span><br></pre></td></tr></table></figure>
+<p>首先 <code>ssh-keygen</code> 会确认密钥的存储位置（默认是 <code>.ssh/id_rsa</code>），然后它会要求你输入两次密钥口令。 如果你不想在使用密钥时输入口令，将其留空即可。 然而，如果你使用了密码，那么请确保添加了 <code>-o</code> 选项，它会以比默认格式更能抗暴力破解的格式保存私钥。 你也可以用 <code>ssh-agent</code> 工具来避免每次都要输入密码。</p>
+<p>现在，进行了上述操作的用户需要将各自的公钥发送给任意一个 Git 服务器管理员 （假设服务器正在使用基于公钥的 SSH 验证设置）。 他们所要做的就是复制各自的 <code>.pub</code> 文件内容，并将其通过邮件发送。 公钥看起来是这样的：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU</span><br><span class="line">GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3</span><br><span class="line">Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA</span><br><span class="line">t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En</span><br><span class="line">mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx</span><br><span class="line">NrRFi9wrf+M7Q== schacon@mylaptop.local</span><br></pre></td></tr></table></figure>
+<h3 id="GitLab"><a class="header-anchor" href="#GitLab"></a>GitLab</h3>
+<p>一般私服都会使用 GitLab 作为搭建Git服务器的解决方案。具体的安装和使用可以参考：<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-GitLab">服务器上的Git - GitLab</a> 。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.itwray.com/2023/12/15/git-study-4/">https://www.itwray.com/2023/12/15/git-study-4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/img/touxiang.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/12/git-study-3/" title="Git学习-Git分支"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Git学习-Git分支</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/11/22/git-commands-reset/" title="Git命令-reset"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-22</div><div class="title">Git命令-reset</div></div></a></div><div><a href="/2023/10/13/git-study-1/" title="Git学习-起步"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-13</div><div class="title">Git学习-起步</div></div></a></div><div><a href="/2023/12/07/git-study-2/" title="Git学习-Git基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-07</div><div class="title">Git学习-Git基础</div></div></a></div><div><a href="/2023/12/12/git-study-3/" title="Git学习-Git分支"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-12</div><div class="title">Git学习-Git分支</div></div></a></div><div><a href="/2023/11/02/git-study-commands/" title="Git学习-命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-02</div><div class="title">Git学习-命令</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text">协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.1.</span> <span class="toc-text">本地协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.2.</span> <span class="toc-text">HTTP协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.3.</span> <span class="toc-text">SSH协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.4.</span> <span class="toc-text">Git协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5"><span class="toc-number">2.</span> <span class="toc-text">生成SSH公钥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GitLab"><span class="toc-number">2.1.</span> <span class="toc-text">GitLab</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/15/git-study-4/" title="Git学习-Git服务器">Git学习-Git服务器</a><time datetime="2023-12-15T08:50:00.000Z" title="发表于 2023-12-15 16:50:00">2023-12-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/12/git-study-3/" title="Git学习-Git分支">Git学习-Git分支</a><time datetime="2023-12-12T09:44:33.000Z" title="发表于 2023-12-12 17:44:33">2023-12-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/07/git-study-2/" title="Git学习-Git基础">Git学习-Git基础</a><time datetime="2023-12-07T06:18:21.000Z" title="发表于 2023-12-07 14:18:21">2023-12-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/05/life-200231205/" title="生活日记-20231205">生活日记-20231205</a><time datetime="2023-12-05T02:49:44.000Z" title="发表于 2023-12-05 10:49:44">2023-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/22/other-macos-input-method/" title="记录一次macOS输入法卡顿的现象问题">记录一次macOS输入法卡顿的现象问题</a><time datetime="2023-11-22T09:17:21.000Z" title="发表于 2023-11-22 17:17:21">2023-11-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/fengjing1.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 By Wray</div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
