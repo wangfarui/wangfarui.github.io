@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git学习-Git工具 | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第七章学习 Git 工具，这些工具的也是 Git 的重要一环，包含有修订版本、贮藏、重置等十分强大的功能，这些功能在日常操作中不一定经常使用，但在特殊情况下确实非常受用的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习-Git工具">
+<meta property="og:url" content="https://www.itwray.com/2024/01/20/git-study-7/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="第七章学习 Git 工具，这些工具的也是 Git 的重要一环，包含有修订版本、贮藏、重置等十分强大的功能，这些功能在日常操作中不一定经常使用，但在特殊情况下确实非常受用的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.itwray.com/img/touxiang.jpeg">
+<meta property="article:published_time" content="2024-01-20T07:26:38.000Z">
+<meta property="article:modified_time" content="2024-01-20T13:08:35.556Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.itwray.com/img/touxiang.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.itwray.com/2024/01/20/git-study-7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git学习-Git工具',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-20 21:08:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git学习-Git工具</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-20T07:26:38.000Z" title="发表于 2024-01-20 15:26:38">2024-01-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-20T13:08:35.556Z" title="更新于 2024-01-20 21:08:35">2024-01-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Git/">Git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git学习-Git工具"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="Git的修订版本"><a class="header-anchor" href="#Git的修订版本"></a>Git的修订版本</h2>
+<p>Git 每一次 commit 都会生成一个版本号，也成为单个修订版本，它由 40 个字符的完整 SHA-1 散列值组成。</p>
+<p>Git 支持只提供 4 个 SHA-1 字符即可获得对应的那次提交，但前提是在没有冲突的情况下，一般 8 到 10 个字符就已经足够在一个项目中避免 SHA-1 的冲突。</p>
+<blockquote>
+<p>关于 SHA-1 的简短说明</p>
+<p>许多人觉得他们的仓库里有可能出现两个不同的对象其 SHA-1 值相同。 然后呢？</p>
+<p>如果你真的向仓库里提交了一个对象，它跟之前的某个 <strong>不同</strong> 对象的 SHA-1 值相同， Git 会发现该对象的散列值已经存在于仓库里了，于是就会认为该对象被写入，然后直接使用它。 如果之后你想检出那个对象时，你将得到先前那个对象的数据。</p>
+<p>但是这种情况发生的概率十分渺小。 SHA-1 摘要长度是 20 字节，也就是 160 位。 2^80 个随机哈希对象才有 50% 的概率出现一次冲突 （计算冲突机率的公式是 <code>p = (n(n-1)/2) * (1/2^160))</code> ）。 2^80 是 1.2 x 10^24，也就是一亿亿亿，这是地球上沙粒总数的 1200 倍。</p>
+<p>举例说一下怎样才能产生一次 SHA-1 冲突。 如果地球上 65 亿个人类都在编程，每人每秒都在产生等价于整个 Linux 内核历史（650 万个 Git 对象）的代码， 并将之提交到一个巨大的 Git 仓库里面，这样持续两年的时间才会产生足够的对象， 使其拥有 50% 的概率产生一次 SHA-1 对象冲突。</p>
+</blockquote>
+<h2 id="交互式暂存"><a class="header-anchor" href="#交互式暂存"></a>交互式暂存</h2>
+<p>用途：当在修改了大量文件后，希望这些改动能拆分为若干提交而不是混杂在一起成为一个提交时。</p>
+<p>通过 <code>git add -i</code> 进入交互式暂存。</p>
+<p><img src="/2024/01/20/git-study-7/image-20240116171937170.png" alt="image-20240116171937170"></p>
+<p>输入数字下标或者前缀字母即可进入下一步，例如 status ，输入 1 或 s 。</p>
+<p>上述的所有命令解释如下：</p>
+<ul>
+<li>status 表示查看当前 Git 已跟踪且变更过的文件状态。</li>
+<li>update 表示进行暂存操作。</li>
+<li>revert 表示取消暂存操作。</li>
+<li>add untracked 表示将未跟踪的文件进行跟踪。</li>
+<li>patch 表示暂存文件的特定部分。</li>
+<li>diff 表示查看已暂存内容的区别。</li>
+<li>quit 表示退出。</li>
+<li>help 表示帮助。</li>
+</ul>
+<p>进入以上命令后，想要返回上一步，只需要不输入任何东西的情况下按回车即可。</p>
+<h2 id="贮藏与清理"><a class="header-anchor" href="#贮藏与清理"></a>贮藏与清理</h2>
+<p>有时，当你在项目的一部分上已经工作一段时间后，所有东西都进入了混乱的状态， 而这时你想要切换到另一个分支做一点别的事情。 问题是，你不想仅仅因为过会儿回到这一点而为做了一半的工作创建一次提交。 针对这个问题的答案是 <code>git stash</code> 命令。</p>
+<p><strong>贮藏（stash）会处理工作目录的脏的状态——即跟踪文件的修改与暂存的改动——然后将未完成的修改保存到一个栈上， 而你可以在任何时候重新应用这些改动（甚至在不同的分支上）</strong>。</p>
+<p>贮藏相关命令如下：</p>
+<ul>
+<li>
+<p>git stash：贮藏当前改动的文件。</p>
+<blockquote>
+<p>默认情况下，<code>git stash</code> 只会贮藏已修改和暂存的 <strong>已跟踪</strong> 文件。 如果指定 <code>--include-untracked</code> 或 <code>-u</code> 选项，Git 也会贮藏任何未跟踪文件。 然而，在贮藏中包含未跟踪的文件仍然不会包含明确 <strong>忽略</strong> 的文件。 要额外包含忽略的文件，请使用 <code>--all</code> 或 <code>-a</code> 选项。</p>
+</blockquote>
+</li>
+<li>
+<p>git stash list：查看贮藏记录</p>
+</li>
+<li>
+<p>git stash apply：应用贮藏记录的内容</p>
+<blockquote>
+<p>git stash apply 默认应用最新一条记录，如果想要应用指定记录，可根据记录前的下标修改命令为 git stash apply stash@{n} ，n 表示下标。</p>
+</blockquote>
+</li>
+<li>
+<p>git stash drop：删除贮藏记录</p>
+<blockquote>
+<p>默认删除第一条贮藏记录，也可以跟 apply 一样，指定删除。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>清理（clean）用于从工作目录中移除未被追踪的文件</strong>。</p>
+<p>清理相关命令如下：</p>
+<ul>
+<li>
+<p>git clean -n：查看将要移除的文件有哪些，并不是真的移除。</p>
+</li>
+<li>
+<p>git clean -f：移除 -n 中显示的将要移除的文件。</p>
+<blockquote>
+<p>-d 选项，表示未追踪的子目录。默认情况下 -n 或 -f 不会扫码移除子目录，需要增加 -d 参数才行。</p>
+<p>-x 选项，表示包含移除与 <code>.gitignore</code> 或其他忽略文件中的模式匹配的文件。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="签署工作"><a class="header-anchor" href="#签署工作"></a>签署工作</h2>
+<p>Git 虽然是密码级安全的，但它不是万无一失的。 如果你从因特网上的其他人那里拿取工作，并且想要验证提交是不是真正地来自于可信来源， Git 提供了几种通过 GPG 来签署和验证工作的方式。</p>
+<p>GPG 使用方法：</p>
+<ul>
+<li>
+<p>gpg --list-keys：查看 GPG 密钥。</p>
+<blockquote>
+<p>示例如下：</p>
+<p><img src="/2024/01/20/git-study-7/image-20240117174307694.png" alt="image-20240117174307694"></p>
+</blockquote>
+</li>
+<li>
+<p>gpg --gen-key：生成 GPG 密钥。</p>
+</li>
+<li>
+<p>git config --global user.signingkey 0A46826A：配置 GPG 的公钥。</p>
+</li>
+</ul>
+<h2 id="搜索"><a class="header-anchor" href="#搜索"></a>搜索</h2>
+<p>无论仓库里的代码量有多少，你经常需要查找一个函数是在哪里调用或者定义的，或者显示一个方法的变更历史。 Git 提供了两个有用的工具来快速地从它的数据库中浏览代码和提交。</p>
+<p>第一个工具是 <code>git grep &lt;搜索字符串或正则表达式&gt;</code> 命令，主要是用于搜索代码在哪里。</p>
+<p>如果传递 <code>-n</code> 参数，将会输出 Git 找到的匹配行的行号。</p>
+<p>如果传递 <code>-c</code> 参数，输出的信息仅包括那些包含匹配字符串的文件，以及每个文件中包含了多少个匹配。</p>
+<p>如果传递 <code>-p</code> 参数，则会显示搜索字符串的上下文。</p>
+<p>第二个工具是 Git 日志搜索，主要是用于搜索代码是何时存在或引入的。</p>
+<p>通过 <code>git log -S &lt;搜索字符串或正则表达式&gt;</code>命令，搜索代码的提交记录，展示提交日志。</p>
+<p>其中 <code>-S</code> 参数表示显示新增和删除该字符串的提交记录。</p>
+<p>如果传递 <code>--oneline</code> 参数，则主要显示提交的修订版本和提交备注。</p>
+<h2 id="重写历史"><a class="header-anchor" href="#重写历史"></a>重写历史</h2>
+<p>在学习重写历史之前，需要牢记一个开发准则：在满意之前不要推送工作内容。</p>
+<p>Git 的基本原则之一是，由于克隆中有很多工作是本地的，因此你可以 <strong>在本地</strong> 随便重写历史记录。 然而一旦推送了你的工作，那就完全是另一回事了，除非你有充分的理由进行更改，否则应该将推送的工作视为最终结果。 简而言之，在对它感到满意并准备与他人分享之前，应当避免推送你的工作。</p>
+<h3 id="修改最后一次提交"><a class="header-anchor" href="#修改最后一次提交"></a>修改最后一次提交</h3>
+<p>顾名思义，只需要对最后一次提交做修改，此时使用 <code>git commit --amend</code> 命令就好。它会用新的提交版本来替换旧的最后一次提交。</p>
+<p>如果提交信息不需要修改，可以使用 <code>--no-edit</code> 参数。</p>
+<h3 id="修改多个提交信息"><a class="header-anchor" href="#修改多个提交信息"></a>修改多个提交信息</h3>
+<p>Git 本身是没有直接改变历史的工具的，可以使用变基工具来变基这一系列提交，通过交互式变基工具，可以在任何想要修改的提交后停止，然后修改信息、添加文件或做任何想做的事情。</p>
+<p>需要注意的是，<code>git rebase -i &lt;版本区间&gt;</code>命令会将这个区间的所有提交信息进行重写，所以尽量不要涉及任何已经推送到中央服务器的提交——这样做会产生一次变更的两个版本，因而使他人困惑。</p>
+<h3 id="filter-branch"><a class="header-anchor" href="#filter-branch"></a>filter-branch</h3>
+<p>有另一个历史改写的选项，如果想要通过脚本的方式改写大量提交的话可以使用它——例如，全局修改你的邮箱地址或从每一个提交中移除一个文件。 这个命令是 <code>filter-branch</code>，它可以改写历史中大量的提交，除非你的项目还没有公开并且其他人没有基于要改写的工作的提交做的工作，否则你不应当使用它。</p>
+<blockquote>
+<p><code>git filter-branch</code> 有很多陷阱，不再推荐使用它来重写历史。 请考虑使用 <code>git-filter-repo</code>，它是一个 Python 脚本，相比大多数使用 <code>filter-branch</code> 的应用来说，它做得要更好。它的文档和源码可访问 https://github.com/newren/git-filter-repo 获取。</p>
+</blockquote>
+<h4 id="从每一个提交中移除一个文件"><a class="header-anchor" href="#从每一个提交中移除一个文件"></a>从每一个提交中移除一个文件</h4>
+<p>有人粗心地通过 <code>git add .</code> 提交了一个巨大的二进制文件，你想要从所有地方删除。 可能偶然地提交了一个包括一个密码的文件，然而你想要开源项目。 <code>filter-branch</code> 是一个可能会用来擦洗整个提交历史的工具。 为了从整个提交历史中移除一个叫做 <code>passwords.txt</code> 的文件，可以使用 <code>--tree-filter</code> 选项给 <code>filter-branch</code>：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git filter-branch --tree-filter <span class="string">&#x27;rm -f passwords.txt&#x27;</span> HEAD</span></span><br><span class="line">Rewrite 6b9b3cf04e7c5686a9cb838c3f36a8cb6a0fc2bd (21/21)</span><br><span class="line">Ref &#x27;refs/heads/master&#x27; was rewritten</span><br></pre></td></tr></table></figure>
+<p><code>--tree-filter</code> 选项在检出项目的每一个提交后运行指定的命令然后重新提交结果。 在本例中，你从每一个快照中移除了一个叫作 <code>passwords.txt</code> 的文件，无论它是否存在。</p>
+<h4 id="使一个子目录做为新的根目录"><a class="header-anchor" href="#使一个子目录做为新的根目录"></a>使一个子目录做为新的根目录</h4>
+<p>假设已经从另一个源代码控制系统中导入，并且有几个没意义的子目录（<code>trunk</code>、<code>tags</code> 等等）。 如果想要让 <code>trunk</code> 子目录作为每一个提交的新的项目根目录，<code>filter-branch</code> 也可以帮助你那么做：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git filter-branch --subdirectory-filter trunk HEAD</span></span><br><span class="line">Rewrite 856f0bf61e41a27326cdae8f09fe708d679f596f (12/12)</span><br><span class="line">Ref &#x27;refs/heads/master&#x27; was rewritten</span><br></pre></td></tr></table></figure>
+<p>现在新项目根目录是 <code>trunk</code> 子目录了。 Git 会自动移除所有不影响子目录的提交。</p>
+<h4 id="全局修改邮箱地址"><a class="header-anchor" href="#全局修改邮箱地址"></a>全局修改邮箱地址</h4>
+<p>另一个常见的情形是在你开始工作时忘记运行 <code>git config</code> 来设置你的名字与邮箱地址， 或者你想要开源一个项目并且修改所有你的工作邮箱地址为你的个人邮箱地址。 任何情形下，你也可以通过 <code>filter-branch</code> 来一次性修改多个提交中的邮箱地址。 需要小心的是只修改你自己的邮箱地址，所以你使用 <code>--commit-filter</code>：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git filter-branch --commit-filter <span class="string">&#x27;</span></span></span><br><span class="line">        if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;123@qq.com&quot; ];</span><br><span class="line">        then</span><br><span class="line">                GIT_AUTHOR_NAME=&quot;Wray&quot;;</span><br><span class="line">                GIT_AUTHOR_EMAIL=&quot;wray20156294@gmail.com&quot;;</span><br><span class="line">                git commit-tree &quot;$@&quot;;</span><br><span class="line">        else</span><br><span class="line">                git commit-tree &quot;$@&quot;;</span><br><span class="line">        fi&#x27; HEAD</span><br></pre></td></tr></table></figure>
+<p>这会遍历并重写每一个提交来包含你的新邮箱地址。 因为提交包含了它们父提交的 SHA-1 校验和，这个命令会修改你的历史中的每一个提交的 SHA-1 校验和， 而不仅仅只是那些匹配邮箱地址的提交。</p>
+<p>如果提交记录已经推送到远程仓库，需要使用 <code>git push origin branch_name</code>命令更新。</p>
+<p>使用它来修改提交者（作者和提交者）信息可能导致与远程仓库的历史不一致，从而导致推送被拒绝。这是因为修改历史会改变每个提交的 SHA-1 校验和，而远程仓库已经有了不同的历史。</p>
+<p>因此建议使用<code>git push --force-with-lease origin branch_name</code> 方式安全的强制推送，它会检查远程分支是否和你的本地分支一致。如果远程分支的历史已经被其他人修改，推送会被拒绝。</p>
+<h2 id="重置揭密"><a class="header-anchor" href="#重置揭密"></a>重置揭密</h2>
+<p>主要讲解 <code>git reset</code> 命令的强大之处，以及与 <code>git checkout</code> 的区别。</p>
+<p>更多详情在：<a href="https://www.itwray.com/2023/11/22/git-commands-reset/">https://www.itwray.com/2023/11/22/git-commands-reset/</a></p>
+<h2 id="高级合并"><a class="header-anchor" href="#高级合并"></a>高级合并</h2>
+<p>Git 的哲学是聪明地决定无歧义的合并方案，但是如果有冲突，它不会尝试智能地自动解决它。</p>
+<p>所以，在合并前，建议将正在做的工作，要么提交到一个临时分支要么储藏（stasg）它。</p>
+<p>如果已经执行了 <code>git merge</code> 合并操作并出现了合并冲突，可以通过 <code>git merge --abort</code> 来简单地退出合并。</p>
+<p>如果这个不想要的合并提交只存在于你的本地仓库中，最简单且最好的解决方案是移动分支到你想要它指向的地方。 大多数情况下，如果你在错误的 <code>git merge</code> 后运行 <code>git reset --hard HEAD~</code>。</p>
+<h2 id="Rerere"><a class="header-anchor" href="#Rerere"></a>Rerere</h2>
+<p><code>git rerere</code> 功能是一个隐藏的功能。 正如它的名字“重用记录的解决方案（reuse recorded resolution）”所示，它允许你让 Git 记住解决一个块冲突的方法， 这样在下一次看到相同冲突时，Git 可以为你自动地解决它。</p>
+<p>有几种情形下这个功能会非常有用。 在文档中提到的一个例子是想要保证一个长期分支会干净地合并，但是又不想要一串中间的合并提交弄乱你的提交历史。 将 <code>rerere</code> 功能开启后，你可以试着偶尔合并，解决冲突，然后退出合并。 如果你持续这样做，那么最终的合并会很容易，因为 <code>rerere</code> 可以为你自动做所有的事情。</p>
+<h2 id="Git-调试"><a class="header-anchor" href="#Git-调试"></a>Git 调试</h2>
+<p>使用 <code>git blame</code> 标注文件，可以知道一个文件的每一行具体在何时引入的，显示每行最后一次修改的提交记录。</p>
+<p>例如：<code>git blame -L 69,82 Makefile</code> 表示用 <code>git blame</code> 确定了 Linux 内核源码顶层的 <code>Makefile</code> 中每一行分别来自哪个提交和提交者， 此外用 <code>-L</code> 选项还可以将标注的输出限制为该文件中的第 69 行到第 82 行。</p>
+<p>使用<code>git bisect</code> 命令会对提交历史进行二分查找，以找到是哪一个提交引入了问题。</p>
+<h2 id="子模块"><a class="header-anchor" href="#子模块"></a>子模块</h2>
+<p>子模块的应用场景如下：某个工作中的项目需要包含并使用另一个项目。 也许是第三方库，或者你独立开发的，用于多个父项目的库。 现在问题来了：你想要把它们当做两个独立的项目，同时又想在一个项目中使用另一个。</p>
+<p>首先，确定自己的主项目，然后在主项目的仓库下通过<code>git submodule add</code> 命令后面加上想要跟踪的项目的相对或绝对 URL 来添加新的子模块。</p>
+<p>例如，在 <code>git-study</code> 项目下添加 <code>git-study-submodule</code>子项目：</p>
+<p><code>git submodule add git@github.com:wangfarui/git-study-submodule.git</code></p>
+<p>查看<code>git-study</code>项目目录结构：</p>
+<p><img src="/2024/01/20/git-study-7/image-20240119110628042.png" alt="image-20240119110628042"></p>
+<p>首先应当注意到新的 <code>.gitmodules</code> 文件。 该配置文件保存了项目 URL 与已经拉取的本地目录之间的映射：</p>
+<p><img src="/2024/01/20/git-study-7/image-20240119110652184.png" alt="image-20240119110652184"></p>
+<p>如果有多个子模块，该文件中就会有多条记录。 要重点注意的是，该文件也像 <code>.gitignore</code> 文件一样受到（通过）版本控制。 它会和该项目的其他部分一同被拉取推送。 这就是克隆该项目的人知道去哪获得子模块的原因。</p>
+<p>添加子模块后，<code>git status</code>查看主项目仓库状态：</p>
+<p><img src="/2024/01/20/git-study-7/image-20240119110832251.png" alt="image-20240119110832251"></p>
+<p>可以发现子模块的项目内容已经被跟踪到主项目中，执行<code>git commit</code>将其提交到主项目中，再执行<code>git push</code>将主项目推送到远程仓库。</p>
+<p>在 GitHub 下，可以看到 GitHub 会自动识别到子项目，项目链接到子项目地址。</p>
+<p><img src="/2024/01/20/git-study-7/image-20240119111301145.png" alt="image-20240119111301145"></p>
+<p>但是！！！需要注意链接地址：</p>
+<p>https://github.com/wangfarui/git-study-submodule/tree/ea6b9f6afef267dc897376df3b98b879aa5ec0fb</p>
+<p>可以再看看<code>git-study-submodule</code>项目的真正 Git 仓库地址：</p>
+<p>https://github.com/wangfarui/git-study-submodule</p>
+<p>可以发现从主项目进入的子项目显示的是主项目的版本，所以如果直接在子项目做提交变更，主项目是感知不到的，需要手动刷新并推送。</p>
+<p>由此可见，子项目是独立存在的，只不过主项目将其引入进来，可以直接使用源码。同理，子项目的开发工作可以是独立项目开发，也可以是直接在主项目的子模块下开发。在子模块下执行 <code>git remote show origin</code> 可以看到当前指向的 Git 远程仓库为子项目的仓库地址。</p>
+<p><img src="/2024/01/20/git-study-7/image-20240119111717930.png" alt="image-20240119111717930"></p>
+<p>在子项目下做编辑并提交操作后，在主项目通过<code>git add</code>跟踪子模块，再提交和推送后，子模块的远程仓库才会同步更新。</p>
+<p>如果子项目已经独立开发并更新到远程仓库了，可以使用 <code>git submodule update --remote git-study-submodule</code> 命令拉取最新信息，此时 <code>git-study-submodule</code> 子项目的内容已经与远程仓库同步了，不需要再 merge 。</p>
+<p>更新完子项目后，主项目需要通过<code>git add</code>跟踪子模块，再提交和推送后，主项目下的子项目版本才会同步变更。</p>
+<h2 id="打包"><a class="header-anchor" href="#打包"></a>打包</h2>
+<p>Git 可以将它的数据“打包”到一个文件中。 这在许多场景中都很有用。 有可能你的网络中断了，但你又希望将你的提交传给你的合作者们。 可能你不在办公网中并且出于安全考虑没有给你接入内网的权限。 可能你的无线、有线网卡坏掉了。 可能你现在没有共享服务器的权限，你又希望通过邮件将更新发送给别人， 却不希望通过 <code>format-patch</code> 的方式传输 40 个提交。</p>
+<p>这些情况下 <code>git bundle</code> 就会很有用。 <code>bundle</code> 命令会将 <code>git push</code> 命令所传输的所有内容打包成一个二进制文件， 你可以将这个文件通过邮件或者闪存传给其他人，然后解包到其他的仓库中。</p>
+<h2 id="替换"><a class="header-anchor" href="#替换"></a>替换</h2>
+<p>Git 对象数据库中的对象是不可改变的， 然而 Git 提供了一种有趣的方式来用其他对象 <strong>假装</strong> 替换数据库中的 Git 对象。</p>
+<p><code>replace</code> 命令可以让你在 Git 中指定 <strong>某个对象</strong> 并告诉 Git：“每次遇到这个 Git 对象时，假装它是 <strong>其它对象</strong>”。 在你用一个不同的提交替换历史中的一个提交而不想以 <code>git filter-branch</code> 之类的方式重建完整的历史时，这会非常有用。</p>
+<h2 id="凭证存储"><a class="header-anchor" href="#凭证存储"></a>凭证存储</h2>
+<p>如果你使用的是 SSH 方式连接远端，并且设置了一个没有口令的密钥，这样就可以在不输入用户名和密码的情况下安全地传输数据。 然而，这对 HTTP 协议来说是不可能的 —— 每一个连接都是需要用户名和密码的。 这在使用双重认证的情况下会更麻烦，因为你需要输入一个随机生成并且毫无规律的 token 作为密码。</p>
+<p>Git 拥有一个凭证系统来处理这个事情。 下面有一些 Git 的选项：</p>
+<ul>
+<li>默认所有都不缓存。 每一次连接都会询问你的用户名和密码。</li>
+<li>“cache” 模式会将凭证存放在内存中一段时间。 密码永远不会被存储在磁盘中，并且在15分钟后从内存中清除。</li>
+<li>“store” 模式会将凭证用明文的形式存放在磁盘中，并且永不过期。 这意味着除非你修改了你在 Git 服务器上的密码，否则你永远不需要再次输入你的凭证信息。 这种方式的缺点是你的密码是用明文的方式存放在你的 home 目录下。</li>
+<li>如果你使用的是 Mac，Git 还有一种 “osxkeychain” 模式，它会将凭证缓存到你系统用户的钥匙串中。 这种方式将凭证存放在磁盘中，并且永不过期，但是是被加密的，这种加密方式与存放 HTTPS 凭证以及 Safari 的自动填写是相同的。</li>
+<li>如果你使用的是 Windows，你可以安装一个叫做 “Git Credential Manager for Windows” 的辅助工具。 这和上面说的 “osxkeychain” 十分类似，但是是使用 Windows Credential Store 来控制敏感信息。 可以在 https://github.com/Microsoft/Git-Credential-Manager-for-Windows 下载。</li>
+</ul>
+<p>你可以设置 Git 的配置来选择上述的一种方式</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global credential.helper cache</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a class="header-anchor" href="#总结"></a>总结</h2>
+<p>Git 工具非常之多，有些工具在日常开发中可能基本用不到，但有些工具还是非常实用的。这里主要列举一下我觉得比较有用的：贮藏（git stash）、重写最后一次提交（git commit --amend）、重置揭密（git reset）、搜索（git grep）。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.itwray.com/2024/01/20/git-study-7/">https://www.itwray.com/2024/01/20/git-study-7/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/img/touxiang.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/13/work-report-dingtalk-robot/" title="工作小结-接入钉钉机器人"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">工作小结-接入钉钉机器人</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/11/22/git-commands-reset/" title="Git-reset命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-22</div><div class="title">Git-reset命令</div></div></a></div><div><a href="/2023/10/13/git-study-1/" title="Git学习-起步(1)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-13</div><div class="title">Git学习-起步(1)</div></div></a></div><div><a href="/2023/12/07/git-study-2/" title="Git学习-Git基础(2)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-07</div><div class="title">Git学习-Git基础(2)</div></div></a></div><div><a href="/2023/12/15/git-study-4/" title="Git学习-Git服务器(4)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Git学习-Git服务器(4)</div></div></a></div><div><a href="/2023/12/17/git-study-5/" title="Git学习-分布式Git(5)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-17</div><div class="title">Git学习-分布式Git(5)</div></div></a></div><div><a href="/2023/12/12/git-study-3/" title="Git学习-Git分支(3)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-12</div><div class="title">Git学习-Git分支(3)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E4%BF%AE%E8%AE%A2%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">Git的修订版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%9A%82%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">交互式暂存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%AE%E8%97%8F%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">贮藏与清理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%BE%E7%BD%B2%E5%B7%A5%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">签署工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2"><span class="toc-number">5.</span> <span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2"><span class="toc-number">6.</span> <span class="toc-text">重写历史</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="toc-number">6.1.</span> <span class="toc-text">修改最后一次提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%A4%9A%E4%B8%AA%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF"><span class="toc-number">6.2.</span> <span class="toc-text">修改多个提交信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter-branch"><span class="toc-number">6.3.</span> <span class="toc-text">filter-branch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%8F%90%E4%BA%A4%E4%B8%AD%E7%A7%BB%E9%99%A4%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">6.3.1.</span> <span class="toc-text">从每一个提交中移除一个文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E4%B8%80%E4%B8%AA%E5%AD%90%E7%9B%AE%E5%BD%95%E5%81%9A%E4%B8%BA%E6%96%B0%E7%9A%84%E6%A0%B9%E7%9B%AE%E5%BD%95"><span class="toc-number">6.3.2.</span> <span class="toc-text">使一个子目录做为新的根目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E4%BF%AE%E6%94%B9%E9%82%AE%E7%AE%B1%E5%9C%B0%E5%9D%80"><span class="toc-number">6.3.3.</span> <span class="toc-text">全局修改邮箱地址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E7%BD%AE%E6%8F%AD%E5%AF%86"><span class="toc-number">7.</span> <span class="toc-text">重置揭密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E5%90%88%E5%B9%B6"><span class="toc-number">8.</span> <span class="toc-text">高级合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rerere"><span class="toc-number">9.</span> <span class="toc-text">Rerere</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-%E8%B0%83%E8%AF%95"><span class="toc-number">10.</span> <span class="toc-text">Git 调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">11.</span> <span class="toc-text">子模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85"><span class="toc-number">12.</span> <span class="toc-text">打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2"><span class="toc-number">13.</span> <span class="toc-text">替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%AD%E8%AF%81%E5%AD%98%E5%82%A8"><span class="toc-number">14.</span> <span class="toc-text">凭证存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">15.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/20/git-study-7/" title="Git学习-Git工具">Git学习-Git工具</a><time datetime="2024-01-20T07:26:38.000Z" title="发表于 2024-01-20 15:26:38">2024-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/work-report-dingtalk-robot/" title="工作小结-接入钉钉机器人">工作小结-接入钉钉机器人</a><time datetime="2024-01-13T08:09:33.000Z" title="发表于 2024-01-13 16:09:33">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/10/work-report-mybatisplus-fill/" title="工作小结-MyBatis-Plus填充策略">工作小结-MyBatis-Plus填充策略</a><time datetime="2024-01-10T09:12:19.000Z" title="发表于 2024-01-10 17:12:19">2024-01-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/08/work-report-shedlock/" title="工作小结-ShedLock的使用">工作小结-ShedLock的使用</a><time datetime="2024-01-08T07:17:21.000Z" title="发表于 2024-01-08 15:17:21">2024-01-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/05/work-report-business-sn/" title="工作小结-业务编号生成器">工作小结-业务编号生成器</a><time datetime="2024-01-05T07:37:04.000Z" title="发表于 2024-01-05 15:37:04">2024-01-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/fengjing1.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Wray</div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
