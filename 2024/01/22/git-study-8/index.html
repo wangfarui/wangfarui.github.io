@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git学习-自定义Git | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第八章学习借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习-自定义Git">
+<meta property="og:url" content="https://www.itwray.com/2024/01/22/git-study-8/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="第八章学习借助 Git 的一些重要的配置方法和钩子机制，来满足自定义的需求。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.itwray.com/img/touxiang.jpeg">
+<meta property="article:published_time" content="2024-01-22T06:30:26.000Z">
+<meta property="article:modified_time" content="2024-01-22T08:48:03.574Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.itwray.com/img/touxiang.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.itwray.com/2024/01/22/git-study-8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git学习-自定义Git',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-22 16:48:03'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git学习-自定义Git</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-22T06:30:26.000Z" title="发表于 2024-01-22 14:30:26">2024-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-22T08:48:03.574Z" title="更新于 2024-01-22 16:48:03">2024-01-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Git/">Git</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git学习-自定义Git"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="配置-Git"><a class="header-anchor" href="#配置-Git"></a>配置 Git</h2>
+<p>在安装 Git 后，首先要做的事就是配置 Git 的提交者的名称和邮件地址：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Wray&quot;</span><br><span class="line">git config --global user.email wray20156294@gmail.com</span><br></pre></td></tr></table></figure>
+<p>现在，将会讲解除了配置 Git 提交者信息以外的其他配置信息。</p>
+<p>首先，快速回忆下：Git 使用一系列配置文件来保存你自定义的行为。 它首先会查找系统级的 <code>/etc/gitconfig</code> 文件，该文件含有系统里每位用户及他们所拥有的仓库的配置值。 如果你传递 <code>--system</code> 选项给 <code>git config</code>，它就会读写该文件。</p>
+<p>接下来 Git 会查找每个用户的 <code>~/.gitconfig</code> 文件（或者 <code>~/.config/git/config</code> 文件）。 你可以传递 <code>--global</code> 选项让 Git 读写该文件。</p>
+<p>最后 Git 会查找你正在操作的仓库所对应的 Git 目录下的配置文件（<code>.git/config</code>）。 这个文件中的值只对该仓库有效，它对应于向 <code>git config</code> 传递 <code>--local</code> 选项。</p>
+<p>以上三个层次中每层的配置（系统、全局、本地）都会覆盖掉上一层次的配置，所以 <code>.git/config</code> 中的值会覆盖掉 <code>/etc/gitconfig</code> 中所对应的值。</p>
+<blockquote>
+<p>Git 的配置文件是纯文本的，所以你可以直接手动编辑这些配置文件，输入合乎语法的值。 但是运行 <code>git config</code> 命令会更简单些。</p>
+</blockquote>
+<h3 id="客户端基础配置"><a class="header-anchor" href="#客户端基础配置"></a>客户端基础配置</h3>
+<p>Git 能够识别的配置项分为两大类：客户端和服务器端。 其中大部分属于客户端配置 —— 可以依你个人的工作偏好进行配置。</p>
+<p>如果想得到本地当前版本的 Git 支持的选项列表，可以运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man git-config</span><br></pre></td></tr></table></figure>
+<p>下面主要讲解平常实用的部分命令。</p>
+<h4 id="core-editor"><a class="header-anchor" href="#core-editor"></a>core.editor</h4>
+<p>默认情况下，Git 会调用你通过环境变量 <code>$VISUAL</code> 或 <code>$EDITOR</code> 设置的文本编辑器， 如果没有设置，默认则会调用 <code>vi</code> 来创建和编辑你的提交以及标签信息。 你可以使用 <code>core.editor</code> 选项来修改默认的编辑器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor emacs</span><br></pre></td></tr></table></figure>
+<p>现在，无论你定义了什么终端编辑器，Git 都会调用 Emacs 编辑信息。</p>
+<h4 id="commit-template"><a class="header-anchor" href="#commit-template"></a>commit.template</h4>
+<p>如果把此项指定为你的系统上某个文件的路径，当你提交的时候， Git 会使用该文件的内容作为提交的默认初始化信息。 创建的自定义提交模版中的值可以用来提示自己或他人适当的提交格式和风格。</p>
+<h4 id="core-pager"><a class="header-anchor" href="#core-pager"></a>core.pager</h4>
+<p>该配置项指定 Git 运行诸如 <code>log</code> 和 <code>diff</code> 等命令所使用的分页器。 你可以把它设置成用 <code>more</code> 或者任何你喜欢的分页器（默认用的是 <code>less</code>），当然也可以设置成空字符串，关闭该选项：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.pager <span class="string">&#x27;&#x27;</span></span></span><br></pre></td></tr></table></figure>
+<p>这样不管命令的输出量多少，Git 都会在一页显示所有内容。</p>
+<h4 id="user-signingkey"><a class="header-anchor" href="#user-signingkey"></a>user.signingkey</h4>
+<p>如果你要创建经签署的含附注的标签， 那么把你的 GPG 签署密钥设置为配置项会更好。如下设置你的密钥 ID：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.signingkey &lt;gpg-key-id&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在，你每次运行 <code>git tag</code> 命令时，即可直接签署标签，而无需定义密钥：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git tag -s &lt;tag-name&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="core-excludesfile"><a class="header-anchor" href="#core-excludesfile"></a>core.excludesfile</h4>
+<p>你可以在你的项目的 <code>.gitignore</code> 文件里面规定无需纳入 Git 管理的文件的模板，这样它们既不会出现在未跟踪列表， 也不会在你运行 <code>git add</code> 后被暂存。</p>
+<p>不过有些时候，你想要在你所有的版本库中忽略掉某一类文件。 如果你的操作系统是 macOS，很可能就是指 <code>.DS_Store</code>。 如果你把 Emacs 或 Vim 作为首选的编辑器，你肯定知道以 <code>~</code> 结尾的文件名。</p>
+<p>这个配置允许你设置类似于全局生效的 <code>.gitignore</code> 文件。 如果你按照下面的内容创建一个 <code>~/.gitignore_global</code> 文件：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*~</span><br><span class="line">.*.swp</span><br><span class="line">.DS_Store</span><br></pre></td></tr></table></figure>
+<p>然后运行 <code>git config --global core.excludesfile ~/.gitignore_global</code>，Git 将把那些文件永远地拒之门外。</p>
+<h4 id="help-autocorrect"><a class="header-anchor" href="#help-autocorrect"></a>help.autocorrect</h4>
+<p>假如你打错了一条命令，会显示：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git chekcout master</span></span><br><span class="line">git：&#x27;chekcout&#x27; 不是一个 git 命令。参见 &#x27;git --help&#x27;。</span><br><span class="line"></span><br><span class="line">您指的是这个么？</span><br><span class="line">  checkout</span><br></pre></td></tr></table></figure>
+<p>Git 会尝试猜测你的意图，但是它不会越俎代庖。 如果你把 <code>help.autocorrect</code> 设置成 1，那么只要有一个命令被模糊匹配到了，Git 会自动运行该命令。</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git chekcout master</span></span><br><span class="line">警告：您运行一个不存在的 Git 命令 &#x27;chekcout&#x27;。继续执行假定您要要运行的</span><br><span class="line">是 &#x27;checkout&#x27;</span><br><span class="line">在 0.1 秒钟后自动运行...</span><br></pre></td></tr></table></figure>
+<p>注意提示信息中的“0.1 秒”。<code>help.autocorrect</code> 接受一个代表十分之一秒的整数。 所以如果你把它设置为 50, Git 将在自动执行命令前给你 5 秒的时间改变主意。</p>
+<h4 id="color"><a class="header-anchor" href="#color"></a>color.*</h4>
+<p>Git 会自动着色大部分输出内容，但如果你不喜欢花花绿绿，也可以关掉。 要想关掉 Git 的终端颜色输出，试一下这个：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global color.ui <span class="literal">false</span></span></span><br></pre></td></tr></table></figure>
+<p>这个设置的默认值是 <code>auto</code>，它会着色直接输出到终端的内容；而当内容被重定向到一个管道或文件时，则忽略着色功能。</p>
+<p>你也可以设置成 <code>always</code>，来忽略掉管道和终端的不同，即在任何情况下着色输出。 你很少会这么设置，在大多数场合下，如果你想在被重定向的输出中插入颜色码，可以传递 <code>--color</code> 标志给 Git 命令来强制它这么做。 默认设置就已经能满足大多数情况下的需求了。</p>
+<p>要想具体到哪些命令输出需要被着色以及怎样着色，你需要用到和具体命令有关的颜色配置选项。 它们都能被置为 <code>true</code>、<code>false</code> 或 <code>always</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">color.branch</span><br><span class="line">color.diff</span><br><span class="line">color.interactive</span><br><span class="line">color.status</span><br></pre></td></tr></table></figure>
+<p>另外，以上每个配置项都有子选项，它们可以被用来覆盖其父设置，以达到为输出的各个部分着色的目的。 例如，为了让 <code>diff</code> 的输出信息以蓝色前景、黑色背景和粗体显示，你可以运行</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global color.diff.meta <span class="string">&quot;blue black bold&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p>你能设置的颜色有：<code>normal</code>、<code>black</code>、<code>red</code>、<code>green</code>、<code>yellow</code>、<code>blue</code>、<code>magenta</code>、<code>cyan</code> 或 <code>white</code>。 正如以上例子设置的粗体属性，想要设置字体属性的话，可以选择包括：<code>bold</code>、<code>dim</code>、<code>ul</code>（下划线）、<code>blink</code>、<code>reverse</code>（交换前景色和背景色）。</p>
+<h4 id="core-autocrlf"><a class="header-anchor" href="#core-autocrlf"></a>core.autocrlf</h4>
+<p>假如你正在 Windows 上写程序，而你的同伴用的是其他系统（或相反），你可能会遇到 CRLF 问题。 这是因为 Windows 使用回车（CR）和换行（LF）两个字符来结束一行，而 macOS 和 Linux 只使用换行（LF）一个字符。 虽然这是小问题，但它会极大地扰乱跨平台协作。许多 Windows 上的编辑器会悄悄把行尾的换行字符转换成回车和换行， 或在用户按下 Enter 键时，插入回车和换行两个字符。</p>
+<p>Git 可以在你提交时自动地把回车和换行转换成换行，而在检出代码时把换行转换成回车和换行。 你可以用 <code>core.autocrlf</code> 来打开此项功能。 如果是在 Windows 系统上，把它设置成 <code>true</code>，这样在检出代码时，换行会被转换成回车和换行：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.autocrlf <span class="literal">true</span></span></span><br></pre></td></tr></table></figure>
+<p>如果使用以换行作为行结束符的 Linux 或 macOS，你不需要 Git 在检出文件时进行自动的转换； 然而当一个以回车加换行作为行结束符的文件不小心被引入时，你肯定想让 Git 修正。 你可以把 <code>core.autocrlf</code> 设置成 input 来告诉 Git 在提交时把回车和换行转换成换行，检出时不转换：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.autocrlf input</span></span><br></pre></td></tr></table></figure>
+<p>这样在 Windows 上的检出文件中会保留回车和换行，而在 macOS 和 Linux 上，以及版本库中会保留换行。</p>
+<p>如果你是 Windows 程序员，且正在开发仅运行在 Windows 上的项目，可以设置 <code>false</code> 取消此功能，把回车保留在版本库中：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.autocrlf <span class="literal">false</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="core-whitespace"><a class="header-anchor" href="#core-whitespace"></a>core.whitespace</h4>
+<p>Git 预先设置了一些选项来探测和修正多余空白字符问题。 它提供了六种处理多余空白字符的主要选项 —— 其中三个默认开启，另外三个默认关闭，不过你可以自由地设置它们。</p>
+<p>默认被打开的三个选项是：<code>blank-at-eol</code>，查找行尾的空格；<code>blank-at-eof</code>，盯住文件底部的空行； <code>space-before-tab</code>，警惕行头 tab 前面的空格。</p>
+<p>默认被关闭的三个选项是：<code>indent-with-non-tab</code>，揪出以空格而非 tab 开头的行（你可以用 <code>tabwidth</code> 选项控制它）；<code>tab-in-indent</code>，监视在行头表示缩进的 tab；<code>cr-at-eol</code>，告诉 Git 忽略行尾的回车。</p>
+<p>通过设置 <code>core.whitespace</code>，你可以让 Git 按照你的意图来打开或关闭以逗号分割的选项。 要想关闭某个选项，你可以在输入设置选项时不指定它或在它前面加个 <code>-</code>。 例如，如果你想要打开除<code>space-before-tab</code> 之外的所有选项，那么可以这样 （ <code>trailing-space</code> 涵盖了 <code>blank-at-eol</code> 和 <code>blank-at-eof</code> ）：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.whitespace \</span></span><br><span class="line"><span class="language-bash">    trailing-space,-space-before-tab,indent-with-non-tab,tab-in-indent,cr-at-eol</span></span><br></pre></td></tr></table></figure>
+<p>你也可以只指定自定义的部分：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.whitespace \</span></span><br><span class="line"><span class="language-bash">    -space-before-tab,indent-with-non-tab,tab-in-indent,cr-at-eol</span></span><br></pre></td></tr></table></figure>
+<h3 id="服务端配置"><a class="header-anchor" href="#服务端配置"></a>服务端配置</h3>
+<h4 id="receive-fsckObjects"><a class="header-anchor" href="#receive-fsckObjects"></a>receive.fsckObjects</h4>
+<p>Git 能够确认每个对象的有效性以及 SHA-1 检验和是否保持一致。 但 Git 不会在每次推送时都这么做。这个操作很耗时间，很有可能会拖慢提交的过程，特别是当库或推送的文件很大的情况下。 如果想在每次推送时都要求 Git 检查一致性，设置 <code>receive.fsckObjects</code> 为 true 来强迫它这么做：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --system receive.fsckObjects <span class="literal">true</span></span></span><br></pre></td></tr></table></figure>
+<p>现在 Git 会在每次推送生效前检查库的完整性，确保没有被有问题的客户端引入破坏性数据。</p>
+<h4 id="receive-denyNonFastForwards"><a class="header-anchor" href="#receive-denyNonFastForwards"></a>receive.denyNonFastForwards</h4>
+<p>如果你变基已经被推送的提交，继而再推送，又或者推送一个提交到远程分支，而这个远程分支当前指向的提交不在该提交的历史中，这样的推送会被拒绝。 这通常是个很好的策略，但有时在变基的过程中，你确信自己需要更新远程分支，可以在 push 命令后加 <code>-f</code> 标志来强制更新（force-update）。</p>
+<p>要禁用这样的强制更新推送（force-pushes），可以设置 <code>receive.denyNonFastForwards</code>：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --system receive.denyNonFastForwards <span class="literal">true</span></span></span><br></pre></td></tr></table></figure>
+<p>稍后我们会提到，用服务器端的接收钩子也能达到同样的目的。 那种方法可以做到更细致的控制，例如禁止某一类用户做非快进（non-fast-forwards）推送。</p>
+<h4 id="receive-denyDeletes"><a class="header-anchor" href="#receive-denyDeletes"></a>receive.denyDeletes</h4>
+<p>有一些方法可以绕过 <code>denyNonFastForwards</code> 策略。其中一种是先删除某个分支，再连同新的引用一起推送回该分支。 把 <code>receive.denyDeletes</code> 设置为 true 可以把这个漏洞补上：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --system receive.denyDeletes <span class="literal">true</span></span></span><br></pre></td></tr></table></figure>
+<p>这样会禁止通过推送删除分支和标签 — 没有用户可以这么做。 要删除远程分支，必须从服务器手动删除引用文件。</p>
+<h2 id="Git-属性"><a class="header-anchor" href="#Git-属性"></a>Git 属性</h2>
+<p>你也可以针对特定的路径配置某些设置项，这样 Git 就只对特定的子目录或子文件集运用它们。 这些基于路径的设置项被称为 Git 属性，可以在你的目录下的 <code>.gitattributes</code> 文件内进行设置（通常是你的项目的根目录）。如果不想让这些属性文件与其它文件一同提交，你也可以在 <code>.git/info/attributes</code> 文件中进行设置。</p>
+<p>通过使用属性，你可以对项目中的文件或目录单独定义不同的合并策略，让 Git 知道怎样比较非文本文件，或者让 Git 在提交或检出前过滤内容。</p>
+<h2 id="Git-钩子"><a class="header-anchor" href="#Git-钩子"></a>Git 钩子</h2>
+<p>和其它版本控制系统一样，Git 能在特定的重要动作发生时触发自定义脚本。 有两组这样的钩子：客户端的和服务器端的。 客户端钩子由诸如提交和合并这样的操作所调用，而服务器端钩子作用于诸如接收被推送的提交这样的联网操作。 你可以随心所欲地运用这些钩子。</p>
+<p>钩子都被存储在 Git 目录下的 <code>hooks</code> 子目录中。 也即绝大部分项目中的 <code>.git/hooks</code> 。 当你用 <code>git init</code> 初始化一个新版本库时，Git 默认会在这个目录中放置一些示例脚本。 这些脚本除了本身可以被调用外，它们还透露了被触发时所传入的参数。 所有的示例都是 shell 脚本，其中一些还混杂了 Perl 代码，不过，任何正确命名的可执行脚本都可以正常使用 —— 你可以用 Ruby 或 Python，或任何你熟悉的语言编写它们。 这些示例的名字都是以 <code>.sample</code> 结尾，如果你想启用它们，得先移除这个后缀。</p>
+<p>把一个正确命名（不带扩展名）且可执行的文件放入 <code>.git</code> 目录下的 <code>hooks</code> 子目录中，即可激活该钩子脚本。 这样一来，它就能被 Git 调用。</p>
+<blockquote>
+<p>需要注意的是，克隆某个版本库时，它的客户端钩子 <strong>并不</strong> 随同复制。 如果需要靠这些脚本来强制维持某种策略，建议你在服务器端实现这一功能。</p>
+</blockquote>
+<h2 id="总结"><a class="header-anchor" href="#总结"></a>总结</h2>
+<p>自定义 Git 章节中，我主要在乎的是使用 Git 客户端配置，因为它跟平常的开发息息相关。 Git 属性和 Git 钩子更偏向于自定义化，一般项目确实用不到，等到真的有需求那天，再专门整理一章实践片，现在主打一个了解，知道有这个东西就行。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.itwray.com/2024/01/22/git-study-8/">https://www.itwray.com/2024/01/22/git-study-8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/img/touxiang.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/20/git-study-7/" title="Git学习-Git工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Git学习-Git工具</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/11/22/git-commands-reset/" title="Git-reset命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-22</div><div class="title">Git-reset命令</div></div></a></div><div><a href="/2023/10/13/git-study-1/" title="Git学习-起步(1)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-13</div><div class="title">Git学习-起步(1)</div></div></a></div><div><a href="/2023/12/07/git-study-2/" title="Git学习-Git基础(2)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-07</div><div class="title">Git学习-Git基础(2)</div></div></a></div><div><a href="/2023/12/15/git-study-4/" title="Git学习-Git服务器(4)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-15</div><div class="title">Git学习-Git服务器(4)</div></div></a></div><div><a href="/2023/12/12/git-study-3/" title="Git学习-Git分支(3)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-12</div><div class="title">Git学习-Git分支(3)</div></div></a></div><div><a href="/2023/12/17/git-study-5/" title="Git学习-分布式Git(5)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-17</div><div class="title">Git学习-分布式Git(5)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Git"><span class="toc-number">1.</span> <span class="toc-text">配置 Git</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">客户端基础配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#core-editor"><span class="toc-number">1.1.1.</span> <span class="toc-text">core.editor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#commit-template"><span class="toc-number">1.1.2.</span> <span class="toc-text">commit.template</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#core-pager"><span class="toc-number">1.1.3.</span> <span class="toc-text">core.pager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#user-signingkey"><span class="toc-number">1.1.4.</span> <span class="toc-text">user.signingkey</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#core-excludesfile"><span class="toc-number">1.1.5.</span> <span class="toc-text">core.excludesfile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#help-autocorrect"><span class="toc-number">1.1.6.</span> <span class="toc-text">help.autocorrect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#color"><span class="toc-number">1.1.7.</span> <span class="toc-text">color.*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#core-autocrlf"><span class="toc-number">1.1.8.</span> <span class="toc-text">core.autocrlf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#core-whitespace"><span class="toc-number">1.1.9.</span> <span class="toc-text">core.whitespace</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">服务端配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#receive-fsckObjects"><span class="toc-number">1.2.1.</span> <span class="toc-text">receive.fsckObjects</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#receive-denyNonFastForwards"><span class="toc-number">1.2.2.</span> <span class="toc-text">receive.denyNonFastForwards</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#receive-denyDeletes"><span class="toc-number">1.2.3.</span> <span class="toc-text">receive.denyDeletes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">Git 属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-%E9%92%A9%E5%AD%90"><span class="toc-number">3.</span> <span class="toc-text">Git 钩子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/22/git-study-8/" title="Git学习-自定义Git">Git学习-自定义Git</a><time datetime="2024-01-22T06:30:26.000Z" title="发表于 2024-01-22 14:30:26">2024-01-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/20/git-study-7/" title="Git学习-Git工具">Git学习-Git工具</a><time datetime="2024-01-20T07:26:38.000Z" title="发表于 2024-01-20 15:26:38">2024-01-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/13/work-report-dingtalk-robot/" title="工作小结-接入钉钉机器人">工作小结-接入钉钉机器人</a><time datetime="2024-01-13T08:09:33.000Z" title="发表于 2024-01-13 16:09:33">2024-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/10/work-report-mybatisplus-fill/" title="工作小结-MyBatis-Plus填充策略">工作小结-MyBatis-Plus填充策略</a><time datetime="2024-01-10T09:12:19.000Z" title="发表于 2024-01-10 17:12:19">2024-01-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/08/work-report-shedlock/" title="工作小结-ShedLock的使用">工作小结-ShedLock的使用</a><time datetime="2024-01-08T07:17:21.000Z" title="发表于 2024-01-08 15:17:21">2024-01-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/fengjing1.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Wray</div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
