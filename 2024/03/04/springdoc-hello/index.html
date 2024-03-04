@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>再见SpringFox，你好SpringDoc | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前述 最近项目使用 SpringBoot 3 + Spring 6 搭建，接口文档准备一如既往的使用 Swagger 自动生成，引入 springfox-boot-starter 依赖，配置好相关的 Swagger 配置，结果启动报错，修改配置后启动不报错了，但是访问 swagger-ui/index.html 页面报404。 问题分析 一顿分析过后发现，最新的 springfox 3.0.0 （">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再见SpringFox，你好SpringDoc">
+<meta property="og:url" content="https://www.itwray.com/2024/03/04/springdoc-hello/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="前述 最近项目使用 SpringBoot 3 + Spring 6 搭建，接口文档准备一如既往的使用 Swagger 自动生成，引入 springfox-boot-starter 依赖，配置好相关的 Swagger 配置，结果启动报错，修改配置后启动不报错了，但是访问 swagger-ui/index.html 页面报404。 问题分析 一顿分析过后发现，最新的 springfox 3.0.0 （">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240304173959.png">
+<meta property="article:published_time" content="2024-03-04T07:35:59.000Z">
+<meta property="article:modified_time" content="2024-03-04T09:40:08.515Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="springdoc">
+<meta property="article:tag" content="swagger-ui">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240304173959.png"><link rel="shortcut icon" href="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/favicon202222.ico"><link rel="canonical" href="https://www.itwray.com/2024/03/04/springdoc-hello/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '再见SpringFox，你好SpringDoc',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-04 17:40:08'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">再见SpringFox，你好SpringDoc</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-04T07:35:59.000Z" title="发表于 2024-03-04 15:35:59">2024-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-04T09:40:08.515Z" title="更新于 2024-03-04 17:40:08">2024-03-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">978</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="再见SpringFox，你好SpringDoc"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="前述"><a class="header-anchor" href="#前述"></a>前述</h2>
+<p>最近项目使用 SpringBoot 3 + Spring 6 搭建，接口文档准备一如既往的使用 Swagger 自动生成，引入 <code>springfox-boot-starter</code> 依赖，配置好相关的 Swagger 配置，结果启动报错，修改配置后启动不报错了，但是访问 swagger-ui/index.html 页面报404。</p>
+<h2 id="问题分析"><a class="header-anchor" href="#问题分析"></a>问题分析</h2>
+<p>一顿分析过后发现，最新的 springfox 3.0.0 （最后一次维护在2020年）仅支持 Spring 5.x，要想使用 springfox，最简单快捷的方式就是降版本，将 SpringBoot 的版本号从 3.x 修改为 2.7.x（或更低版本）。</p>
+<p>新项目就是想体验最新的 SpringBoot 版本功能，这样一搞，岂不是本末倒置了，因此我就尝试了各种方法，企图通过修改 Spring Bean 属性等方式适配 Swagger ，结果发现 Spring 里面的对象属性是一层嵌一层，牵一发而动全身，菜鸡的我只好放弃。</p>
+<p>企图尝试：</p>
+<ol>
+<li>注册 WebMvcConfigurer Bean，重写 <code>configurePathMatch(PathMatchConfigurer configurer)</code> 方法。</li>
+<li>在 PathMatchConfigurer 对象中，修改 patternParser 属性为 null ，再修改 pathMatcher 属性不为空，使得 patternParser 为空并且 preferPathMatcher 等于 true。</li>
+<li>从而会影响 WebMvcConfigurationSupport#initHandlerMapping 方法的条件判断，进而影响 AbstractHandlerMapping 的 patternParser 属性为空，而 pathMatcher 不为空。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304165058399.png" alt="image-20240304165058399"></p>
+<ol start="4">
+<li>AbstractHandlerMapping 的实例对象为 RequestMappingHandlerMapping ，其 afterPropertiesSet() 方法会根据 patternParser 属性作为条件判断，进而 RequestMappingInfo.BuilderConfiguration config 的 patternParser 属性为空并且 pathMatcher 属性不为空。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304165617376.png" alt="image-20240304165617376"></p>
+<ol start="5">
+<li>RequestMappingInfo.DefaultBuilder#build() 方法会调用 RequestMappingInfo.BuilderConfiguration#getPatternParserToUse() 方法，该方法会返回上一步配置的 patternParser 属性。从而影响 build() 方法的条件判断，实例化 PatternsRequestCondition 对象，最后在实例化 RequestMappingInfo 对象时，pathPatternsCondition 为空，而 patternsCondition 不为空。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304165953003.png" alt="image-20240304165953003"></p>
+<ol start="6">
+<li>然后，springfox 的 WebMvcRequestHandler#getPatternsCondition() 方法会拿取 RequestMappingInfo 的 patternsCondition 属性，作为参数实例化 WebMvcPatternsRequestConditionWrapper 对象。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304170619406.png" alt="image-20240304170619406"></p>
+<ol start="7">
+<li>最后，WebMvcPatternsRequestConditionWrapper#getPatterns() 方法在使用 PatternsRequestCondition 属性时就不会出现空指针情况，程序正常启动。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304170853408.png" alt="image-20240304170853408"></p>
+<h2 id="问题突破"><a class="header-anchor" href="#问题突破"></a>问题突破</h2>
+<p>源码分析告一段落后，我就开始在网络遨游，寻找广大群众的力量，最终在 stackoverflow 上找到了解决方案，也是在此处第一次了解到 springdoc-openapi 。</p>
+<p>先说解决方法的最核心东西，引入以下 maven 依赖。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springdoc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.x.x<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>注意</strong>：如果是 Spring Boot 1.x 或 2.x 的项目，springdoc-openapi 需要使用 1.x 的版本。</p>
+<p>stackoverflow 帖子的链接地址：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/74614369/how-to-run-swagger-3-on-spring-boot-3">How to run Swagger 3 on Spring Boot 3</a></p>
+<p>既然知道了可以使用 springdoc-openapi 解决，那就直接进入官方查看怎么使用。官方地址：<a target="_blank" rel="noopener" href="https://springdoc.org/">springdoc.org</a></p>
+<p>映入眼帘的介绍，让人为之心动，支持 SpringBoot 3 和 Swagger-ui ！！！</p>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304171925138.png" alt="image-20240304171925138"></p>
+<h2 id="使用SpringDoc-Openapi"><a class="header-anchor" href="#使用SpringDoc-Openapi"></a>使用SpringDoc Openapi</h2>
+<p>第一步，引入 maven 依赖。</p>
+<p>第二步，同 Swagger 一样，编写配置类，主要是 <code>GroupedOpenApi</code> 和 <code>OpenAPI</code> 两个类，详见 <a target="_blank" rel="noopener" href="https://springdoc.org/#migrating-from-springfox">从 SpringFox 迁移</a> 。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> GroupedOpenApi <span class="title function_">publicApi</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> GroupedOpenApi.builder()</span><br><span class="line">            .group(<span class="string">"springshop-public"</span>)</span><br><span class="line">            .pathsToMatch(<span class="string">"/public/**"</span>)</span><br><span class="line">            .build();</span><br><span class="line">}</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> GroupedOpenApi <span class="title function_">adminApi</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> GroupedOpenApi.builder()</span><br><span class="line">            .group(<span class="string">"springshop-admin"</span>)</span><br><span class="line">            .pathsToMatch(<span class="string">"/admin/**"</span>)</span><br><span class="line">            .addOpenApiMethodFilter(method -&gt; method.isAnnotationPresent(Admin.class))</span><br><span class="line">            .build();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> OpenAPI <span class="title function_">springShopOpenAPI</span><span class="params">()</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OpenAPI</span>()</span><br><span class="line">            .info(<span class="keyword">new</span> <span class="title class_">Info</span>().title(<span class="string">"SpringShop API"</span>)</span><br><span class="line">            .description(<span class="string">"Spring shop sample application"</span>)</span><br><span class="line">            .version(<span class="string">"v0.0.1"</span>)</span><br><span class="line">            .license(<span class="keyword">new</span> <span class="title class_">License</span>().name(<span class="string">"Apache 2.0"</span>).url(<span class="string">"http://springdoc.org"</span>)))</span><br><span class="line">            .externalDocs(<span class="keyword">new</span> <span class="title class_">ExternalDocumentation</span>()</span><br><span class="line">            .description(<span class="string">"SpringShop Wiki Documentation"</span>)</span><br><span class="line">            .url(<span class="string">"https://springshop.wiki.github.org/docs"</span>));</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>如果项目仅有一个 <code>GroupedOpenApi</code> 配置类，那么可以直接配置在 application.properties 下，例如：</p>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">springdoc.packagesToScan</span>=<span class="string">package1, package2</span></span><br><span class="line"><span class="attr">springdoc.pathsToMatch</span>=<span class="string">/v1, /api/balance/**</span></span><br></pre></td></tr></tbody></table></figure>
+<p>第三步，对于 API Interface 和 API Model ，springdoc-openapi 与 swagger-annotation 略有不同，替换方案如下：</p>
+<p><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/image-20240304173127941.png" alt="image-20240304173127941"></p>
+<p>至此，springdoc-openapi 就配置完毕了，启动项目，访问 http://server:port/context-path/swagger-ui.html 。</p>
+<p>springdoc-openapi 支持自定义访问路径，修改属性配置如下：</p>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># swagger-ui custom path</span></span><br><span class="line"><span class="attr">springdoc.swagger-ui.path</span>=<span class="string">/doc.html</span></span><br></pre></td></tr></tbody></table></figure>
+<p>修改后，访问 http://server:port/context-path/doc.html 也是一样的效果，它都会转发为最终的地址 http://server:port/context-path/swagger-ui/index.html 。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.itwray.com/2024/03/04/springdoc-hello/">https://www.itwray.com/2024/03/04/springdoc-hello/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/springdoc/">springdoc</a><a class="post-meta__tags" href="/tags/swagger-ui/">swagger-ui</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240304173959.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/02/29/life-20240229/" title="生活日记-20240229"><img class="cover" src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240229142945.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生活日记-20240229</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">前述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%AA%81%E7%A0%B4"><span class="toc-number">3.</span> <span class="toc-text">问题突破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8SpringDoc-Openapi"><span class="toc-number">4.</span> <span class="toc-text">使用SpringDoc Openapi</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/04/springdoc-hello/" title="再见SpringFox，你好SpringDoc"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240304173959.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="再见SpringFox，你好SpringDoc"></a><div class="content"><a class="title" href="/2024/03/04/springdoc-hello/" title="再见SpringFox，你好SpringDoc">再见SpringFox，你好SpringDoc</a><time datetime="2024-03-04T07:35:59.000Z" title="发表于 2024-03-04 15:35:59">2024-03-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/02/29/life-20240229/" title="生活日记-20240229"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/20240229142945.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="生活日记-20240229"></a><div class="content"><a class="title" href="/2024/02/29/life-20240229/" title="生活日记-20240229">生活日记-20240229</a><time datetime="2024-02-29T09:26:08.000Z" title="发表于 2024-02-29 17:26:08">2024-02-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/git-study-10/" title="Git学习-Git内部原理"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/field-8419729_1920.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git学习-Git内部原理"></a><div class="content"><a class="title" href="/2024/01/23/git-study-10/" title="Git学习-Git内部原理">Git学习-Git内部原理</a><time datetime="2024-01-23T09:02:49.000Z" title="发表于 2024-01-23 17:02:49">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/git-study-9/" title="Git学习-Git与其他系统"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/christmas-8453168_1920.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git学习-Git与其他系统"></a><div class="content"><a class="title" href="/2024/01/22/git-study-9/" title="Git学习-Git与其他系统">Git学习-Git与其他系统</a><time datetime="2024-01-22T08:52:51.000Z" title="发表于 2024-01-22 16:52:51">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/git-study-8/" title="Git学习-自定义Git"><img src="https://raw.githubusercontent.com/wangfarui/picbed/personal/default/cat-8451431_1920.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git学习-自定义Git"></a><div class="content"><a class="title" href="/2024/01/22/git-study-8/" title="Git学习-自定义Git">Git学习-自定义Git</a><time datetime="2024-01-22T06:30:26.000Z" title="发表于 2024-01-22 14:30:26">2024-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2023 - 2024 By Wray</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
