@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>RocketMQ 5.x在SpringBoot中的上手使用过程 | Wray Blog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在SpringBoot环境下原生态的集成使用RocketMQ的简易教程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ 5.x在SpringBoot中的上手使用过程">
+<meta property="og:url" content="https://blog.itwray.com/2024/10/13/rocketmq-springboot-simple/index.html">
+<meta property="og:site_name" content="Wray Blog">
+<meta property="og:description" content="在SpringBoot环境下原生态的集成使用RocketMQ的简易教程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241013131831.png">
+<meta property="article:published_time" content="2024-10-13T05:13:01.000Z">
+<meta property="article:modified_time" content="2024-10-14T08:50:32.590Z">
+<meta property="article:author" content="Wray">
+<meta property="article:tag" content="RocketMQ">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241013131831.png"><link rel="shortcut icon" href="https://itwray.oss-cn-heyuan.aliyuncs.com/img/W.svg"><link rel="canonical" href="https://blog.itwray.com/2024/10/13/rocketmq-springboot-simple/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RocketMQ 5.x在SpringBoot中的上手使用过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-14 16:50:32'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">49</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wray Blog"><span class="site-name">Wray Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">RocketMQ 5.x在SpringBoot中的上手使用过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-13T05:13:01.000Z" title="发表于 2024-10-13 13:13:01">2024-10-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-14T08:50:32.590Z" title="更新于 2024-10-14 16:50:32">2024-10-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RocketMQ/">RocketMQ</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RocketMQ 5.x在SpringBoot中的上手使用过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1>准备环境</h1>
+<ul>
+<li>JDK 17</li>
+<li>Spring Boot 3.2.3</li>
+<li>RocketMQ（服务端） 5.3.1</li>
+<li>rocketmq-v5-client-spring-boot-starter（客户端） 2.3.1</li>
+</ul>
+<p>在 SpringBoot 项目中依赖如下配置：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.rocketmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>rocketmq-v5-client-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果还未搭建服务端，可以先看<strong>第5节-服务器环境搭建</strong>。</p>
+<h1>参数配置</h1>
+<p>按照 SpringBoot 的约定习俗，在上手一个新的 <code>spring-boot-starter</code>项目时，想要知道怎么使用它，看它的 AutoConfiguration 就对了。</p>
+<p>在 <code>rocketmq-v5-client-spring-boot</code>中，对应的 AutoConfiguration 类为 <code>RocketMQAutoConfiguration</code>，其类定义部分代码如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(RocketMQProperties.class)</span></span><br><span class="line"><span class="meta">@Import({MessageConverterConfiguration.class, ListenerContainerConfiguration.class, ExtTemplateResetConfiguration.class,</span></span><br><span class="line"><span class="meta">        ExtConsumerResetConfiguration.class, RocketMQTransactionConfiguration.class, RocketMQListenerConfiguration.class})</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter({MessageConverterConfiguration.class})</span></span><br><span class="line"><span class="meta">@AutoConfigureBefore({RocketMQTransactionConfiguration.class})</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RocketMQAutoConfiguration</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> {</span><br><span class="line">  	<span class="comment">// ... 省略</span></span><br><span class="line">   	</span><br><span class="line">    <span class="meta">@Bean(PRODUCER_BUILDER_BEAN_NAME)</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean(ProducerBuilderImpl.class)</span></span><br><span class="line">    <span class="meta">@ConditionalOnProperty(prefix = "rocketmq", value = {"producer.endpoints"})</span></span><br><span class="line">    <span class="keyword">public</span> ProducerBuilder <span class="title function_">producerBuilder</span><span class="params">(RocketMQProperties rocketMQProperties)</span> {</span><br><span class="line">      <span class="comment">// ... 省略</span></span><br><span class="line">    }</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Bean(SIMPLE_CONSUMER_BUILDER_BEAN_NAME)</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean(SimpleConsumerBuilder.class)</span></span><br><span class="line">    <span class="meta">@ConditionalOnProperty(prefix = "rocketmq", value = {"simple-consumer.endpoints"})</span></span><br><span class="line">    <span class="keyword">public</span> SimpleConsumerBuilder <span class="title function_">simpleConsumerBuilder</span><span class="params">(RocketMQProperties rocketMQProperties)</span> {</span><br><span class="line">       <span class="comment">// ... 省略</span></span><br><span class="line">    }</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Bean(destroyMethod = "destroy")</span></span><br><span class="line">    <span class="meta">@Conditional(ProducerOrConsumerPropertyCondition.class)</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean(name = ROCKETMQ_TEMPLATE_DEFAULT_GLOBAL_NAME)</span></span><br><span class="line">    <span class="keyword">public</span> RocketMQClientTemplate <span class="title function_">rocketMQClientTemplate</span><span class="params">(RocketMQMessageConverter rocketMQMessageConverter)</span> {</span><br><span class="line">       <span class="comment">// ... 省略</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>可以发现，在<code>rocketmq-v5-client-spring-boot</code>中，根据 RocketMQ 5.x 在架构上做的改进，使用了 <code>endpoints</code> 来替代传统的 <code>namesrvAddr</code>，以支持更灵活的网络拓扑和云原生架构。<code>endpoints</code> 通常指向 RocketMQ 的 <strong>Broker 或 Nameserver</strong> 地址，用于生产者与 RocketMQ 集群建立连接。<strong>endpoints</strong> 是一个 URL 或 IP 地址（ip:host）列表（使用<code>;</code>分割）。</p>
+<blockquote>
+<p>⚠️注意：在 RocketMQ 5.x 中，现已默认使用gRPC作为通信协议，entpoints更建议指向 <strong>Proxy</strong> 地址，一般默认端口为8081。</p>
+</blockquote>
+<p>因此，现在想要启用默认的生产者（ProducerBuilder），只需要配置<code>rocketmq.producer.endpoints</code>即可。</p>
+<p>想要启用默认的消费者（SimpleConsumerBuilder），只需要配置<code>rocketmq.simple-consumer.endpoints</code>即可。</p>
+<p>而<code>RocketMQClientTemplate</code>则是通过判断当前应用上下文是否含有<code>ProducerBuilder</code>或<code>SimpleConsumerBuilder</code> Bean对象生成而来。它属于<code>rocketmq-v5-client-spring-boot</code>模块下，也就是说它利用了Spring特性，提供了Spring风格的API，方便开发者通过 Spring 的编程模型来进行消息发送和接收。</p>
+<p>既然是原生态的简易使用教程，那么就尽可能在不写多的代码的情况下，实现生产环境中使用MQ。</p>
+<p>因此，本次项目就只配置 <code>rocketmq.producer.endpoints</code> 用于启用默认的生产者，消费者使用Push消费模式，所以配置<code>rocketmq.push-consumer.endpoints</code>。配置如下：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rocketmq:</span></span><br><span class="line">  <span class="attr">producer:</span></span><br><span class="line">    <span class="attr">endpoints:</span> <span class="string">localhost:8081</span></span><br><span class="line">  <span class="attr">push-consumer:</span></span><br><span class="line">  	<span class="attr">endpoints:</span> <span class="string">localhost:8081</span></span><br></pre></td></tr></tbody></table></figure>
+<p><code>topic</code>在代码中指定，不使用<code>rocketmq.producer.topic</code>和<code>rocketmq.push-consumer.topic</code>配置默认的topic。</p>
+<blockquote>
+<p>tips: 在启动客户端服务时，topic需要先创建，否则会启动报错。</p>
+</blockquote>
+<h1>生产者生产消息</h1>
+<p>生产消息通过SpringBoot自动装配的<code>RocketMQClientTemplate</code>对象实现，发送<code>Message</code>对象，示例代码如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> {</span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> RocketMQClientTemplate rocketMQClientTemplate;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendMessage</span><span class="params">()</span> {</span><br><span class="line">      <span class="type">byte</span>[] bytes = <span class="string">"这是一个字符串"</span>.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">      Message&lt;<span class="type">byte</span>[]&gt; message = MessageBuilder.withPayload(bytes).build();</span><br><span class="line">      rocketMQClientTemplate.send(<span class="string">"MyTopic"</span>, message);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>⚠️注意：在 RocketMQ 5.x 中，<code>Message</code>对象已从自定义对象改为<code>spring-messaging</code>包中的<code>Message</code>对象。一般通过<code>MessageBuilder</code>构建，实例对象类型为<code>GenericMessage</code>。</p>
+</blockquote>
+<h1>消费者消费消息</h1>
+<p>消费者通过<code>@RocketMQMessageListener</code>注解，并实现<code>RocketMQListener</code>接口消费消息，示例代码如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@RocketMQMessageListener(consumerGroup = "MyTopic-service", topic = "MyTopic", tag = "*")</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyService</span> <span class="keyword">implements</span> <span class="title class_">RocketMQListener</span> {</span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ConsumeResult <span class="title function_">consume</span><span class="params">(MessageView messageView)</span> {</span><br><span class="line">        <span class="comment">// 从 MessageView 中获取 ByteBuffer</span></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">byteBuffer</span> <span class="operator">=</span> messageView.getBody();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 转换 ByteBuffer 为字节数组</span></span><br><span class="line">        <span class="type">byte</span>[] body = <span class="keyword">new</span> <span class="title class_">byte</span>[byteBuffer.remaining()];</span><br><span class="line">        byteBuffer.get(body);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理字节数组，例如转换为字符串</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">messageBody</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(body, StandardCharsets.UTF_8);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"消费消息内容："</span> + messageBody);</span><br><span class="line">      </span><br><span class="line">     	 	<span class="keyword">return</span> ConsumeResult.SUCCESS;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1>服务端环境搭建</h1>
+<ol>
+<li>
+<p>下载二进制包</p>
+<p>在 <a target="_blank" rel="noopener" href="https://rocketmq.apache.org/zh/docs/quickStart/01quickstart">Apache RocketMQ 本地部署 RocketMQ</a> 文档中，可以找到最新的二进制包，位置如下：</p>
+<p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20241014163749567.png" alt="image-20241014163749567"></p>
+<p>如果想保持跟本文相同版本，可以直接点击<a target="_blank" rel="noopener" href="https://dist.apache.org/repos/dist/release/rocketmq/5.3.1/rocketmq-all-5.3.1-bin-release.zip">链接</a>下载RocketMQ 5.3.1版本。</p>
+</li>
+<li>
+<p>启动NameServer</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 启动namesrv</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nohup</span> sh bin/mqnamesrv &amp;</span></span><br><span class="line"><span class="meta prompt_"> </span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 验证namesrv是否启动成功</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">tail</span> -f ~/logs/rocketmqlogs/namesrv.log</span></span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>本地模式启动Broker+Proxy</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 先启动broker</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">nohup</span> sh bin/mqbroker -n localhost:9876 --enable-proxy &amp;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 验证broker是否启动成功, 比如, broker的ip是192.168.1.2 然后名字是broker-a</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">tail</span> -f ~/logs/rocketmqlogs/proxy.log</span> </span><br><span class="line">The broker[broker-a,192.169.1.2:10911] boot success...</span><br></pre></td></tr></tbody></table></figure>
+<p><code>mqbroker</code>脚本默认会读取 <code>conf/broker.conf</code> 配置用于Broker服务。在 <code>conf/rmq-proxy.json</code> 中是Proxy服务的配置，通过 <code>--enable-proxy</code> 命令启动时，需要加上 <code>-pc conf/rmq-proxy.json</code> 参数指定配置文件位置。</p>
+<p><code>broker.conf</code>的监听端口key为<code>listenPort</code>，管理端口key为<code>brokerAdminPort</code>。</p>
+<p><code>rmq.proxy.json</code>的gRPC请求端口key为<code>grpcServerPort</code>，传统的消息发送和接收请求的端口key为<code>remotingListenPort</code>。</p>
+</li>
+</ol>
+<p>关于RocketMQ的管理命令可以参考<a target="_blank" rel="noopener" href="https://rocketmq.apache.org/zh/docs/deploymentOperations/02admintool">Admin Tool</a>。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.itwray.com/2024/10/13/rocketmq-springboot-simple/">https://blog.itwray.com/2024/10/13/rocketmq-springboot-simple/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.itwray.com" target="_blank">Wray Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RocketMQ/">RocketMQ</a><a class="post-meta__tags" href="/tags/SpringBoot/">SpringBoot</a></div><div class="post_share"><div class="social-share" data-image="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241013131831.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/09/23/fail2ban-use/" title="Fail2Ban使用心得"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240923122511.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Fail2Ban使用心得</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/23/rocketmq-concept/" title="RocketMQ-概念"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/city-8450817_1920.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-23</div><div class="title">RocketMQ-概念</div></div></a></div><div><a href="/2023/11/07/rocketmq-consumer/" title="RocketMQ-消费者之消息消费"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/dog-8448345_1920.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-07</div><div class="title">RocketMQ-消费者之消息消费</div></div></a></div><div><a href="/2023/11/01/rocketmq-producer/" title="RocketMQ-生产者之消息发送"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/cortina-dampezzo-8504755_1920.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-01</div><div class="title">RocketMQ-生产者之消息发送</div></div></a></div><div><a href="/2023/11/15/rocketmq-push-consumer/" title="RocketMQ-消费者之Push消费模式"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/european-shorthair-8330819_1920.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-15</div><div class="title">RocketMQ-消费者之Push消费模式</div></div></a></div><div><a href="/2024/08/26/spring-boot-redis-use/" title="SpringBoot集成Redis使用心得"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240826154118.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-26</div><div class="title">SpringBoot集成Redis使用心得</div></div></a></div><div><a href="/2023/10/08/springboot-tomcat-initialize/" title="SpringBoot之Tomcat初始化过程的源码分析"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/cat-8451431_1920.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-08</div><div class="title">SpringBoot之Tomcat初始化过程的源码分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">49</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">准备环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">参数配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">生产者生产消息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">消费者消费消息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">服务端环境搭建</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/10/13/rocketmq-springboot-simple/" title="RocketMQ 5.x在SpringBoot中的上手使用过程"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241013131831.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ 5.x在SpringBoot中的上手使用过程"></a><div class="content"><a class="title" href="/2024/10/13/rocketmq-springboot-simple/" title="RocketMQ 5.x在SpringBoot中的上手使用过程">RocketMQ 5.x在SpringBoot中的上手使用过程</a><time datetime="2024-10-13T05:13:01.000Z" title="发表于 2024-10-13 13:13:01">2024-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/fail2ban-use/" title="Fail2Ban使用心得"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240923122511.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fail2Ban使用心得"></a><div class="content"><a class="title" href="/2024/09/23/fail2ban-use/" title="Fail2Ban使用心得">Fail2Ban使用心得</a><time datetime="2024-09-23T04:23:29.000Z" title="发表于 2024-09-23 12:23:29">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/26/spring-boot-redis-use/" title="SpringBoot集成Redis使用心得"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240826154118.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot集成Redis使用心得"></a><div class="content"><a class="title" href="/2024/08/26/spring-boot-redis-use/" title="SpringBoot集成Redis使用心得">SpringBoot集成Redis使用心得</a><time datetime="2024-08-26T07:27:17.000Z" title="发表于 2024-08-26 15:27:17">2024-08-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/03/java-jvm-readClassFile/" title="Java-“手撕”Class文件结构"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240801110726.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java-“手撕”Class文件结构"></a><div class="content"><a class="title" href="/2024/07/03/java-jvm-readClassFile/" title="Java-“手撕”Class文件结构">Java-“手撕”Class文件结构</a><time datetime="2024-07-03T03:31:38.000Z" title="发表于 2024-07-03 11:31:38">2024-07-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/30/java-jvm-classFileStructure/" title="Java-JVM类文件结构"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/20240729163843.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java-JVM类文件结构"></a><div class="content"><a class="title" href="/2024/06/30/java-jvm-classFileStructure/" title="Java-JVM类文件结构">Java-JVM类文件结构</a><time datetime="2024-06-30T02:31:38.000Z" title="发表于 2024-06-30 10:31:38">2024-06-30</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2023 - 2024 By Wray</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><span>鄂ICP备2024050235号-1</span></a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=42018502007471" rel="noreferrer" target="_blank"><img class="icp-icon" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/beian.png"><span>鄂公网安备42018502007471</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
