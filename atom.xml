@@ -61,9 +61,9 @@
     <category term="RocketMQ" scheme="https://blog.itwray.com/categories/RocketMQ/"/>
     
     
-    <category term="RocketMQ" scheme="https://blog.itwray.com/tags/RocketMQ/"/>
-    
     <category term="SpringBoot" scheme="https://blog.itwray.com/tags/SpringBoot/"/>
+    
+    <category term="RocketMQ" scheme="https://blog.itwray.com/tags/RocketMQ/"/>
     
   </entry>
   
@@ -120,9 +120,9 @@
     <category term="Java" scheme="https://blog.itwray.com/categories/Java/"/>
     
     
-    <category term="Java" scheme="https://blog.itwray.com/tags/Java/"/>
-    
     <category term="SpringBoot" scheme="https://blog.itwray.com/tags/SpringBoot/"/>
+    
+    <category term="Java" scheme="https://blog.itwray.com/tags/Java/"/>
     
     <category term="Redis" scheme="https://blog.itwray.com/tags/Redis/"/>
     
