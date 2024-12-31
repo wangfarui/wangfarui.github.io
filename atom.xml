@@ -6,7 +6,7 @@
   <link href="https://blog.itwray.com/atom.xml" rel="self"/>
   
   <link href="https://blog.itwray.com/"/>
-  <updated>2024-11-20T07:27:20.864Z</updated>
+  <updated>2024-12-31T16:17:27.266Z</updated>
   <id>https://blog.itwray.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>年终总结-2024</title>
+    <link href="https://blog.itwray.com/2024/12/31/year-end-2024/"/>
+    <id>https://blog.itwray.com/2024/12/31/year-end-2024/</id>
+    <published>2024-12-31T02:20:56.000Z</published>
+    <updated>2024-12-31T16:17:27.266Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>回看2024，令人唏嘘，大起大落，丰富又平凡。总结：1 + 1 = 0.5 。</p></blockquote><h2 id="回看2024年规划"><a class="header-anchor" href="#回看2024年规划"></a>回看2024年规划</h2><p>第一部分中，除了第一条严格完成之外，简历和面试简直就是个笑话。</p><p>第二部分：</p><ol><li>先不说每周总结，月度总结也就两三次，真的是羞愧。</li><li>SpringBoot大概看了两章左右，没有看下去的动力，倒是JVM看的挺入迷。</li><li>这个规划应该说是完成度最高的了，iw-mixes项目基本架构搭建完成，自我感觉完成的还行，满分100的话，可以打个70。</li><li>站点改造是在离职期间成功完成的，虽然大多数站点项目来自于开源项目，但也算是完成了，对于我来说前端ui是真难。</li></ol><p>待办任务表也是个笑话，有道云笔记这种第三方软件，太繁琐了，反而不太好，不如直接用个text列举123，正因如此，后面改用了MacOS的提醒事项做 TODO List。</p><p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20241230134540853.png" alt="image-20241230134540853"></p><h2 id="博客"><a class="header-anchor" href="#博客"></a>博客</h2><p>从 2024-01-01 ～ 2024-12-31 ，共 18 篇文章，其中工作和学习文章占了大半，可见这一年在博客方面没有做什么技术性文章或者有价值的文章。更甚一点说，24年就没有怎么专心写博客。</p><p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20241230135501975.png" alt="image-20241230135501975"></p><p>下面就一一列举说一下比较有意思的几篇文章吧。</p><ol><li><a href="https://blog.itwray.com/2024/03/04/springdoc-hello/">再见SpringFox，你好SpringDoc</a>：在搭建 iw-mixes 项目之初，因为用的 SpringBoot 3，Swagger不再适配，所以了解到了SpringDoc。</li><li>JVM：学习JVM的动机其实是为了面试，因此结合《深入理解Java虚拟机》书籍和网上别人整理的JVM知识点，了解了JVM的一些基础知识，为此写了三篇总结文章（<a href="https://blog.itwray.com/2024/06/18/java-jvm-basic/">Java-JVM基础</a>、<a href="https://blog.itwray.com/2024/06/30/java-jvm-classFileStructure/">Java-JVM类文件结构</a>、<a href="https://blog.itwray.com/2024/07/03/java-jvm-readClassFile/">Java-“手撕”Class文件结构</a>）。</li><li><a href="https://blog.itwray.com/2024/08/26/spring-boot-redis-use/">SpringBoot集成Redis使用心得</a>：这篇文章也是在 iw-mixes 项目集成 Redis 时，写的一个经验总结，主要说明 SpringBoot 如何引入 Redis、RestTemplate 依赖注入问题、以及 Redis 客户端的序列化方式。</li><li><a href="https://blog.itwray.com/2024/10/15/echart-uni-20241015/">记录一次在uni-app中使用echarts的坑</a>：这个坑我还记得当时花了大半天的时间才解决，不懂前端代码原理是真的痛苦，只能反复尝试、一步一步的debug才行。</li></ol><h2 id="个人站点"><a class="header-anchor" href="#个人站点"></a>个人站点</h2><blockquote><p>个人站点算是自从我接触计算机多年以来的愿望吧，在今年离职期间也算是成功实现，对外可以“臭美”的说一句我的网站地址是多少。。。</p><p>说不出来有多大作用，就觉得好玩，在互联网上有一个归属。</p></blockquote><p>站点地址：<a href="https://www.itwray.com">itwray.com</a></p><p>目前想法就是，站点作为一个网站导航，展示自己的成果。</p><p>目前对外展示的有：</p><ul><li>GitHub：<a href="https://github.com/wangfarui">github.com/wangfarui</a></li><li>博客：<a href="https://blog.itwray.com/">blog.itwray.com</a></li><li>iw-mixes项目后台：<a href="https://web.itwray.com/">web.itwray.com</a></li><li>知识库：<a href="https://docs.itwray.com/">docs.itwray.com</a></li><li>今日热榜：<a href="https://hot.itwray.com/#/">hot.itwray.com</a></li><li>站点监测：<a href="https://status.itwray.com/">status.itwray.com</a></li></ul><p>PS：因为技术有限，个人站点、知识库、今日热榜、站点监测是使用的开源项目搭建的，然后自己再做一些配置变更和内容填充。在此，感谢开源的大佬们：<a href="https://github.com/imsyy">imsyy</a>、<a href="https://github.com/xugaoyi">xugaoyi</a> 。</p><h2 id="个人项目"><a class="header-anchor" href="#个人项目"></a>个人项目</h2><p><a href="https://github.com/wangfarui/iw-mixes">iw-mixes</a> 是这一年主要维护的项目，在个人闲暇时间中，基本把主要重心就是放在这了。</p><p>对应的前端项目有：<a href="https://github.com/wangfarui/iw-mixes-web-platform">iw-mixes-web-platform</a>、<a href="https://github.com/wangfarui/iw-mixes-app">iw-mixes-app</a>，它们分别对应web端和微信小程序端。起初 iw-mixes-app 是希望用 uni-app 做成多平台的，但鉴于实际使用以及维护成本，就只在微信小程序上做了测试，后期计划全面转微信开发平台定制开发。</p><p>关于 iw-mixes 项目的提交记录：</p><p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20241230142700520.png" alt="image-20241230142700520"></p><p>关于2024年 GitHub 的提交记录：</p><p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20241231144532988.png" alt="image-20241231144532988"></p><p>PS：GitHub 提交数量刚好凑了个666，希望2025年一路大顺。争取2025年提交数量搞个保底888。</p><h2 id="生活"><a class="header-anchor" href="#生活"></a>生活</h2><p>书籍：《丹尼尔斯的经典跑步训练法》、《深入理解Java虚拟机》、《Spring Boot编程思想》、《活着》。</p><p>旅游：天津、萍乡武功山、武汉龙王尖、南昌林俊杰、上海迪士尼、杭州西湖、威海、青岛、济南黄河、泰山、无锡烟花、上海五月天。</p><p>游戏：双休喊朋友玩一下lol，无聊时间染上了一款养成手游（准备戒掉，费时间费金钱）。</p><p>车：接近半年开了1w公里，下半年就没怎么开了。</p><p>跑步：从8月份开始，迷上了跑步，了解到了马拉松，对跑步达到痴迷状态，持续到11月份吧。</p><p>电子产品：平板、手表在离职在家时换了，用了5年多的手机，在年底也换了。</p><p>体重：大概是从172到161，数据测量时间基本为早晨起床时称的净重。</p><p>今年下半年感觉就没什么顺心意的事发生，可以说非常糟了，生活真的就像一堆垃圾呢。</p><h2 id="明年规划"><a class="header-anchor" href="#明年规划"></a>明年规划</h2><p>2025！必须得拼，不能再躺平了，平稳是留给晚年的。时光在流逝，年龄不会躺平。</p><p>第一个念头，严格实行 TODO List，设立奖惩机制。</p><h3 id="TODO-List"><a class="header-anchor" href="#TODO-List"></a>TODO List</h3><p>TODO List 不再设立长期目标，TODO 分为待办事项和简易事项。（根据对自己的了解，拖延症不会去处理长期事务的）</p><p>TODO 待办事项：</p><ul><li>概念：表示最近希望做的事，但事项内容不能在一天内完成或者立刻能开始处理的事情。</li><li>“最近”：表示一个月内，每一项建立的事项将会记录创建时间以及完成时间，事项必须在创建后一个月内完成，若未完成则需要备注原因。</li><li>事项内容：凡是自己念头想到的，想要做的。（至于有没有意义，做完了不就知道了）</li></ul><p>TODO 简易事项：表示需要在一周内完成的事项，事项一般可以花几分钟、几小时或者当天能完成。</p><h3 id="奖惩机制"><a class="header-anchor" href="#奖惩机制"></a>奖惩机制</h3><p>第一点！！！奖必须在有足够的积分情况下才能实施！！！</p><p>奖惩机制将采用 iw-mixes 项目的积分服务实现，通过积分制约束自己。</p><p>积分的取值之前都是随意取的，接下来将采用两个维度决定积分值大小。</p><p>维度一，用于决定没有任务时长，偏生活小事的方向，大致介绍如下：</p><ul><li>1分：表示一些基础的生活作息。例如早睡早起、自己做饭而不是偷懒点外卖。</li><li>2分：表示丰富的生活。例如跑步、锻炼、家务等。</li></ul><p>有奖就有罚，对于简易任务，若是有要求但未完成，扣其奖励分的双倍，警示自己要自律。</p><p>维度二，根据任务价值和任务用时做阶梯性取值。（任务价值需要视具体事项决定）</p><table><thead><tr><th style="text-align:center">任务价值/任务用时</th><th style="text-align:center">一星</th><th style="text-align:center">二星</th><th style="text-align:center">三星</th></tr></thead><tbody><tr><td style="text-align:center">1h</td><td style="text-align:center">1分</td><td style="text-align:center">2分</td><td style="text-align:center">3分</td></tr><tr><td style="text-align:center">2h</td><td style="text-align:center">2分</td><td style="text-align:center">4分</td><td style="text-align:center">6分</td></tr><tr><td style="text-align:center">4h</td><td style="text-align:center">3分</td><td style="text-align:center">5分</td><td style="text-align:center">7分</td></tr><tr><td style="text-align:center">1 day</td><td style="text-align:center">6分</td><td style="text-align:center">8分</td><td style="text-align:center">10分</td></tr></tbody></table><p>维度二的任务，一般是计划任务或额外任务，一般没有罚，但如果是周期性任务要求，扣其对应的奖励分。</p><p>说完积分奖励，那么在积分使用上，一般偏向于奖励机制，例如睡个懒觉、点个外卖、出去潇洒一顿等，对于常用的奖励，将设定固定的扣减积分任务，便于后期做统计。</p><h3 id="博客与站点"><a class="header-anchor" href="#博客与站点"></a>博客与站点</h3><p>站点暂时没什么大计划，维护为主。</p><p>博客计划每月至少产出一篇有价值的文章，如果系统化学习某个领域，将把完整知识体系记录在知识库，博客作为总结性文章。</p><h3 id="个人项目-2"><a class="header-anchor" href="#个人项目-2"></a>个人项目</h3><p>继续完善 iw-mixes 项目架构，以新增功能为主，完善为辅，把功能体系先做大。</p><p>iw-mixes-app 改为微信小程序版，重新学习微信小程序开发。</p><p>定个小目标，2025年3月31号之前，发布 1.0.0-release 版。</p><h3 id="生活-2"><a class="header-anchor" href="#生活-2"></a>生活</h3><p>坚持看书！少看电子产品！让看书成为一种习惯，更希望是一种热爱。</p><p>不计划看多少本书，也不规定看什么书，只要是感兴趣的都看，唯一要求就是，在看完或者看的途中，通过笔记（博客）记录下来，看了总得有个印象。</p><p>跑步与健身，计划体重控制在155，跑步一周三次，按照一次10km计算，一个月（四周）则是要求&gt;=100km。</p><h3 id="总结"><a class="header-anchor" href="#总结"></a>总结</h3><ol><li>严格完成 TODO List 。</li><li>任性之前，必须要有足够的积分。</li><li>持续性的博客和知识库产出。</li><li>持续性的迭代 iw-mixes 项目。</li><li>爱上看书，爱上跑步。</li></ol><p>2025，加油！！！</p>]]></content>
+    
+    
+    <summary type="html">2024年的年终总结，以及对2025年的规划。</summary>
+    
+    
+    
+    <category term="年终总结" scheme="https://blog.itwray.com/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Arthas常用命令</title>
@@ -33,9 +52,9 @@
     <category term="Java" scheme="https://blog.itwray.com/categories/Java/"/>
     
     
-    <category term="Arthas" scheme="https://blog.itwray.com/tags/Arthas/"/>
-    
     <category term="Java" scheme="https://blog.itwray.com/tags/Java/"/>
+    
+    <category term="Arthas" scheme="https://blog.itwray.com/tags/Arthas/"/>
     
   </entry>
   
@@ -458,44 +477,21 @@
   </entry>
   
   <entry>
-    <title>关于IDEA代码编辑器光标选择问题</title>
-    <link href="https://blog.itwray.com/2023/12/27/other-idea-231227/"/>
-    <id>https://blog.itwray.com/2023/12/27/other-idea-231227/</id>
-    <published>2023-12-27T06:50:50.000Z</published>
-    <updated>2024-09-27T13:15:10.304Z</updated>
+    <title>年终总结-2023</title>
+    <link href="https://blog.itwray.com/2024/01/02/year-end-2023/"/>
+    <id>https://blog.itwray.com/2024/01/02/year-end-2023/</id>
+    <published>2024-01-02T06:23:08.000Z</published>
+    <updated>2024-12-30T02:14:29.734Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>问题现象</strong>：</p><p>在编辑代码时，使用鼠标点任何位置，光标就定位到点的位置了，而不是定位到代码行的最后一个字符。同样的，用键盘的上下左右键也是此情况。</p><p><img src="/2023/12/27/other-idea-231227/image-20231227145422640.png" alt="image-20231227145422640"></p><p><strong>解决方法</strong></p><p>点击鼠标右键，找到“Column Selection Mode”（列选择模式）项，取消勾选即可。</p><p><img src="/2023/12/27/other-idea-231227/image-20231227145623991.png" alt="image-20231227145623991"></p>]]></content>
-    
-    
-    <summary type="html">记录一次IDEA代码编辑器光标选择毛病问题。</summary>
+    <content type="html"><![CDATA[<blockquote><p>在过去的时间里，我总是爱看他人的每周总结、月度总结、年终总结等，佩服他们的自律生活，感叹他们是怎么做到的，这个过程想必只有经历过的人才会懂，但最后的收获肯定也是十分值得的。</p><p>因此，从今年搭建个人博客开始，我就决定自己也要在每年年末的时候对自己近一年的生活做一个总结。结果第一年的总结就迟到了。。。在12月底的时候是已经开始想了的，因为计划买车等因素，每天处于放松的兴奋状态，简而言之就是摸鱼。这种状态不是我个人想要的，只是当时处在那种环境下，我摊牌了，我沉迷了。</p></blockquote><h2 id="工作"><a class="header-anchor" href="#工作"></a>工作</h2><p>2023年没有跳槽，虽然很想跳，但是还是没跳，原因就不多说了。</p><p>在现在这家公司工作内容很简单，来一个需求就实现一个需求功能，代码工作量的划分大致可以分为60%业务代码的CRUD、30%项目定制的工具类、10%的技术栈或通用工具。下面主要说最后的10%的内容：</p><ul><li>ShedLock：基于它的分布式锁功能，确保分布式服务下相同的定时任务同时只执行一次。</li><li>MyBatis-Plus 填充策略：基于 <code>MetaObjectHandler</code> 接口实现。</li><li>业务编号工具类：基于 MySQL 实现，业务编号自增。</li><li>接入钉钉机器人：实现服务告警。</li><li>OA审批的底层搭建：目前接入了基于 钉钉OA审批、公司中台系统审批 两种审批功能。</li></ul><p>其中工作量最大的可能就是OA审批的底层搭建了，到目前为止还在维护调整阶段，后期可能还要自制工作流功能。关于接入钉钉OA审批，在之前写过对应的文章讲解了接入过程，参考：<a href="https://blog.itwray.com/2023/08/25/work-report-ddoa/">工作小结-钉钉OA审批</a> 。</p><p>后期，我会再通过一篇文章讲解如何将接入公司中台系统审批功能，并说明后面的代码优化整合思路。</p><p>通过这次OA审批的工作小结，感觉将工作上有意义的事记录下来是很有意义的。因此，我决定在未来的日子中都将采用这种方式，并且会把上述的其他四项工作内容都做一个小结。</p><h2 id="博客"><a class="header-anchor" href="#博客"></a>博客</h2><p>开始博客之旅的时间点是 2023-07-27 ，截止目前共产出了36篇文章，大致分类以技术为主、教程为辅，并记录一些生活细节。</p><p><img src="/2024/01/02/year-end-2023/image-20240102165449560.png" alt="image-20240102165449560"></p><p>搭建博客的初衷是为了记录，是的，记录一切，到目前而言并没有想把它做成专业技术博客网站的那种想法（其实就是自己能力不够，不够格呀）。</p><p>后期会把 <code>itwray.com</code> 这个域名做成一个站点，博客只是其中之一。</p><h2 id="个人学习"><a class="header-anchor" href="#个人学习"></a>个人学习</h2><p>今年有点浑浑噩噩，上半年基本没有学习什么新内容，下半年在搭建了博客之后，尝试去了解了 Docker、Markdown、Shell 的基本原理和使用方法。</p><p>要说系统学习的话，可能就只有 RocketMQ 和 Git 了。</p><p>学习 RocketMQ 是因为很早之前就想了解MQ消息队列到底是个什么东西、怎么使用的、怎么实现的，因此就通过学习 RocketMQ 源码了解MQ消息队列。</p><p>学习 Git 是因为之前每天都用 IDEA 的图形化界面做的 Git 操作，每次拉取代码、推送代码时都带着大大的疑惑， IDEA 到底帮忙做了什么 Git 操作。特别是在做回滚操作时，总担心点错了把仓库搞乱了，直到学习了 <a href="https://blog.itwray.com/2023/11/22/git-commands-reset/">Git-reset命令</a> ，现在可以十分清楚每一步回滚操作的含义了。</p><p>Git 的学习还在进行中，目前是把 Git 基本的命令操作都学完了，后期还要把 Git 工具、内部原理 都补上。</p><p>再说细节学习的话，学习了 <a href="https://blog.itwray.com/2023/10/08/springboot-tomcat-initialize/">SpringBoot中Tomcat初始化过程</a> ，因为Java Web服务是需要依赖Web服务器的，而 Spring Boot 项目竟然可以在不手动引入任何Web资源的情况下，就能启动一个Web服务，带着这个好奇就去源码分析了一波。</p><h2 id="生活"><a class="header-anchor" href="#生活"></a>生活</h2><p>今年生活最大的变化可能就是情感方面了，具体就不在这里现说了。</p><p>旅游，去了上海、南京、合肥、南昌、重庆、西宁、张掖、神农架。</p><p>游戏，时间同比去年应该减少了90%吧，因为情感的缘故。</p><p>看书，=0，买的书也不算少了，除了有点灰，可以说就是崭新的。</p><p>元旦前买了辆车，靠着家里人给的首付，以及自己办的分期贷款。</p><h2 id="规划"><a class="header-anchor" href="#规划"></a>规划</h2><p>这次的规划我准备分为两部分，第一部分是必须且立即的任务，第二部分是未来期望。</p><p>第一部分（按照顺序）：</p><ol><li>把工作中欠的工作总结补上，把 Git 学习的剩余章节补完，完成时间在春节之前。</li><li>准备简历，也必须得在春节前完成。</li><li>准备面试，24年的3月底前能够投出简历，参加面试。</li><li>4月底前，找到合适岗位并入职。</li></ol><p>第二部分：</p><ul><li>实行每周总结和月度总结。</li><li>看 SpringBoot 的书看完。</li><li>做一个自己的开源项目，期望是以项目为载体，学习各方各面的技术。</li><li>把博客改造成站点。</li></ul><p>为了明确知道最新的待办计划，搞了个实时更新的<a href="https://note.youdao.com/s/JX03O693">待办任务表</a>。</p><p>最后，做好自己，愿生活美好～</p>]]></content>
     
     
-    
-    <category term="Other" scheme="https://blog.itwray.com/categories/Other/"/>
-    
-    
-    <category term="IDEA" scheme="https://blog.itwray.com/tags/IDEA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git学习-GitHub(6)</title>
-    <link href="https://blog.itwray.com/2023/12/19/git-study-6/"/>
-    <id>https://blog.itwray.com/2023/12/19/git-study-6/</id>
-    <published>2023-12-19T09:05:19.000Z</published>
-    <updated>2024-09-27T13:15:13.200Z</updated>
-    
-    <content type="html"><![CDATA[<p>本章将讨论如何高效地使用 GitHub。 我们将学习如何注册和管理账户、创建和使用 Git 版本库、向已有项目贡献的通用流程以及如何接受别人向你自己项目的贡献、GitHub 的编程接口和很多能够让这些操作更简单的小提示。</p><h2 id="账户的配置"><a class="header-anchor" href="#账户的配置"></a>账户的配置</h2><h3 id="创建账户"><a class="header-anchor" href="#创建账户"></a>创建账户</h3><p>使用 GitHub ，第一件事是需要创建一个账户，访问 <a href="https://github.com">https://github.com</a> ，找到 “Sign Up” 入口，注册一个自己的私人免费账户。</p><p>创建账户的作用是为了以后 fork 其它项目，以及推送我们自己的修改。也可以创建自己的 Git 项目，然后托管在 GitHub 上。简而言之，可以把 GitHub 当成一个 Git 服务器使用。</p><h3 id="SSH-访问"><a class="header-anchor" href="#SSH-访问"></a>SSH 访问</h3><p>使用 SSH 远程可以避免后期频繁的输入用户名和密码，使用之前需要在 GitHub 上配置 SSH Keys 。</p><p>首先，需要在自己的本地环境生成一个公钥。（可以参考 <a href="https://blog.itwray.com/2023/12/15/git-study-4/">生成SSH公钥</a>。）</p><p>然后，在 GitHub 页面，点击设置按钮，找到 “SSH Keys” 配置项，点击 “New SSH Key”。</p><p><img src="/2023/12/19/git-study-6/image-20231219172755430.png" alt="image-20231219172755430"></p><p>最后，在弹出的新增框中，输入自定义标题，并把公钥复制到 Key 下，SSH 远程配置就算是完成了。</p><h3 id="邮箱地址"><a class="header-anchor" href="#邮箱地址"></a>邮箱地址</h3><p>GitHub 使用用户邮件地址区分 Git 提交。 如果你在自己的提交中使用了多个邮件地址，希望 GitHub 可以正确地将它们连接起来， 你需要在管理页面的 Emails 部分添加你拥有的所有邮箱地址。</p><p><img src="/2023/12/19/git-study-6/image-20231219173101513.png" alt="image-20231219173101513"></p><p>通过它的注释内容可以看出，邮箱地址分为两种，一个为 Primary 主邮箱地址，用于账户验证和接收通知消息，而其他邮箱地址则只用于账户验证。</p><p>还有一种邮箱地址是未验证的，未验证的邮箱地址是不能设置为主邮箱地址的。</p><h3 id="两步验证"><a class="header-anchor" href="#两步验证"></a>两步验证</h3><p>为了额外的安全性，你绝对应当设置两步验证，简写为 “2FA”。 两步验证是一种用于降低因你的密码被盗而带来的账户风险的验证机制，现在已经变得越来越流行。 开启两步验证，GitHub 会要求你用两种不同的验证方法，这样，即使其中一个被攻破，攻击者也不能访问你的账户。</p><p>在设置中找到 “Two-factor authentication” 项，开启两步验证功能。</p><h2 id="对项目做出贡献"><a class="header-anchor" href="#对项目做出贡献"></a>对项目做出贡献</h2><p>当想要参与一个项目时，如果没有推送权限，可以通过 Fork + Pull Request 的方式参与项目的开发，不过它需要项目管理者的审批。</p><p>Fork 表示派生，当派生一个项目时，GitHub 会在个人仓库下创建一个项目副本，开发者可以在这个项目下进行提交和推送。</p><p>项目开发完毕后，再通过 Pull Request 合并请求，在原项目的页面上，找到“New pull request”按钮，发起一个PR请求，然后等待项目管理者审核。</p>]]></content>
-    
-    
-    <summary type="html">第六章学习 GitHub 的使用，GitHub 是最大的 Git 版本库托管商，是成千上万的开发者和项目能够合作进行的中心。</summary>
+    <summary type="html">2023年的年终总结，以及对2024年的规划。</summary>
     
     
     
-    <category term="Git" scheme="https://blog.itwray.com/categories/Git/"/>
+    <category term="年终总结" scheme="https://blog.itwray.com/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     
-    
-    <category term="Git" scheme="https://blog.itwray.com/tags/Git/"/>
     
   </entry>
   
