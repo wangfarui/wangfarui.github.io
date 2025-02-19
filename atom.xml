@@ -6,7 +6,7 @@
   <link href="https://blog.itwray.com/atom.xml" rel="self"/>
   
   <link href="https://blog.itwray.com/"/>
-  <updated>2024-12-31T16:17:27.266Z</updated>
+  <updated>2025-02-19T09:00:07.949Z</updated>
   <id>https://blog.itwray.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jenkins安装和使用</title>
+    <link href="https://blog.itwray.com/2025/02/12/jenkins-use/"/>
+    <id>https://blog.itwray.com/2025/02/12/jenkins-use/</id>
+    <published>2025-02-12T11:08:54.000Z</published>
+    <updated>2025-02-19T09:00:07.949Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="搭建Jenkins"><a class="header-anchor" href="#搭建Jenkins"></a>搭建Jenkins</h2><h3 id="一键安装-Jenkins"><a class="header-anchor" href="#一键安装-Jenkins"></a>一键安装 Jenkins</h3><p>使用 Homebrew 可一键安装 Jenkins。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins-lts</span><br></pre></td></tr></table></figure><h3 id="安装中的问题"><a class="header-anchor" href="#安装中的问题"></a>安装中的问题</h3><ul><li><p>Error: unknown or unsupported macOS version: :sequoia</p><p>可能表示 Homebrew 还未完全支持该系统版本，可以尝试更新 Homebrew。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew upgrade</span><br></pre></td></tr></table></figure></li></ul><h3 id="修改启动端口"><a class="header-anchor" href="#修改启动端口"></a>修改启动端口</h3><p>安装完成之后，Jenkins 默认使用 8080 端口，如果端口被占用会出现启动失败情况，可以按照如下方法修改启动端口。</p><p>运行以下命令，确定 Jenkins 的安装路径：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew info jenkins-lts</span><br></pre></td></tr></table></figure><p>在输出内容中找到以下类似内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jenkins-lts: stable 2.492.1 (bottled)</span><br><span class="line">Extendable open source continuous integration server</span><br><span class="line">https://www.jenkins.io/</span><br><span class="line">Installed</span><br><span class="line">/opt/homebrew/Cellar/jenkins-lts/2.492.1 (9 files, 95.8MB) *</span><br></pre></td></tr></table></figure><p><code>/opt/homebrew/Cellar/jenkins-lts/2.492.1</code> 就是 Jenkins 的根目录，修改根目录下的 <code>homebrew.mxcl.jenkins-lts.plist</code> 文件。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi homebrew.mxcl.jenkins-lts.plist</span><br></pre></td></tr></table></figure><p>找到下面这行内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string&gt;--httpPort=8080&lt;/string&gt;</span><br></pre></td></tr></table></figure><p>将 8080 端口修改为自己想要的端口，保存文件，重启 Jenkins 服务即可。</p><h3 id="Jenkins-常用命令"><a class="header-anchor" href="#Jenkins-常用命令"></a>Jenkins 常用命令</h3><p>启动命令：<code>brew services start jenkins-lts</code></p><p>停止命令：<code>brew services stop jenkins-lts</code></p><p>重启命令：<code>brew services restart jenkins-lts</code></p><p>查看 Homebrew 下 Jenkins 运行状态：<code>brew services list</code></p><h2 id="配置Jenkins"><a class="header-anchor" href="#配置Jenkins"></a>配置Jenkins</h2><h3 id="首次登录"><a class="header-anchor" href="#首次登录"></a>首次登录</h3><p>浏览器输入<code> http://localhost:&lt;port&gt;</code> 进入 Jenkins 页面。</p><p>首次登录时，默认有一个 admin 管理员用户，页面会提示管理员密码的文件所在位置，打开文件复制密码登录，登录后，Jenkins 会提示创建一个新管理员用户，创建完之后，admin 用户会被删除。</p><h3 id="插件配置"><a class="header-anchor" href="#插件配置"></a>插件配置</h3><p>在 Jenkins 页面，找到 <strong>系统管理 -&gt; 插件管理</strong>，在 <strong>Available plugins</strong> 中搜索想要安装的插件。</p><p>例如，我的项目是Spring Boot项目，代码版本管理在 GitHub 上，希望通过 Jenkins 打包部署到 Linux 服务器，大致需要安装如下插件：</p><ul><li>Git</li><li>Pipeline</li><li>Publish Over SSH（用于 SSH 远程部署）</li></ul><p><strong>Publish over SSH 配置</strong></p><p>安装完 <code>Publish Over SSH</code> 之后，在<strong>系统管理 -&gt; 系统配置</strong> 中找到 Publish over SSH 配置项。在 <code>SSH Servers</code>下点击新增，配置 SSH Server 的以下信息：</p><ul><li>Name（服务名称，任意填写）</li><li>Hostname（远程服务器IP）</li><li>Username（远程服务器用户名）</li><li>高级配置，勾选 <code>Use password authentication, or use a different key</code> ，如果是密码登录，则输入Password，如果是密钥登录，则在<code>Path to key</code>下输入 id_rsa 私钥文件路径，或者直接在<code>Key</code>下输入完整私钥值。</li></ul><p>最后，点击测试连接，提示Success则表示配置成功。</p><blockquote><p><strong>Tips</strong>：高级配置下的 <code>Jump host</code> 表示跳板机，意思是如果想要连接 Hostname（真正想要连接的目标服务器） , 但无法直接访问时，可以通过先连接 Jump host ，再让 Jenkins 通过 Jump host 连接 Hostname。连接过程如下：</p><p>Jenkins（本机） -&gt; Jump host -&gt; Hostname</p><p>如果 Jump host 需要通过认证登录，可能就无法实现，经反复测试，在 Jenkins 2.492.1 版本下未找到可行方法，如果有大佬发现解决办法或解决思路，记得@我，感谢。</p><p>目前另一种解决办法是：在Job任务中，先连接 Jump host 机器，然后在 Exec command 下手动 ssh Hostname 访问目标机器。</p></blockquote><h3 id="全局配置"><a class="header-anchor" href="#全局配置"></a>全局配置</h3><p>在 Jenkins 页面，找到 <strong>系统管理 -&gt; 全局工具管理</strong>，配置 Maven、JDK、Git 等环境。</p><h2 id="新建任务"><a class="header-anchor" href="#新建任务"></a>新建任务</h2><p>不同的任务，在Jenkins配置的任务风格可能差异化也比较大，下面以具体任务需求为例：</p><h3 id="本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序"><a class="header-anchor" href="#本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序"></a>本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序</h3><ol><li>首先，自定义一个任务名称，选择自由风格，点击确定。<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219163608513.png" alt="image-20250219163608513"></li><li>在 General 中，展开高级设置，勾选“使用自定义的工作空间”，然后填入SpringBoot项目所在目录地址。<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219163834692.png" alt="image-20250219163834692"></li><li>在 Build Steps 中，点击“增加构建步骤”，选择“执行Shell”，输入项目的Maven打包操作命令。<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219164325099.png" alt="image-20250219164325099"></li></ol><p>​<strong>Tips</strong>：当前pwd路径是第2步指定的工作空间路径，如果需要打包的服务是项目下的子目录，需要先cd进入子目录。此外，即使全局配置了Maven环境，但在这里Jenkins好像无法获取到，所以手动加载了Maven的环境变量。</p><ol start="4"><li><p>在 Build Steps 中，点击“增加构建步骤”，选择“Send files or execute commands over SSH”，确保该步骤在第3步的步骤之后。SSH Server选择需要部署的远程服务器，Source files 是工作空间的相对路径，Remove prefix 表示移除从 Source files 推送到 Remote directory 时需要移除的路径前缀，Remote directory 表示 SSH Server 连接后的相对路径，Exec command 表示在推送文件后执行的命令。</p><p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219165642117.png" alt="image-20250219165642117"></p></li><li><p>最后，Save保存，然后点击“立即构建”，即可运行任务。</p></li></ol>]]></content>
+    
+    
+    <summary type="html">macOS环境搭建Jenkins，以及Jenkins的一些常用配置和任务构建过程的示例。</summary>
+    
+    
+    
+    <category term="Jenkins" scheme="https://blog.itwray.com/categories/Jenkins/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>年终总结-2024</title>
@@ -473,25 +492,6 @@
     <category term="工作小结" scheme="https://blog.itwray.com/tags/%E5%B7%A5%E4%BD%9C%E5%B0%8F%E7%BB%93/"/>
     
     <category term="OA审批" scheme="https://blog.itwray.com/tags/OA%E5%AE%A1%E6%89%B9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>年终总结-2023</title>
-    <link href="https://blog.itwray.com/2024/01/02/year-end-2023/"/>
-    <id>https://blog.itwray.com/2024/01/02/year-end-2023/</id>
-    <published>2024-01-02T06:23:08.000Z</published>
-    <updated>2024-12-30T02:14:29.734Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>在过去的时间里，我总是爱看他人的每周总结、月度总结、年终总结等，佩服他们的自律生活，感叹他们是怎么做到的，这个过程想必只有经历过的人才会懂，但最后的收获肯定也是十分值得的。</p><p>因此，从今年搭建个人博客开始，我就决定自己也要在每年年末的时候对自己近一年的生活做一个总结。结果第一年的总结就迟到了。。。在12月底的时候是已经开始想了的，因为计划买车等因素，每天处于放松的兴奋状态，简而言之就是摸鱼。这种状态不是我个人想要的，只是当时处在那种环境下，我摊牌了，我沉迷了。</p></blockquote><h2 id="工作"><a class="header-anchor" href="#工作"></a>工作</h2><p>2023年没有跳槽，虽然很想跳，但是还是没跳，原因就不多说了。</p><p>在现在这家公司工作内容很简单，来一个需求就实现一个需求功能，代码工作量的划分大致可以分为60%业务代码的CRUD、30%项目定制的工具类、10%的技术栈或通用工具。下面主要说最后的10%的内容：</p><ul><li>ShedLock：基于它的分布式锁功能，确保分布式服务下相同的定时任务同时只执行一次。</li><li>MyBatis-Plus 填充策略：基于 <code>MetaObjectHandler</code> 接口实现。</li><li>业务编号工具类：基于 MySQL 实现，业务编号自增。</li><li>接入钉钉机器人：实现服务告警。</li><li>OA审批的底层搭建：目前接入了基于 钉钉OA审批、公司中台系统审批 两种审批功能。</li></ul><p>其中工作量最大的可能就是OA审批的底层搭建了，到目前为止还在维护调整阶段，后期可能还要自制工作流功能。关于接入钉钉OA审批，在之前写过对应的文章讲解了接入过程，参考：<a href="https://blog.itwray.com/2023/08/25/work-report-ddoa/">工作小结-钉钉OA审批</a> 。</p><p>后期，我会再通过一篇文章讲解如何将接入公司中台系统审批功能，并说明后面的代码优化整合思路。</p><p>通过这次OA审批的工作小结，感觉将工作上有意义的事记录下来是很有意义的。因此，我决定在未来的日子中都将采用这种方式，并且会把上述的其他四项工作内容都做一个小结。</p><h2 id="博客"><a class="header-anchor" href="#博客"></a>博客</h2><p>开始博客之旅的时间点是 2023-07-27 ，截止目前共产出了36篇文章，大致分类以技术为主、教程为辅，并记录一些生活细节。</p><p><img src="/2024/01/02/year-end-2023/image-20240102165449560.png" alt="image-20240102165449560"></p><p>搭建博客的初衷是为了记录，是的，记录一切，到目前而言并没有想把它做成专业技术博客网站的那种想法（其实就是自己能力不够，不够格呀）。</p><p>后期会把 <code>itwray.com</code> 这个域名做成一个站点，博客只是其中之一。</p><h2 id="个人学习"><a class="header-anchor" href="#个人学习"></a>个人学习</h2><p>今年有点浑浑噩噩，上半年基本没有学习什么新内容，下半年在搭建了博客之后，尝试去了解了 Docker、Markdown、Shell 的基本原理和使用方法。</p><p>要说系统学习的话，可能就只有 RocketMQ 和 Git 了。</p><p>学习 RocketMQ 是因为很早之前就想了解MQ消息队列到底是个什么东西、怎么使用的、怎么实现的，因此就通过学习 RocketMQ 源码了解MQ消息队列。</p><p>学习 Git 是因为之前每天都用 IDEA 的图形化界面做的 Git 操作，每次拉取代码、推送代码时都带着大大的疑惑， IDEA 到底帮忙做了什么 Git 操作。特别是在做回滚操作时，总担心点错了把仓库搞乱了，直到学习了 <a href="https://blog.itwray.com/2023/11/22/git-commands-reset/">Git-reset命令</a> ，现在可以十分清楚每一步回滚操作的含义了。</p><p>Git 的学习还在进行中，目前是把 Git 基本的命令操作都学完了，后期还要把 Git 工具、内部原理 都补上。</p><p>再说细节学习的话，学习了 <a href="https://blog.itwray.com/2023/10/08/springboot-tomcat-initialize/">SpringBoot中Tomcat初始化过程</a> ，因为Java Web服务是需要依赖Web服务器的，而 Spring Boot 项目竟然可以在不手动引入任何Web资源的情况下，就能启动一个Web服务，带着这个好奇就去源码分析了一波。</p><h2 id="生活"><a class="header-anchor" href="#生活"></a>生活</h2><p>今年生活最大的变化可能就是情感方面了，具体就不在这里现说了。</p><p>旅游，去了上海、南京、合肥、南昌、重庆、西宁、张掖、神农架。</p><p>游戏，时间同比去年应该减少了90%吧，因为情感的缘故。</p><p>看书，=0，买的书也不算少了，除了有点灰，可以说就是崭新的。</p><p>元旦前买了辆车，靠着家里人给的首付，以及自己办的分期贷款。</p><h2 id="规划"><a class="header-anchor" href="#规划"></a>规划</h2><p>这次的规划我准备分为两部分，第一部分是必须且立即的任务，第二部分是未来期望。</p><p>第一部分（按照顺序）：</p><ol><li>把工作中欠的工作总结补上，把 Git 学习的剩余章节补完，完成时间在春节之前。</li><li>准备简历，也必须得在春节前完成。</li><li>准备面试，24年的3月底前能够投出简历，参加面试。</li><li>4月底前，找到合适岗位并入职。</li></ol><p>第二部分：</p><ul><li>实行每周总结和月度总结。</li><li>看 SpringBoot 的书看完。</li><li>做一个自己的开源项目，期望是以项目为载体，学习各方各面的技术。</li><li>把博客改造成站点。</li></ul><p>为了明确知道最新的待办计划，搞了个实时更新的<a href="https://note.youdao.com/s/JX03O693">待办任务表</a>。</p><p>最后，做好自己，愿生活美好～</p>]]></content>
-    
-    
-    <summary type="html">2023年的年终总结，以及对2024年的规划。</summary>
-    
-    
-    
-    <category term="年终总结" scheme="https://blog.itwray.com/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
-    
     
   </entry>
   

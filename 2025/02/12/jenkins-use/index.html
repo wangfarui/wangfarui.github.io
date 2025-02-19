@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jenkins安装和使用 | WrayのBlog</title><meta name="author" content="Wray"><meta name="copyright" content="Wray"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="macOS环境搭建Jenkins，以及Jenkins的一些常用配置和任务构建过程的示例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins安装和使用">
+<meta property="og:url" content="https://blog.itwray.com/2025/02/12/jenkins-use/index.html">
+<meta property="og:site_name" content="WrayのBlog">
+<meta property="og:description" content="macOS环境搭建Jenkins，以及Jenkins的一些常用配置和任务构建过程的示例。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20250219165955.png">
+<meta property="article:published_time" content="2025-02-12T11:08:54.000Z">
+<meta property="article:modified_time" content="2025-02-19T09:00:07.949Z">
+<meta property="article:author" content="Wray">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20250219165955.png"><link rel="shortcut icon" href="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/blog.svg"><link rel="canonical" href="https://blog.itwray.com/2025/02/12/jenkins-use/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jenkins安装和使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-19 17:00:07'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 3 || hour >= 4
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="WrayのBlog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/touxiang.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 功能</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://status.itwray.com"><i class="fa-fw fas fa-bolt-lightning"></i><span> 监控</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="WrayのBlog"><span class="site-name">WrayのBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 功能</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://status.itwray.com"><i class="fa-fw fas fa-bolt-lightning"></i><span> 监控</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Jenkins安装和使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-02-12T11:08:54.000Z" title="发表于 2025-02-12 19:08:54">2025-02-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-19T09:00:07.949Z" title="更新于 2025-02-19 17:00:07">2025-02-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Jenkins/">Jenkins</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Jenkins安装和使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="搭建Jenkins"><a class="header-anchor" href="#搭建Jenkins"></a>搭建Jenkins</h2>
+<h3 id="一键安装-Jenkins"><a class="header-anchor" href="#一键安装-Jenkins"></a>一键安装 Jenkins</h3>
+<p>使用 Homebrew 可一键安装 Jenkins。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins-lts</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装中的问题"><a class="header-anchor" href="#安装中的问题"></a>安装中的问题</h3>
+<ul>
+<li>
+<p>Error: unknown or unsupported macOS version: :sequoia</p>
+<p>可能表示 Homebrew 还未完全支持该系统版本，可以尝试更新 Homebrew。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew upgrade</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<h3 id="修改启动端口"><a class="header-anchor" href="#修改启动端口"></a>修改启动端口</h3>
+<p>安装完成之后，Jenkins 默认使用 8080 端口，如果端口被占用会出现启动失败情况，可以按照如下方法修改启动端口。</p>
+<p>运行以下命令，确定 Jenkins 的安装路径：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew info jenkins-lts</span><br></pre></td></tr></tbody></table></figure>
+<p>在输出内容中找到以下类似内容：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jenkins-lts: stable 2.492.1 (bottled)</span><br><span class="line">Extendable open source continuous integration server</span><br><span class="line">https://www.jenkins.io/</span><br><span class="line">Installed</span><br><span class="line">/opt/homebrew/Cellar/jenkins-lts/2.492.1 (9 files, 95.8MB) *</span><br></pre></td></tr></tbody></table></figure>
+<p><code>/opt/homebrew/Cellar/jenkins-lts/2.492.1</code> 就是 Jenkins 的根目录，修改根目录下的 <code>homebrew.mxcl.jenkins-lts.plist</code> 文件。</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi homebrew.mxcl.jenkins-lts.plist</span><br></pre></td></tr></tbody></table></figure>
+<p>找到下面这行内容：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string&gt;--httpPort=8080&lt;/string&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>将 8080 端口修改为自己想要的端口，保存文件，重启 Jenkins 服务即可。</p>
+<h3 id="Jenkins-常用命令"><a class="header-anchor" href="#Jenkins-常用命令"></a>Jenkins 常用命令</h3>
+<p>启动命令：<code>brew services start jenkins-lts</code></p>
+<p>停止命令：<code>brew services stop jenkins-lts</code></p>
+<p>重启命令：<code>brew services restart jenkins-lts</code></p>
+<p>查看 Homebrew 下 Jenkins 运行状态：<code>brew services list</code></p>
+<h2 id="配置Jenkins"><a class="header-anchor" href="#配置Jenkins"></a>配置Jenkins</h2>
+<h3 id="首次登录"><a class="header-anchor" href="#首次登录"></a>首次登录</h3>
+<p>浏览器输入<code> http://localhost:&lt;port&gt;</code> 进入 Jenkins 页面。</p>
+<p>首次登录时，默认有一个 admin 管理员用户，页面会提示管理员密码的文件所在位置，打开文件复制密码登录，登录后，Jenkins 会提示创建一个新管理员用户，创建完之后，admin 用户会被删除。</p>
+<h3 id="插件配置"><a class="header-anchor" href="#插件配置"></a>插件配置</h3>
+<p>在 Jenkins 页面，找到 <strong>系统管理 -&gt; 插件管理</strong>，在 <strong>Available plugins</strong> 中搜索想要安装的插件。</p>
+<p>例如，我的项目是Spring Boot项目，代码版本管理在 GitHub 上，希望通过 Jenkins 打包部署到 Linux 服务器，大致需要安装如下插件：</p>
+<ul>
+<li>Git</li>
+<li>Pipeline</li>
+<li>Publish Over SSH（用于 SSH 远程部署）</li>
+</ul>
+<p><strong>Publish over SSH 配置</strong></p>
+<p>安装完 <code>Publish Over SSH</code> 之后，在<strong>系统管理 -&gt; 系统配置</strong> 中找到 Publish over SSH 配置项。在 <code>SSH Servers</code>下点击新增，配置 SSH Server 的以下信息：</p>
+<ul>
+<li>Name（服务名称，任意填写）</li>
+<li>Hostname（远程服务器IP）</li>
+<li>Username（远程服务器用户名）</li>
+<li>高级配置，勾选 <code>Use password authentication, or use a different key</code> ，如果是密码登录，则输入Password，如果是密钥登录，则在<code>Path to key</code>下输入 id_rsa 私钥文件路径，或者直接在<code>Key</code>下输入完整私钥值。</li>
+</ul>
+<p>最后，点击测试连接，提示Success则表示配置成功。</p>
+<blockquote>
+<p><strong>Tips</strong>：高级配置下的 <code>Jump host</code> 表示跳板机，意思是如果想要连接 Hostname（真正想要连接的目标服务器） , 但无法直接访问时，可以通过先连接 Jump host ，再让 Jenkins 通过 Jump host 连接 Hostname。连接过程如下：</p>
+<p>Jenkins（本机） -&gt; Jump host -&gt; Hostname</p>
+<p>如果 Jump host 需要通过认证登录，可能就无法实现，经反复测试，在 Jenkins 2.492.1 版本下未找到可行方法，如果有大佬发现解决办法或解决思路，记得@我，感谢。</p>
+<p>目前另一种解决办法是：在Job任务中，先连接 Jump host 机器，然后在 Exec command 下手动 ssh Hostname 访问目标机器。</p>
+</blockquote>
+<h3 id="全局配置"><a class="header-anchor" href="#全局配置"></a>全局配置</h3>
+<p>在 Jenkins 页面，找到 <strong>系统管理 -&gt; 全局工具管理</strong>，配置 Maven、JDK、Git 等环境。</p>
+<h2 id="新建任务"><a class="header-anchor" href="#新建任务"></a>新建任务</h2>
+<p>不同的任务，在Jenkins配置的任务风格可能差异化也比较大，下面以具体任务需求为例：</p>
+<h3 id="本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序"><a class="header-anchor" href="#本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序"></a>本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序</h3>
+<ol>
+<li>首先，自定义一个任务名称，选择自由风格，点击确定。
+<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219163608513.png" alt="image-20250219163608513"></li>
+<li>在 General 中，展开高级设置，勾选“使用自定义的工作空间”，然后填入SpringBoot项目所在目录地址。
+<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219163834692.png" alt="image-20250219163834692"></li>
+<li>在 Build Steps 中，点击“增加构建步骤”，选择“执行Shell”，输入项目的Maven打包操作命令。
+<img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219164325099.png" alt="image-20250219164325099"></li>
+</ol>
+<p>​	<strong>Tips</strong>：当前pwd路径是第2步指定的工作空间路径，如果需要打包的服务是项目下的子目录，需要先cd进入子目录。此外，即使全局配置了Maven环境，但在这里Jenkins好像无法获取到，所以手动加载了Maven的环境变量。</p>
+<ol start="4">
+<li>
+<p>在 Build Steps 中，点击“增加构建步骤”，选择“Send files or execute commands over SSH”，确保该步骤在第3步的步骤之后。SSH Server选择需要部署的远程服务器，Source files 是工作空间的相对路径，Remove prefix 表示移除从 Source files 推送到 Remote directory 时需要移除的路径前缀，Remote directory 表示 SSH Server 连接后的相对路径，Exec command 表示在推送文件后执行的命令。</p>
+<p><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/image-20250219165642117.png" alt="image-20250219165642117"></p>
+</li>
+<li>
+<p>最后，Save保存，然后点击“立即构建”，即可运行任务。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.itwray.com">Wray</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.itwray.com/2025/02/12/jenkins-use/">https://blog.itwray.com/2025/02/12/jenkins-use/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.itwray.com" target="_blank">WrayのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20250219165955.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/12/31/year-end-2024/" title="年终总结-2024"><img class="cover" src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241230102857.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">年终总结-2024</div></div></a></div></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/touxiang.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Wray</div><div class="author-info__description">记录生活的点点滴滴<br>Keep track of my life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wangfarui" target="_blank" title="Github"><i class="fab fa-github" style="color: #f1f2f4;"></i></a><a class="social-icon" href="mailto:wray20156294@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #f26522;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BAJenkins"><span class="toc-number">1.</span> <span class="toc-text">搭建Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85-Jenkins"><span class="toc-number">1.1.</span> <span class="toc-text">一键安装 Jenkins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">安装中的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%90%AF%E5%8A%A8%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.3.</span> <span class="toc-text">修改启动端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">Jenkins 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEJenkins"><span class="toc-number">2.</span> <span class="toc-text">配置Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E6%AC%A1%E7%99%BB%E5%BD%95"><span class="toc-number">2.1.</span> <span class="toc-text">首次登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">插件配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">全局配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%BB%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">新建任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0SpringBoot%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%B8%8C%E6%9C%9B%E9%80%9A%E8%BF%87Maven%E6%89%93%E5%8C%85%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%B9%B6%E5%9C%A8%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%89%A7%E8%A1%8CJava%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.1.</span> <span class="toc-text">本地SpringBoot服务，希望通过Maven打包部署到远程服务器，并在远程服务器执行Java程序</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/02/12/jenkins-use/" title="Jenkins安装和使用"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20250219165955.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jenkins安装和使用"></a><div class="content"><a class="title" href="/2025/02/12/jenkins-use/" title="Jenkins安装和使用">Jenkins安装和使用</a><time datetime="2025-02-12T11:08:54.000Z" title="发表于 2025-02-12 19:08:54">2025-02-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/31/year-end-2024/" title="年终总结-2024"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241230102857.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="年终总结-2024"></a><div class="content"><a class="title" href="/2024/12/31/year-end-2024/" title="年终总结-2024">年终总结-2024</a><time datetime="2024-12-31T02:20:56.000Z" title="发表于 2024-12-31 10:20:56">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/14/arthas-command/" title="Arthas常用命令"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241114212519.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Arthas常用命令"></a><div class="content"><a class="title" href="/2024/11/14/arthas-command/" title="Arthas常用命令">Arthas常用命令</a><time datetime="2024-11-14T13:13:01.000Z" title="发表于 2024-11-14 21:13:01">2024-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/15/echart-uni-20241015/" title="记录一次在uni-app中使用echarts的坑"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241015213053.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记录一次在uni-app中使用echarts的坑"></a><div class="content"><a class="title" href="/2024/10/15/echart-uni-20241015/" title="记录一次在uni-app中使用echarts的坑">记录一次在uni-app中使用echarts的坑</a><time datetime="2024-10-15T12:26:07.000Z" title="发表于 2024-10-15 20:26:07">2024-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/13/rocketmq-springboot-simple/" title="RocketMQ 5.x在SpringBoot中的上手使用过程"><img src="https://itwray.oss-cn-heyuan.aliyuncs.com/pic/20241013131831.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RocketMQ 5.x在SpringBoot中的上手使用过程"></a><div class="content"><a class="title" href="/2024/10/13/rocketmq-springboot-simple/" title="RocketMQ 5.x在SpringBoot中的上手使用过程">RocketMQ 5.x在SpringBoot中的上手使用过程</a><time datetime="2024-10-13T05:13:01.000Z" title="发表于 2024-10-13 13:13:01">2024-10-13</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2023 - 2025 By Wray</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><span>鄂ICP备2024050235号-1</span></a> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=42018502007471" rel="noreferrer" target="_blank"><img class="icp-icon" src="https://itwray.oss-cn-heyuan.aliyuncs.com/img/beian.png"><span>鄂公网安备42018502007471</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23liElrglVY7VkALhS',
+      clientSecret: 'be255ab0fc6f3cd6212bab51c445b209672284f7',
+      repo: 'wangfarui.github.io',
+      owner: 'wangfarui',
+      admin: ['wangfarui'],
+      id: '5ef89a53e4dbb7beb92bf03268814154',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
