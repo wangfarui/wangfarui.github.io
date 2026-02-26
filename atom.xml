@@ -6,7 +6,7 @@
   <link href="https://blog.itwray.com/atom.xml" rel="self"/>
   
   <link href="https://blog.itwray.com/"/>
-  <updated>2025-12-30T08:18:56.919Z</updated>
+  <updated>2026-02-26T02:36:33.764Z</updated>
   <id>https://blog.itwray.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>月度总结-2026.2</title>
+    <link href="https://blog.itwray.com/2026/02/24/monthly-202602/"/>
+    <id>https://blog.itwray.com/2026/02/24/monthly-202602/</id>
+    <published>2026-02-24T07:34:56.000Z</published>
+    <updated>2026-02-26T02:36:33.764Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1月总结"><a class="header-anchor" href="#1月总结"></a>1月总结</h2><p>1月，春节前的最后一个完整月，在这个月初我制定了每周目标、月度目标，勉强完成部分目标，大致如下：</p><ol><li>app实现月度支出的每日统计。- 已完成</li><li>设定每周、月度、年度目标。- 设定了每周和月度目标。</li><li>找到合适的阅读书籍。 - 通过GPT粗略学习了解ES。</li><li>app实现冰箱功能。 - 已完成</li><li>app月度支出、年度支出增加标签统计。- 已完成</li><li>整理简历 || 月度总结。 - 未完成</li><li>app任务计划增加一个置顶选项 。 - 已完成</li></ol><p>总结下来就是感兴趣的app功能都能积极按时完成，但是规划类的目标总是各种拖拉。</p><h2 id="春节总结"><a class="header-anchor" href="#春节总结"></a>春节总结</h2><p>春节做的最正确的事就是踏出了那一步，2026年希望事事顺利、马到成功。</p><p>春节期间就是各种赶路、当司机，糟心的事就是家里的车损坏了，还是那句话“喝酒不开车，开车不喝酒”。</p><h2 id="2月总结"><a class="header-anchor" href="#2月总结"></a>2月总结</h2><p>2月初，年前的一周多时间都在准备过年的东西，也无心搞其他事。</p><p>2月中旬就是奔波的过年时间。</p><p>2月末，年后的最后一周，也就是本周，连夜赶路回到上班地，急急忙忙的坐上工作岗位，但又感觉工作的无趣。</p><p>2026年，努力学习、适应、接纳Vibe Coding。</p>]]></content>
+    
+    
+    <summary type="html">2026年2月的月度总结，亦是1月份的总结，亦是春节的总结。</summary>
+    
+    
+    
+    <category term="月度总结" scheme="https://blog.itwray.com/categories/%E6%9C%88%E5%BA%A6%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>年终总结-2025</title>
@@ -141,9 +160,9 @@
     <category term="RocketMQ" scheme="https://blog.itwray.com/categories/RocketMQ/"/>
     
     
-    <category term="RocketMQ" scheme="https://blog.itwray.com/tags/RocketMQ/"/>
-    
     <category term="SpringBoot" scheme="https://blog.itwray.com/tags/SpringBoot/"/>
+    
+    <category term="RocketMQ" scheme="https://blog.itwray.com/tags/RocketMQ/"/>
     
   </entry>
   
@@ -467,27 +486,6 @@
     <category term="工作小结" scheme="https://blog.itwray.com/tags/%E5%B7%A5%E4%BD%9C%E5%B0%8F%E7%BB%93/"/>
     
     <category term="ShedLock" scheme="https://blog.itwray.com/tags/ShedLock/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>工作小结-业务编号生成器</title>
-    <link href="https://blog.itwray.com/2024/01/05/work-report-business-sn/"/>
-    <id>https://blog.itwray.com/2024/01/05/work-report-business-sn/</id>
-    <published>2024-01-05T07:37:04.000Z</published>
-    <updated>2024-09-27T13:14:58.834Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="业务背景"><a class="header-anchor" href="#业务背景"></a>业务背景</h2><p>系统的业务单据基本都会带有一个单据编号字段，编号规则如下：</p><ul><li>一般以租户维度下唯一，即允许不同租户的相同单据类型出现单据编号重复。</li><li>编号形式一般为：固定前缀 + 日期 + 自然位数 。</li><li>部分单据编号的形式要求包含随机数，用于打乱自然增长序号。</li><li>部分单据编号的前缀不是唯一的，可能会根据用户输入的前缀决定。</li></ul><h2 id="实现原理"><a class="header-anchor" href="#实现原理"></a>实现原理</h2><p>关于业务背景的需求，其实主要麻烦的是自然位数的实现，特别是在考虑多种附加场景下时，例如：自然位数尽可能从1递增、系统是分布式服务、不同租户下序列号隔离。</p><p>因此，一般需要借助其他工具实现，例如：</p><ol><li>数据库的序列（Sequence），数据库序列是一种数据库对象，用于生成唯一的递增或递减序列值。</li><li>Redis 的 INCR 命令，用来原子地递增一个键的值，使用 Redis 的字符串类型来存储递增的序列值。</li><li>分布式ID生成器，例如Snowflake算法，可以生成全局唯一的递增ID。</li><li>分布式缓存和计数器，使用分布式缓存（例如Memcached）和计数器，通过原子递增操作实现递增序列。</li></ol><p>在工作中，我使用的是 MySQL 数据库的唯一索引特性 + InnoDB引擎的事务特性，通过事务和唯一索引的锁机制，实现自然位数的自然递增。</p><h3 id="数据表设计"><a class="header-anchor" href="#数据表设计"></a>数据表设计</h3><p>数据表主要是依赖一张表，用于存储自然位数。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table sys_business_sn</span><br><span class="line">(</span><br><span class="line">    id              bigint auto_increment comment &#x27;主键id&#x27;</span><br><span class="line">        primary key,</span><br><span class="line">    tenant_id       bigint   default 0                 not null comment &#x27;租户id&#x27;,</span><br><span class="line">    business_type   int                                not null comment &#x27;业务类型&#x27;,</span><br><span class="line">    business_date   date                               not null comment &#x27;业务日期&#x27;,</span><br><span class="line">    business_sn     int                                not null comment &#x27;业务编号 (一般根据 业务类型+业务日期 唯一)&#x27;,</span><br><span class="line">    row_create_time datetime default CURRENT_TIMESTAMP not null comment &#x27;数据创建时间&#x27;,</span><br><span class="line">    row_update_time datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment &#x27;数据更新时间&#x27;,</span><br><span class="line">    constraint uniq_tenant_type_date unique (tenant_id, business_type, business_date)</span><br><span class="line">) comment &#x27;系统业务编号表&#x27;;</span><br></pre></td></tr></table></figure><p>其中 tenant_id 表示租户id，实现租户隔离；business_type 表示业务类型，指不同业务单据对应的自然位数是隔离的；business_date 表示业务日期，指不同日期下的自然位数是隔离的；business_sn 表示自然位数，它通过 租户id + 业务类型 + 业务日期 实现唯一，通过 uniq_tenant_type_date 唯一索引建立关系。</p><p>至于如何通过这张表获取单据编号（其实主要是获取业务编号），则依赖下面的 sql 语句：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> sys_business_sn(tenant_id, business_type, business_date, business_sn)</span><br><span class="line">       <span class="keyword">values</span> (#&#123;tenantId&#125;, #&#123;businessType&#125;, #&#123;businessDate&#125;, <span class="number">1</span>) <span class="keyword">on</span> duplicate key</span><br><span class="line">       <span class="keyword">update</span> business_sn <span class="operator">=</span> business_sn <span class="operator">+</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure><p>这句 sql 语句采用 <code>inset into xxx values xxx on duplicate key update xxx</code> 语法。当“租户id + 业务类型 + 业务日期”拼接的值不存在对应的行数据时，默认插入一条数据，业务编号初始为1；当存在对应的行数据时，则将业务编号自增加1。</p><h3 id="代码设计"><a class="header-anchor" href="#代码设计"></a>代码设计</h3><p>通过数据表设计，在 Java 代码设计一个 DAO 层，用于生成指定租户、业务类型、业务日期的单据编号。</p><p><code>getBusinessSnByType</code> 方法用于获取指定的自然位数：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Integer <span class="title function_">getBusinessSnByType</span><span class="params">(Integer businessType, Date date, Long companyId)</span> &#123;</span><br><span class="line">    <span class="comment">// 拿取到真正存储到数据库的tenantId, 不能为null</span></span><br><span class="line">    String realTenantId;</span><br><span class="line">    <span class="keyword">if</span> (companyId == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="type">Long</span> <span class="variable">tenantId</span> <span class="operator">=</span> UserUtils.getTenantId();</span><br><span class="line">        <span class="keyword">if</span> (tenantId == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;token信息异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        realTenantId = tenantId.toString();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        realTenantId = companyId.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">String</span> <span class="variable">dateStr</span> <span class="operator">=</span> BUSINESS_DATE_FORMAT.format(date);</span><br><span class="line"></span><br><span class="line">    <span class="type">DefaultTransactionDefinition</span> <span class="variable">transactionDefinition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultTransactionDefinition</span>();</span><br><span class="line">    transactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);</span><br><span class="line">    <span class="type">TransactionStatus</span> <span class="variable">transactionStatus</span> <span class="operator">=</span> transactionManager.getTransaction(transactionDefinition);</span><br><span class="line">    baseMapper.incrementBusinessSn(realTenantId, businessType, dateStr);</span><br><span class="line"></span><br><span class="line">    <span class="type">SysBusinessSn</span> <span class="variable">entity</span> <span class="operator">=</span> lambdaQuery()</span><br><span class="line">            .eq(SysBusinessSn::getTenantId, realTenantId)</span><br><span class="line">            .eq(SysBusinessSn::getBusinessType, businessType)</span><br><span class="line">            .eq(SysBusinessSn::getBusinessDate, dateStr)</span><br><span class="line">            .select(SysBusinessSn::getBusinessSn)</span><br><span class="line">            .last(<span class="string">&quot;limit 1&quot;</span>)</span><br><span class="line">            .one();</span><br><span class="line"></span><br><span class="line">    transactionManager.commit(transactionStatus);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> entity.getBusinessSn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面代码的关键在于 <code>TransactionStatus</code> 控制数据库事务的开始和提交，在事务中做数据更新和数据查询操作，根据 InnoDB 的ACID原则，拿取更新后的业务编号。</p><p>在这个方法的上层方法（<code>generateDefaultFullBusinessSnByCustomized</code>），则是拼接最终的单据编号：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">generateDefaultFullBusinessSnByCustomized</span><span class="params">(SysBusinessSnEnum sysBusinessSnEnum, String dateFormat, DecimalFormat decimalFormat, Long companyId)</span> &#123;</span><br><span class="line">    <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(sysBusinessSnEnum.getPrefix());</span><br><span class="line"></span><br><span class="line">    <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(dateFormat);</span><br><span class="line">    sb.append(simpleDateFormat.format(date));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (sysBusinessSnEnum.getRandomLen() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">randomNumbers</span> <span class="operator">=</span> RandomUtil.randomNumbers(sysBusinessSnEnum.getRandomLen());</span><br><span class="line">        sb.append(randomNumbers);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">Integer</span> <span class="variable">sn</span> <span class="operator">=</span> <span class="built_in">this</span>.getBusinessSnByType(sysBusinessSnEnum.getCode(), date, companyId);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sb.append(decimalFormat.format(sn)).toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><p>完整的代码示例地址：<a href="https://github.com/wangfarui/work-report/tree/main/business-sn">https://github.com/wangfarui/work-report/tree/main/business-sn</a></p><h2 id="总结"><a class="header-anchor" href="#总结"></a>总结</h2><p>因为实现原理借助的工具不同，所以优缺点有很多都是显而易见的，是代码很难解决的。先说优点：</p><ol><li>有效保障分布式服务下业务编号递增规则。</li><li>可以基于数据表了解到各租户下各单据类型的编号使用状况。</li></ol><p>缺点：</p><ol><li>因为数据库的原因，所以如果数据库奔溃等原因，就会影响所有涉及到业务的正常流程。</li><li>一般这个表会跟业务表共存在一个数据库，会影响数据库的吞吐量、连接数等。</li><li>业务编号可能不保持连续递增，由于业务系统的业务异常等原因。</li></ol>]]></content>
-    
-    
-    <summary type="html">2024-01-05工作小结，整理内部实现的系统编号生成器的原理，并总结优缺点。</summary>
-    
-    
-    
-    <category term="工作" scheme="https://blog.itwray.com/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-    <category term="工作小结" scheme="https://blog.itwray.com/tags/%E5%B7%A5%E4%BD%9C%E5%B0%8F%E7%BB%93/"/>
     
   </entry>
   
