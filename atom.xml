@@ -6,7 +6,7 @@
   <link href="https://blog.itwray.com/atom.xml" rel="self"/>
   
   <link href="https://blog.itwray.com/"/>
-  <updated>2026-02-26T02:36:33.764Z</updated>
+  <updated>2026-06-24T10:59:42.627Z</updated>
   <id>https://blog.itwray.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://blog.itwray.com/2026/02/24/monthly-202602/"/>
     <id>https://blog.itwray.com/2026/02/24/monthly-202602/</id>
     <published>2026-02-24T07:34:56.000Z</published>
-    <updated>2026-02-26T02:36:33.764Z</updated>
+    <updated>2026-06-24T10:59:42.627Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1月总结"><a class="header-anchor" href="#1月总结"></a>1月总结</h2><p>1月，春节前的最后一个完整月，在这个月初我制定了每周目标、月度目标，勉强完成部分目标，大致如下：</p><ol><li>app实现月度支出的每日统计。- 已完成</li><li>设定每周、月度、年度目标。- 设定了每周和月度目标。</li><li>找到合适的阅读书籍。 - 通过GPT粗略学习了解ES。</li><li>app实现冰箱功能。 - 已完成</li><li>app月度支出、年度支出增加标签统计。- 已完成</li><li>整理简历 || 月度总结。 - 未完成</li><li>app任务计划增加一个置顶选项 。 - 已完成</li></ol><p>总结下来就是感兴趣的app功能都能积极按时完成，但是规划类的目标总是各种拖拉。</p><h2 id="春节总结"><a class="header-anchor" href="#春节总结"></a>春节总结</h2><p>春节做的最正确的事就是踏出了那一步，2026年希望事事顺利、马到成功。</p><p>春节期间就是各种赶路、当司机，糟心的事就是家里的车损坏了，还是那句话“喝酒不开车，开车不喝酒”。</p><h2 id="2月总结"><a class="header-anchor" href="#2月总结"></a>2月总结</h2><p>2月初，年前的一周多时间都在准备过年的东西，也无心搞其他事。</p><p>2月中旬就是奔波的过年时间。</p><p>2月末，年后的最后一周，也就是本周，连夜赶路回到上班地，急急忙忙的坐上工作岗位，但又感觉工作的无趣。</p><p>2026年，努力学习、适应、接纳Vibe Coding。</p>]]></content>
+    <content type="html"><![CDATA[<p>这是一篇受保护文章，需要通过访问密码解锁后阅读。</p>]]></content>
     
     
     <summary type="html">2026年2月的月度总结，亦是1月份的总结，亦是春节的总结。</summary>
@@ -219,9 +219,9 @@
     <category term="Java" scheme="https://blog.itwray.com/categories/Java/"/>
     
     
-    <category term="Java" scheme="https://blog.itwray.com/tags/Java/"/>
-    
     <category term="SpringBoot" scheme="https://blog.itwray.com/tags/SpringBoot/"/>
+    
+    <category term="Java" scheme="https://blog.itwray.com/tags/Java/"/>
     
     <category term="Redis" scheme="https://blog.itwray.com/tags/Redis/"/>
     
